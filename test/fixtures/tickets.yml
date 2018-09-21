@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  show_id: 1
+  total_cost: 1.5
+  user_id: 1
+  num_seats_bought: 1
+
+two:
+  show_id: 1
+  total_cost: 1.5
+  user_id: 1
+  num_seats_bought: 1
