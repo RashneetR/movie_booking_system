@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>New:</strong>
+  <%= @theatre.new %>
+</p>
+
+<p>
+  <strong>Index:</strong>
+  <%= @theatre.index %>
+</p>
+
+<p>
+  <strong>Show:</strong>
+  <%= @theatre.show %>
+</p>
+
+<p>
+  <strong>Edit:</strong>
+  <%= @theatre.edit %>
+</p>
+
+<%= link_to 'Edit', edit_theatre_path(@theatre) %> |
+<%= link_to 'Back', theatres_path %>
