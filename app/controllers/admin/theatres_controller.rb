@@ -11,7 +11,9 @@ class Admin::TheatresController < ApplicationController
 
   # GET /admin/theatres/1
   # GET /admin/theatres/1.json
-  def show; end
+  def show
+    @shows = Show.where(:theatre_id == @admin_theatre.id)
+  end
 
   # GET /admin/theatres/new
   def new
@@ -42,7 +44,7 @@ class Admin::TheatresController < ApplicationController
   def update
     respond_to do |format|
       if @admin_theatre.update(admin_theatre_params)
-        format.html { redirect_to @admin_theatre, notice: 'Theatre was successfully updated.' }
+        format.html { redirect_to admin_theatre_path(@admin_theatre), notice: 'Theatre was successfully updated.' }
         format.json { render :show, status: :ok, location: @admin_theatre }
       else
         format.html { render :edit }

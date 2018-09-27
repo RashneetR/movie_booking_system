@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Admin Theatres</h1>
+
+<table>
+  <thead>
+    <tr>
+    <th>Theatre Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin_theatres.each do |admin_theatre| %>
+      <tr>
+        <td><%= admin_theatre.name %></td>
+        <td><%= link_to 'Theatre Details', admin_theatre_path(admin_theatre) %></td>
+        <td><%= link_to 'Edit Details', edit_admin_theatre_path(admin_theatre) %></td>
+        <td><%= link_to 'Delete', admin_theatre_path(admin_theatre), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

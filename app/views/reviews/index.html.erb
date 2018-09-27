@@ -5,6 +5,8 @@
 <table>
   <thead>
     <tr>
+      <th>Movie Name</th>
+      <th>User Name</th>
       <th>Rating</th>
       <th>Comment</th>
       <th colspan="3"></th>
@@ -14,7 +16,8 @@
   <tbody>
     <% @reviews.each do |review| %>
       <tr>
-        <td><%= review.rating %></td>
+        <td><%= review.movie.name %></td>
+        <td><%= review.user.name %></td>
         <td><%= review.comment %></td>
         <% if current_user.role != "admin" %>
         <td><%= link_to 'Show', review %></td>

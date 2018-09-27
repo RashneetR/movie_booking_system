@@ -70,6 +70,10 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
+    if current_user.role == "admin"
+      params.require(:user).permit(:name, :email, :role)
+    else
     params.fetch(:user, {})
+  end
   end
 end

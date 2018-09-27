@@ -1,0 +1,32 @@
+<h1>Editing Movie</h1>
+
+<%= render 'form', admin_movie: @admin_movie %>
+<%= form_for(:admin_movie, :url => {:action => 'update'}) do |f| %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :summary %>
+    <%= f.text_field :summary %>
+  </div>
+
+  <div class="field">
+    <%= f.radio_button :status, 'now_showing'%>
+    <%= f.label :status, "Now Showing" %><br />
+  </div>
+
+  <div class="field">
+    <%= f.radio_button :status, 'future_release'%>
+    <%= f.label :status, "Future Release" %><br />
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Save"%>
+  </div>
+<% end %>
+
+<%= link_to 'Show', @admin_movie %> |
+<%= link_to 'Back', admin_movies_path %>

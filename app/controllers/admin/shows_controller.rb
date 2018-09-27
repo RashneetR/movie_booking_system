@@ -11,20 +11,27 @@ class Admin::ShowsController < ApplicationController
 
   # GET /admin/shows/1
   # GET /admin/shows/1.json
-  def show; end
+  def show
+   end
 
   # GET /admin/shows/new
   def new
     @admin_show = Show.new
-    @movie = params[:movie]
-    @m = Movie.find_by_id(@movie)
-    @name = @m.name
     @theatre = Theatre.all
-    puts " \n \n hello #{@name} \n\n"
+    if params[:movie]
+      @m = []
+      @movie = Movie.find(params[:movie])
+      @m << @movie
+    else
+      @m = Movie.all
+    end
   end
 
   # GET /admin/shows/1/edit
-  def edit; end
+  def edit
+    @theatre = Theatre.all
+    @m = Movie.all
+  end
 
   # POST /admin/shows
   # POST /admin/shows.json
@@ -47,7 +54,7 @@ class Admin::ShowsController < ApplicationController
   def update
     respond_to do |format|
       if @admin_show.update(admin_show_params)
-        format.html { redirect_to @admin_show, notice: 'Show was successfully updated.' }
+        format.html { redirect_to admin_show_path(@admin_show), notice: 'Show was successfully updated.' }
         format.json { render :show, status: :ok, location: @admin_show }
       else
         format.html { render :edit }

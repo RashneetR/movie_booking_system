@@ -69,6 +69,7 @@ class Admin::MoviesController < ApplicationController
     respond_to do |format|
       if @movie.save
         format.html { redirect_to controller: 'admin/movies', action: 'index', notice: 'Successfully updated to Now Showing ' }
+        delete_movie_interests
         end
     end
   end
@@ -83,5 +84,12 @@ class Admin::MoviesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def admin_movie_params
     params.require(:admin_movie).permit(:name, :summary, :status)
+  end
+
+  def delete_movie_interests
+    @movies = MovieInterest.where(:movie_id == @movie_id)
+    @movies.each do |m|
+      m.destroy
+    end
   end
 end

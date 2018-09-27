@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root to: "static_pages#home"
   post '/admin/movies/:id', to: 'admin/movies#update'
+  post '/admin/shows/:id', to: 'admin/shows#update'
+  post '/admin/theatres/:id', to: 'admin/theatres#update'
+  #post '/users/:id', to: 'users#update'
   post '/signup',  to: 'users#create'
 
   namespace :admin do

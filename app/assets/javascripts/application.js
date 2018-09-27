@@ -14,9 +14,9 @@
 //= require activestorage
 //= require turbolinks
 //= require bootstrap
-//= require_tree .
-//= require jquery
+//= require jquery3
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require bootstrap/dropdown
 //= require turbolinks
+//= require_tree .

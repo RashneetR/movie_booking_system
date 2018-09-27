@@ -1,0 +1,16 @@
+<sidebar class="navbar navbar-fixed-right navbar">
+  <div class="container">
+    <% if user_signed_in? %>
+      <% if current_user.role == "admin" %>
+        <li><%= link_to "Add Movie", new_admin_movie_path %></li>
+        <li><%= link_to "Add Theatre", new_admin_theatre_path %></li>
+        <li><%= link_to "Add Show", new_admin_show_path %></li>
+        <li><%= link_to "Update User Role", users_path %></li>
+      <% else %>
+      <li><%= link_to "Book Tickets", movies_path %></li>
+
+      <% end %>
+    <% end %>
+  </div>
+</sidebar>
+</div>
