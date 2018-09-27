@@ -14,10 +14,6 @@ class MoviesTest < ApplicationSystemTestCase
     visit movies_url
     click_on "New Movie"
 
-    fill_in "Edit", with: @movie.edit
-    fill_in "Index", with: @movie.index
-    fill_in "New", with: @movie.new
-    fill_in "Show", with: @movie.show
     click_on "Create Movie"
 
     assert_text "Movie was successfully created"
@@ -28,10 +24,6 @@ class MoviesTest < ApplicationSystemTestCase
     visit movies_url
     click_on "Edit", match: :first
 
-    fill_in "Edit", with: @movie.edit
-    fill_in "Index", with: @movie.index
-    fill_in "New", with: @movie.new
-    fill_in "Show", with: @movie.show
     click_on "Update Movie"
 
     assert_text "Movie was successfully updated"

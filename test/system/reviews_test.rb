@@ -14,10 +14,8 @@ class ReviewsTest < ApplicationSystemTestCase
     visit reviews_url
     click_on "New Review"
 
-    fill_in "Edit", with: @review.edit
-    fill_in "Index", with: @review.index
-    fill_in "New", with: @review.new
-    fill_in "Show", with: @review.show
+    fill_in "Comment", with: @review.comment
+    fill_in "Rating", with: @review.rating
     click_on "Create Review"
 
     assert_text "Review was successfully created"
@@ -28,10 +26,8 @@ class ReviewsTest < ApplicationSystemTestCase
     visit reviews_url
     click_on "Edit", match: :first
 
-    fill_in "Edit", with: @review.edit
-    fill_in "Index", with: @review.index
-    fill_in "New", with: @review.new
-    fill_in "Show", with: @review.show
+    fill_in "Comment", with: @review.comment
+    fill_in "Rating", with: @review.rating
     click_on "Update Review"
 
     assert_text "Review was successfully updated"

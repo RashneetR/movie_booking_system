@@ -11,24 +11,17 @@
     </div>
   <% end %>
 
+  
+<%= form.hidden_field :movie_id, value: params[:id] %>
+
   <div class="field">
-    <%= form.label :new %>
-    <%= form.text_field :new %>
+    <%= form.label :rating %>
+    <%= form.text_field :rating %>
   </div>
 
   <div class="field">
-    <%= form.label :index %>
-    <%= form.text_field :index %>
-  </div>
-
-  <div class="field">
-    <%= form.label :show %>
-    <%= form.text_field :show %>
-  </div>
-
-  <div class="field">
-    <%= form.label :edit %>
-    <%= form.text_field :edit %>
+    <%= form.label :comment %>
+    <%= form.text_field :comment %>
   </div>
 
   <div class="actions">

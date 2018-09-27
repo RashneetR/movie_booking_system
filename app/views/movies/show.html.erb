@@ -1,24 +1,56 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>New:</strong>
-  <%= @movie.new %>
-</p>
+<h1>Movies</h1>
 
-<p>
-  <strong>Index:</strong>
-  <%= @movie.index %>
-</p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th> 
+        <td><%= @movie.name %></td>
+    </tr>
+    <tr>
+      <th>Summary</th>
+        <td><%= @movie.summary %></td>
+    </tr>
+  </thead>
 
-<p>
-  <strong>Show:</strong>
-  <%= @movie.show %>
-</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Theatre Name</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Cost per Seat</th>
+        <th>Number of seats</th>
+        <th colspan="1"></th>
+      </tr>
+    </thead>
 
-<p>
-  <strong>Edit:</strong>
-  <%= @movie.edit %>
-</p>
-
-<%= link_to 'Edit', edit_movie_path(@movie) %> |
+    <tbody>
+      <% @shows.each do |show| %>
+        <tr>
+          <% @num = show.total_seats - show.num_seats_sold %>
+            <% if @num>0 %>
+              <%= form_for(:ticket, :url => url_for(action: 'create', controller:'tickets')) do |f| %>
+                <%=f.hidden_field :show_id, value: show.id %>
+                <%=f.hidden_field :user_id, value: current_user.id %>
+                <% @theatre=Theatre.find(show.theatre_id) %>
+                <td><%= @theatre.name %></td>
+                <td><%= show.start_time %></td>
+                <td><%= show.end_time %></td>
+                <td><%= show.cost_per_seat %></td>
+                <td><%= f.number_field(:num_seats_bought, min: 1 , max: @num, step: 1) %>
+                <td><%= f.label :total_cost %>
+                <%= f.text_field :total_cost %>
+                <div class="actions">
+                  <td><%= f.submit "Book Tickets", class: "submit_btn" %></td>
+                </div>
+              <% end %>
+            <% end %>
+        </tr>
+      <%end %>
+    </tbody>
+  </table>
+  <br>
+</table>
 <%= link_to 'Back', movies_path %>

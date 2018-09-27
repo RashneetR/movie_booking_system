@@ -14,10 +14,6 @@ class TicketsTest < ApplicationSystemTestCase
     visit tickets_url
     click_on "New Ticket"
 
-    fill_in "Edit", with: @ticket.edit
-    fill_in "Index", with: @ticket.index
-    fill_in "New", with: @ticket.new
-    fill_in "Show", with: @ticket.show
     click_on "Create Ticket"
 
     assert_text "Ticket was successfully created"
@@ -28,10 +24,6 @@ class TicketsTest < ApplicationSystemTestCase
     visit tickets_url
     click_on "Edit", match: :first
 
-    fill_in "Edit", with: @ticket.edit
-    fill_in "Index", with: @ticket.index
-    fill_in "New", with: @ticket.new
-    fill_in "Show", with: @ticket.show
     click_on "Update Ticket"
 
     assert_text "Ticket was successfully updated"

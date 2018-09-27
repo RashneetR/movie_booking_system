@@ -1,9 +1,9 @@
 class CreateMovies < ActiveRecord::Migration[5.2]
   def change
     create_table :movies do |t|
-      t.string :name
-      t.text :summary
-      t.integer :status
+      t.string :name, :limit => 50, :null => false
+      t.text :summary, :limit => 140, :null => false
+      t.integer :status, :null => false 
 
       t.timestamps
     end

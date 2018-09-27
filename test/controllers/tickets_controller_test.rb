@@ -17,7 +17,7 @@ class TicketsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create ticket" do
     assert_difference('Ticket.count') do
-      post tickets_url, params: { ticket: { edit: @ticket.edit, index: @ticket.index, new: @ticket.new, show: @ticket.show } }
+      post tickets_url, params: { ticket: {  } }
     end
 
     assert_redirected_to ticket_url(Ticket.last)
@@ -34,7 +34,7 @@ class TicketsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update ticket" do
-    patch ticket_url(@ticket), params: { ticket: { edit: @ticket.edit, index: @ticket.index, new: @ticket.new, show: @ticket.show } }
+    patch ticket_url(@ticket), params: { ticket: {  } }
     assert_redirected_to ticket_url(@ticket)
   end
 

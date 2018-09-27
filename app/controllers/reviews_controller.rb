@@ -1,30 +1,39 @@
+# frozen_string_literal: true
+
 class ReviewsController < ApplicationController
-  before_action :set_review, only: [:show, :edit, :update, :destroy]
+  before_action :set_review, only: %i[show edit update destroy]
 
   # GET /reviews
   # GET /reviews.json
   def index
-    @reviews = Review.all
+    if current_user.role == 'admin'
+      @movie_id = params[:movie]
+      @reviews = Review.where(movie_id: @movie_id).all
+    else
+      @reviews = Review.all
+    end
   end
 
   # GET /reviews/1
   # GET /reviews/1.json
-  def show
-  end
+  def show; end
 
   # GET /reviews/new
   def new
     @review = Review.new
+    @review.user_id = current_user.id
+    @review.movie_id = params[:id]
   end
 
   # GET /reviews/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /reviews
   # POST /reviews.json
   def create
     @review = Review.new(review_params)
+    @review.user_id = current_user.id
+    # @review.movie_id = params[:id]
 
     respond_to do |format|
       if @review.save
@@ -56,19 +65,25 @@ class ReviewsController < ApplicationController
   def destroy
     @review.destroy
     respond_to do |format|
-      format.html { redirect_to reviews_url, notice: 'Review was successfully destroyed.' }
-      format.json { head :no_content }
+      if current_user.role == 'admin'
+        format.html { redirect_to admin_movies_url, notice: 'Review was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to movies_url, notice: 'Review was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_review
-      @review = Review.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def review_params
-      params.require(:review).permit(:new, :index, :show, :edit)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_review
+    @review = Review.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def review_params
+    params.require(:review).permit(:rating, :comment, :user_id, :movie_id)
+  end
 end

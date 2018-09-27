@@ -4,6 +4,6 @@ class CreateMovieTheatre < ActiveRecord::Migration[5.2]
       t.references :movie
       t.references :theatre
     end
-    add_index :movie_theatres, ["movie_id", "theatre_id"]
+    add_index :movie_theatres, [ :movie_id, :theatre_id], :unique => true
   end
 end
