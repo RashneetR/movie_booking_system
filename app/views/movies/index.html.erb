@@ -1,46 +1,35 @@
-
-
+<div class="container">
+    <p id="notice"><%= notice %></p>
+  </div>
 <h1>Movies</h1>
 
 <table>
   <thead>
     <tr>
-    <th>Name</th>
+      <th>Name</th>
       <th>Summary</th>
       <th colspan="3"></th>
-      
-
     </tr>
   </thead>
-  <div class="container">
-
-<p id="notice"><%= notice %></p>
   <tbody>
-    <% @movies.each do |movie| %>
-
-      <tr>
-       <td><%= movie.name %></td>
-       <td><%= movie.summary %></td>
-       <td><%= link_to 'Book', movie, class: 'btn btn-primary btn-lg' %></td>
-       <td>
-       <% if current_user.role == "critic"  && movie.status == "now_showing"%>
-       <%=link_to "Review", new_review_path(:id => movie.id) %>
-       <% end %>
-       </td>
-       <td>
-       <% if movie.status == "future_release" %>
-       <%= link_to 'Subscribe', movies_add_movie_interest_path(:id => movie.id), class: 'btn btn-primary btn-lg' %>
-       
-       <% end %>
-       </td>
-       </tr>
-
-
-      </tr>
-    <% end %>
+  <% @movies.each do |movie| %>
+    <tr>
+      <td><%= movie.name %></td>
+      <td><%= movie.summary %></td>
+      <td><%= link_to 'Book', movie, class: 'btn btn-primary btn-lg' %></td>
+      <td>
+      <% if current_user.role == "critic"  && movie.status == "now_showing"%>
+        <%=link_to "Review", new_review_path(:id => movie.id) %>
+      <% end %>
+      </td>
+      <td>
+      <% if movie.status == "future_release" %>
+        <%= link_to 'Subscribe', movies_add_movie_interest_path(:id => movie.id), class: 'btn btn-primary btn-lg' %>
+      <% end %>
+      </td>
+    </tr>
+    </tr>
+  <% end %>
   </tbody>
 </table>
-
 <br>
-
-

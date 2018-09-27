@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Admin::MoviesController < ApplicationController
-  before_action :set_admin_movie, only: [:show, :edit, :update, :destroy]
+  before_action :set_admin_movie, only: %i[show edit update destroy]
 
   # GET /admin/movies
   # GET /admin/movies.json
@@ -9,8 +11,7 @@ class Admin::MoviesController < ApplicationController
 
   # GET /admin/movies/1
   # GET /admin/movies/1.json
-  def show
-  end
+  def show; end
 
   # GET /admin/movies/new
   def new
@@ -18,8 +19,7 @@ class Admin::MoviesController < ApplicationController
   end
 
   # GET /admin/movies/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /admin/movies
   # POST /admin/movies.json
@@ -64,25 +64,24 @@ class Admin::MoviesController < ApplicationController
   def change_status
     @movie_id = params[:id]
     @movie = Movie.find_by_id(@movie_id)
-    @movie.status = "now_showing"
+    @movie.status = 'now_showing'
 
     respond_to do |format|
       if @movie.save
-        format.html { redirect_to :controller => 'admin/movies', :action => 'index', notice: 'Successfully updated to Now Showing '}
+        format.html { redirect_to controller: 'admin/movies', action: 'index', notice: 'Successfully updated to Now Showing ' }
         end
-      end
+    end
   end
 
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_admin_movie
-      @admin_movie = Movie.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def admin_movie_params
-      params.require(:admin_movie).permit(:name, :summary, :status)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_admin_movie
+    @admin_movie = Movie.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def admin_movie_params
+    params.require(:admin_movie).permit(:name, :summary, :status)
+  end
 end
-

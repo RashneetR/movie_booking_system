@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Admin::ShowsController < ApplicationController
-  before_action :set_admin_show, only: [:show, :edit, :update, :destroy]
+  before_action :set_admin_show, only: %i[show edit update destroy]
 
   # GET /admin/shows
   # GET /admin/shows.json
@@ -9,22 +11,20 @@ class Admin::ShowsController < ApplicationController
 
   # GET /admin/shows/1
   # GET /admin/shows/1.json
-  def show
-  end
+  def show; end
 
   # GET /admin/shows/new
   def new
     @admin_show = Show.new
     @movie = params[:movie]
     @m = Movie.find_by_id(@movie)
-    @name=@m.name
-    @theatre= Theatre.all
+    @name = @m.name
+    @theatre = Theatre.all
     puts " \n \n hello #{@name} \n\n"
   end
 
   # GET /admin/shows/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /admin/shows
   # POST /admin/shows.json
@@ -67,15 +67,14 @@ class Admin::ShowsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_admin_show
-      @admin_show = Show.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def admin_show_params
-      params.require(:admin_show).permit(:start_time, :end_time, :total_seats, :num_seats_sold, :cost_per_seat,:movie_id, :theatre_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_admin_show
+    @admin_show = Show.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def admin_show_params
+    params.require(:admin_show).permit(:start_time, :end_time, :total_seats, :num_seats_sold, :cost_per_seat, :movie_id, :theatre_id)
+  end
 end
-
-

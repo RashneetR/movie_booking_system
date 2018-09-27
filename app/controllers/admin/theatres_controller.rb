@@ -1,16 +1,17 @@
+# frozen_string_literal: true
+
 class Admin::TheatresController < ApplicationController
-  before_action :set_admin_theatre, only: [:show, :edit, :update, :destroy]
+  before_action :set_admin_theatre, only: %i[show edit update destroy]
 
   # GET /admin/theatres
   # GET /admin/theatres.json
   def index
-    @admin_theatres =Theatre.all
+    @admin_theatres = Theatre.all
   end
 
   # GET /admin/theatres/1
   # GET /admin/theatres/1.json
-  def show
-  end
+  def show; end
 
   # GET /admin/theatres/new
   def new
@@ -18,8 +19,7 @@ class Admin::TheatresController < ApplicationController
   end
 
   # GET /admin/theatres/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /admin/theatres
   # POST /admin/theatres.json
@@ -62,13 +62,14 @@ class Admin::TheatresController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_admin_theatre
-      @admin_theatre = Theatre.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def admin_theatre_params
-      params.require(:admin_theatre).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_admin_theatre
+    @admin_theatre = Theatre.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def admin_theatre_params
+    params.require(:admin_theatre).permit(:name)
+  end
 end
