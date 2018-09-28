@@ -2,7 +2,7 @@
 
 class TicketsController < ApplicationController
   before_action :set_ticket, only: %i[show edit update destroy]
-  after_action :update_count, only: [:create]
+  
 
   # GET /tickets
   # GET /tickets.json
@@ -26,14 +26,14 @@ class TicketsController < ApplicationController
   # POST /tickets.json
   def create
     @ticket = Ticket.new(ticket_params)
-
     respond_to do |format|
       if @ticket.save
         format.html { redirect_to @ticket, notice: 'Ticket was successfully booked.' }
         format.json { render :show, status: :created, location: @ticket }
+        update_count
       else
-        format.html { render :new }
-        format.json { render json: @ticket.errors, status: :unprocessable_entity }
+        flash[:error] = @ticket.errors.full_messages.to_sentence
+        format.html {redirect_back(fallback_location: movie_path(@ticket.show.movie.id)) }
       end
     end
   end

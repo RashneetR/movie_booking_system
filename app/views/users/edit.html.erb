@@ -5,12 +5,20 @@
 
   <div class="field">
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <% if current_user.role == "admin" %>
+    <%= f.text_field :name, :readonly => true%>
+    <% else %>
+    <%= f.text_field :name%>
+    <% end %>
   </div>
 
   <div class="field">
     <%= f.label :email %>
-    <%= f.text_field :email %>
+    <% if current_user.role == "admin" %>
+    <%= f.text_field :email, :readonly => true %>
+    <% else %>
+    <%= f.text_field :email%>
+    <% end %>
   </div>
 
   <div class="field">

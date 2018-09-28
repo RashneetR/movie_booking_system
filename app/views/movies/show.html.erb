@@ -22,7 +22,8 @@
         <th>End Time</th>
         <th>Cost per Seat</th>
         <th>Number of seats</th>
-        <th colspan="1"></th>
+        <th>Total Cost</th>
+        <th colspan="2"></th>
       </tr>
     </thead>
 
@@ -40,11 +41,12 @@
                 <td><%= show.end_time %></td>
                 <td><%= show.cost_per_seat %></td>
                 <td><%= f.number_field(:num_seats_bought, min: 1 , max: @num, step: 1) %>
-                <td><%= f.label :total_cost %>
-                <%= f.text_field :total_cost %>
+                <td><%= f.text_field :total_cost %></td>
+                <td>
                 <div class="actions">
                 <td><%= f.submit "Book Tickets", class: "submit_btn" %></td>
                 </div>
+                </td>
               <% end %>
             <% end %>
         </tr>

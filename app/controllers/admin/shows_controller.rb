@@ -25,6 +25,7 @@ class Admin::ShowsController < ApplicationController
     else
       @m = Movie.all
     end
+    puts "\n\n\n\n\n hello #{@m.inspect} hello \n\n\n\n" 
   end
 
   # GET /admin/shows/1/edit
@@ -43,8 +44,12 @@ class Admin::ShowsController < ApplicationController
         format.html { redirect_to admin_show_path(@admin_show), notice: 'Show was successfully created.' }
         format.json { render :show, status: :created, location: @admin_show }
       else
-        format.html { render :new }
-        format.json { render json: @admin_show.errors, status: :unprocessable_entity }
+        #format.html { render new_admin_show_path }
+        #format.json { render json: @admin_show.errors, status: :unprocessable_entity }
+        flash[:error] = @admin_show.errors.full_messages.to_sentence
+        format.html {redirect_back(fallback_location: new_admin_show_path) }
+
+        #render json: @admin_show.errors, status: :unprocessable_entity
       end
     end
   end

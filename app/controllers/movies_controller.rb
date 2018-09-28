@@ -23,6 +23,9 @@ class MoviesController < ApplicationController
     respond_to do |format|
       if @movie_interest.save
         format.html { redirect_to controller: 'movies', action: 'index', notice: 'Successfully subscribed' }
+      else
+        flash[:error] = @movie_interest.errors.full_messages.to_sentence
+        format.html {redirect_to(fallback_location: movies_path) }
       end
     end
   end

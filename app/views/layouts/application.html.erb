@@ -4,16 +4,22 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag    'application', media: 'all','data-turbolinks-track': 'reload' %>
      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= render 'layouts/header' %>
+  <%= render 'layouts/sidebar' %>
 
  <div class="container">
   <% flash.each do |key, value| %>
-    <div class="alert alert-<%= key %>">
-      <%= value %>
+    <div id="error_explanation">
+    <ul>
+
+    <li><div class="alert alert-<%= key %>">
+      <%= value %></li></ul>
+    </div></br>
+    </div>
     </div>
   <% end %>
-</div>
-<%= render 'layouts/header' %>
-<%= render 'layouts/sidebar' %>
+
+
   <body>
     <div class="container">
       <%= yield %>
