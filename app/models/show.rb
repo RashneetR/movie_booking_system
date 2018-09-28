@@ -17,7 +17,7 @@ class Show < ApplicationRecord
   validate :check_num_seats_sold
 
   def current_time
-    puts "\n\n\n\n hello \n\n\n #{start_time} \n\n\n\n hello\n\n\n\n"
+    puts "\n\n\n\n hello \n\n\n #{:start_time} \n\n\n\n hello\n\n\n\n"
     if Time.now > start_time
       errors.add(:start_time, "Start time should be greater than current time")
     end
