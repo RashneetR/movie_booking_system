@@ -6,7 +6,7 @@ class Admin::ShowsController < ApplicationController
   # GET /admin/shows
   # GET /admin/shows.json
   def index
-    @admin_shows = Show.all
+    @admin_shows = Show.includes(:theatre, :movie).all
   end
 
   # GET /admin/shows/1
@@ -25,7 +25,6 @@ class Admin::ShowsController < ApplicationController
     else
       @m = Movie.all
     end
-    puts "\n\n\n\n\n hello #{@m.inspect} hello \n\n\n\n" 
   end
 
   # GET /admin/shows/1/edit

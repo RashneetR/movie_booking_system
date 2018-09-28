@@ -12,7 +12,7 @@ class Admin::TheatresController < ApplicationController
   # GET /admin/theatres/1
   # GET /admin/theatres/1.json
   def show
-    @shows = Show.where(:theatre_id == @admin_theatre.id)
+    @shows = Show.where(theatre_id: @admin_theatre.id)
   end
 
   # GET /admin/theatres/new
