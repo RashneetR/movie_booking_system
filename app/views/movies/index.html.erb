@@ -24,7 +24,7 @@
       </td>
       <td>
       <% if movie.status == "future_release" %>
-        <%= link_to 'Subscribe', movies_add_movie_interest_path(:id => movie.id), class: 'btn btn-primary btn-lg' %>
+        <%= link_to 'Subscribe', add_movie_interest_path(:movie_id => movie.id), class: 'btn btn-primary btn-lg' %>
       <% end %>
       </td>
     </tr>

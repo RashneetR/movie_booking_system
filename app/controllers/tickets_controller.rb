@@ -2,7 +2,6 @@
 
 class TicketsController < ApplicationController
   before_action :set_ticket, only: %i[show edit update destroy]
-  
 
   # GET /tickets
   # GET /tickets.json
@@ -33,7 +32,7 @@ class TicketsController < ApplicationController
         update_count
       else
         flash[:error] = @ticket.errors.full_messages.to_sentence
-        format.html {redirect_back(fallback_location: movie_path(@ticket.show.movie.id)) }
+        format.html { redirect_back(fallback_location: movie_path(@ticket.show.movie.id)) }
       end
     end
   end

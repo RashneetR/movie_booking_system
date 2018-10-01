@@ -3,6 +3,15 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  def authorize_request
+    valid = true
+    unless current_user
+      valid = false
+      redirect_to root_path, notice: 'denied'
+    end
+    valid
+  end
+
   protected
 
   def configure_permitted_parameters

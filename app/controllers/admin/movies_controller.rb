@@ -68,7 +68,8 @@ class Admin::MoviesController < ApplicationController
 
     respond_to do |format|
       if @movie.save
-        format.html { redirect_to controller: 'admin/movies', action: 'index', notice: 'Successfully updated to Now Showing ' }
+        flash[:notice] = 'Successfully updated to Now Showing '
+        format.html { redirect_to controller: 'admin/movies', action: 'index' }
         delete_movie_interests
         end
     end
@@ -87,9 +88,7 @@ class Admin::MoviesController < ApplicationController
   end
 
   def delete_movie_interests
-    @movies = MovieInterest.where(:movie_id == @movie_id)
-    @movies.each do |m|
-      m.destroy
-    end
+    @subscriptions = MovieInterest.where(movie_id: @movie_id)
+    @subscriptions.each(&:destroy)
   end
 end

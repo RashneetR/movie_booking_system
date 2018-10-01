@@ -3,7 +3,7 @@
 <%= render 'form', admin_show: @admin_show %>
 <%= form_for(:admin_show, :url => {:action => 'update'}) do |f| %>
 
-<div class="field">
+  <div class="field">
     <%= f.label :movie_id%>
     <%= f.select("movie_id", @m.all.collect { |m| [m.name, m.id]}, {prompt: 'Select Movie'}) %>
   </div>
@@ -12,6 +12,7 @@
     <%= f.label :theatre_id%>
     <%= f.select("theatre_id", @theatre.all.collect { |t| [t.name, t.id]}, {prompt: 'Select Theatre'}) %>
   </div>
+
   <div class="field">
     <%= f.label :start_time %>
     <%= f.text_field :start_time %>

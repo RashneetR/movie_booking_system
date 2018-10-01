@@ -41,9 +41,9 @@ class ReviewsController < ApplicationController
         format.json { render :show, status: :created, location: @review }
       else
         flash[:error] = @review.errors.full_messages.to_sentence
-        format.html {redirect_back(fallback_location: new_review_path) }
-        #format.html { render :new }
-        #format.json { render json: @review.errors, status: :unprocessable_entity }
+        format.html { redirect_back(fallback_location: new_review_path) }
+        # format.html { render :new }
+        # format.json { render json: @review.errors, status: :unprocessable_entity }
       end
     end
   end

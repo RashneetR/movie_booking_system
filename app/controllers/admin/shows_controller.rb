@@ -11,8 +11,7 @@ class Admin::ShowsController < ApplicationController
 
   # GET /admin/shows/1
   # GET /admin/shows/1.json
-  def show
-   end
+  def show; end
 
   # GET /admin/shows/new
   def new
@@ -43,12 +42,12 @@ class Admin::ShowsController < ApplicationController
         format.html { redirect_to admin_show_path(@admin_show), notice: 'Show was successfully created.' }
         format.json { render :show, status: :created, location: @admin_show }
       else
-        #format.html { render new_admin_show_path }
-        #format.json { render json: @admin_show.errors, status: :unprocessable_entity }
+        # format.html { render new_admin_show_path }
+        # format.json { render json: @admin_show.errors, status: :unprocessable_entity }
         flash[:error] = @admin_show.errors.full_messages.to_sentence
-        format.html {redirect_back(fallback_location: new_admin_show_path) }
+        format.html { redirect_back(fallback_location: new_admin_show_path) }
 
-        #render json: @admin_show.errors, status: :unprocessable_entity
+        # render json: @admin_show.errors, status: :unprocessable_entity
       end
     end
   end
