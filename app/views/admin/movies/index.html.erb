@@ -24,7 +24,7 @@
             <td><%= link_to 'Reviews', reviews_path(:movie => admin_movie.id) %></td>
           <% else %>
             <td><%= link_to 'Change Status', admin_movies_change_status_path(:id => admin_movie.id) %></td>
-             <td><%= link_to 'Show Subscriptions', movie_interests_path(:id => admin_movie.id) %></td>
+             <td><%= link_to 'Show Subscriptions', movie_interests_path(:movie_id => admin_movie.id) %></td>
           <% end %>
         </tr>
       <% end %>
