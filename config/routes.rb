@@ -27,7 +27,10 @@ Rails.application.routes.draw do
 
   get 'static_pages/home'
   get 'static_pages/help'
-  devise_for :users
+
+  devise_for :users do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
 
   resources :users
   resources :static_pages

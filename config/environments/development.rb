@@ -4,10 +4,25 @@ Rails.application.configure do
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
+  #config.active_job.queue_adapter = :sidekiq
   config.cache_classes = false
   config.action_mailer.default_url_options = { host: '127.0.0.1', port: 3000 }
+
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+   address:              'smtp.gmail.com',
+   port:                 587,
+   domain:               'gmail.com',
+   user_name:            'rashneetforsampleapp@gmail.com',
+   password:             '@rashneet6!',
+   authentication:       'plain',
+   enable_starttls_auto: true  
+}
+
   # Do not eager load code on boot.
   config.eager_load = false
+  config.action_mailer.logger
 
   # Show full error reports.
   config.consider_all_requests_local = true
@@ -31,7 +46,11 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
+
+  config.action_mailer.perform_deliveries = true
+
+  config.action_mailer.default :charset => "utf-8"
 
   config.action_mailer.perform_caching = false
 

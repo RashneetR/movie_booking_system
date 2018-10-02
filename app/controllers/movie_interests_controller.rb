@@ -7,7 +7,7 @@ class MovieInterestsController < ApplicationController
   # GET /movie_interests.json
   def index
     if current_user.role == "admin"
-    @movie_interests = MovieInterest.where(movie_id: params[:movie_id])
+      @movie_interests = MovieInterest.where(movie_id: params[:movie_id])
     else
       @movie_interests = MovieInterest.where(user_id: current_user.id)
     end

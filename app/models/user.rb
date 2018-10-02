@@ -15,4 +15,10 @@ class User < ApplicationRecord
   validates :encrypted_password, presence: true, confirmation: true
   validates :role, presence: true
   validates :email, presence: true, length: { maximum: 255 }
+  after_create :user_registration_email
+
+  def user_registration_email
+    UserMailer.with(user: self).welcome_email.deliver_later
+  end
+
 end
