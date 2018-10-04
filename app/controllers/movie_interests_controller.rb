@@ -11,9 +11,9 @@ class MovieInterestsController < ApplicationController
   # GET /movie_interests.json
   def index
     @movie_interests = if current_user.role == 'admin'
-                         MovieInterest.where(movie_id: params[:movie_id])
+                         MovieInterest.where(movie_id: params[:movie_id]).paginate(page: params[:page], per_page: 10)
                        else
-                         MovieInterest.where(user_id: current_user.id)
+                         MovieInterest.where(user_id: current_user.id).paginate(page: params[:page], per_page: 10)
                        end
   end
 

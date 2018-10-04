@@ -10,7 +10,7 @@ class Admin::ShowsController < ApplicationController
   # GET /admin/shows
   # GET /admin/shows.json
   def index
-    @admin_shows = Show.includes(:theatre, :movie).all
+    @admin_shows = Show.includes(:theatre, :movie).all.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /admin/shows/1
