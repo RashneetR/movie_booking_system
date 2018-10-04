@@ -4,6 +4,9 @@ RSpec.describe Show, type: :model do
    context 'validation tests' do
 
        let(:show) {build(:random_show) }
+       #show.movie_id = Movie.first.id
+       #show.theatre_id = Theatre.first.id
+
        
        it "ensures start_time presence" do
            show.start_time = nil
@@ -30,9 +33,17 @@ RSpec.describe Show, type: :model do
            expect(show.save).to eq(false)
        end
 
-       #it "is not valid without a movie" do
-        #movie2= build(:movie,movie_id: nil)
-        #expect(show.save).to_not be_valid
-    #end
+       it "ensures movie_id presence" do
+          movie2= build(:random_movie)
+          movie2.id = nil
+          expect(show.save).to eq(false)
+       end
+
+       it "ensures theatre_id presence" do
+          #theatre2= build(:random_theatre)
+          #theatre2.id = nil
+          show.theatre_id=nil
+          expect(show.save).to eq(false)
+       end
   end
 end

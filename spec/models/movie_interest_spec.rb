@@ -5,13 +5,16 @@ RSpec.describe MovieInterest, type: :model do
 
        let(:movie_interest) {build(:random_movie_interest) }
 
-       #it "is not valid without a movie" do
-        #movie2= build(:movie,movie_id: nil)
-        #expect(movie_interest.save).to_not be_valid
-    #end
-    #it "is not valid without a user" do
-        #user2= build(:user,user_id: nil)
-        #expect(movie_interest.save).to_not be_valid
-    #end
+       it "ensures user_id presence" do
+          user2= build(:random_user)
+          user2.id = nil
+          expect(movie_interest.save).to eq(false)
+       end
+
+       it "ensures movie_id presence" do
+          movie2= build(:random_movie)
+          movie2.id = nil
+          expect(movie_interest.save).to eq(false)
+       end
   end
 end

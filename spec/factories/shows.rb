@@ -5,6 +5,7 @@ FactoryBot.define do
        total_seats {Faker::Number.between(40,9200)}
        num_seats_sold {Faker::Number.between(40,400)}
        cost_per_seat {Faker::Number.between(80,1500)}
-       #association :followed_by_movie, factory: :movie, id: "1"
+       #movie_id factory: :random_movie
+       #theatre_id factory: :random_theatre
      end
 end
