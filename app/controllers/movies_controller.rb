@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class MoviesController < ApplicationController
-  #load_and_authorize_resource :movie
+  before_action :authenticate_user!
+  load_and_authorize_resource :movie
   before_action :set_movie, only: [:show]
 
   # GET /movies

@@ -1,32 +1,34 @@
-=beginclass Ability
+class Ability
   include CanCan::Ability
 
   def initialize(user)
-
-    
        user ||= User.new # guest user (not logged in)
+       alias_action :edit, :to => :update
+       alias_action :index, :show, :to => :read
+       alias_action :show, :new, :create, :to => :access
        if user.role == "admin"
-        alias_action :edit, :to => :update
-        alias_action :index, :show, :to => :read
-        can :manage, Movie
-        can :manage, Theatre
-        can :manage, Show
-        can :read, Ticket
+        can :manage, [Movie, Theatre, Show]
         can :read, Review
         can [:update, :read] , User
-   elsif user.role == "customer"
-
-
-
-   elsif user.role == "critic"
-
-
-    elsif user.role == "nil"
+        can :read, MovieInterest
+       elsif user.role == "customer"
+        can :read, Movie
+        can :read, Review
+        can :access, Ticket
+        can :manage, User
+        can :manage, MovieInterest
+       elsif user.role == "critic"
+        can :manage, Review
+        can :read, Movie
+        can :access, Ticket
+        can :manage, User
+        can :manage, MovieInterest
+       elsif user.role.nil?
         can :read, Movie
     end  
   end
 end
-=end
+
 #   if user.admin?
     #     can :manage, :all
     #   else

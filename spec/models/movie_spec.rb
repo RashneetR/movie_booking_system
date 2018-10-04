@@ -21,6 +21,5 @@ RSpec.describe Movie, type: :model do
            expect(movie.save).to eq(false)
        end
 
-
    end
 end

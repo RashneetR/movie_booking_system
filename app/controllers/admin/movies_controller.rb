@@ -2,7 +2,9 @@
 #module Admin
   #class Admin::MoviesController < BaseController
 class Admin::MoviesController < ApplicationController
-  #load_and_authorize_resource :movie
+  before_action :check_role
+  before_action :authenticate_user!
+  load_and_authorize_resource :movie
   before_action :set_admin_movie, only: %i[show edit update destroy]
 
   # GET /admin/movies

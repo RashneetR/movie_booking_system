@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  #load_and_authorize_resource :user
+  before_action :authenticate_user!
+  load_and_authorize_resource :user
   before_action :set_user, only: %i[show edit update destroy]
 
   # GET /users
@@ -72,6 +73,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 end
+
+  def role?
+    role == current_user.role
+  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params

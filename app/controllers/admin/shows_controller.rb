@@ -2,6 +2,7 @@
 #module Admin
   #class Admin::ShowsController < BaseController
 class Admin::ShowsController < ApplicationController
+  before_action :authenticate_user!
   load_and_authorize_resource :show
   before_action :set_admin_show, only: %i[show edit update destroy]
 

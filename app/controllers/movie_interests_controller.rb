@@ -1,5 +1,6 @@
 class MovieInterestsController < ApplicationController
-  #load_and_authorize_resource :movie_interest
+  before_action :authenticate_user!
+  load_and_authorize_resource :movie_interest
   before_action :authorize_request
   before_action :load_movie, only: [:create]
   before_action :set_movie_interest, only: [:destroy]

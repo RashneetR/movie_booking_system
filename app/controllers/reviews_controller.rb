@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class ReviewsController < ApplicationController
-  #load_and_authorize_resource :review
+  before_action :authenticate_user!
+  load_and_authorize_resource :review
   before_action :set_review, only: %i[show edit update destroy]
 
   # GET /reviews

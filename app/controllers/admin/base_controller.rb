@@ -1,16 +1,16 @@
-module Admin
-  class BaseController < ApplicationController
-    before_filter :verify_admin
+#module Admin
+  #class BaseController < ApplicationController
+    #before_filter :verify_admin
 
-    def current_ability
-      @current_ability ||= AdminAbility.new(current_user)
-    end
+    #def current_ability
+      #@current_ability ||= AdminAbility.new(current_user)
+    #end
 
-    private
+    #private
 
-    def verify_admin
-      redirect_to root_url unless current_user.role == "admin"
-    end
+    #def verify_admin
+      #redirect_to root_url unless current_user.role == "admin"
+    #end
     # common behavior goes here ...
-  end
-end
+  #end
+#end
