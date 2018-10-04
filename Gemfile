@@ -11,6 +11,7 @@ gem 'jquery-turbolinks', '~> 2.1'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'rspec-rails', '~> 3.4', '>= 3.4.2'
 gem 'cancancan', '~> 1.15'
+gem 'erb_lint', '~> 0.0.26'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
 gem 'rubocop', '~> 0.59.2'

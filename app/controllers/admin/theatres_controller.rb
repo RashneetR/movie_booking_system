@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-#module Admin
-  #class Admin::TheatresController < BaseController
+
+# module Admin
+# class Admin::TheatresController < BaseController
 class Admin::TheatresController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource :theatre

@@ -67,8 +67,9 @@ class TicketsController < ApplicationController
 
   def update_count
     @show = Show.find_by_id(@ticket.show_id)
-    @show.total_seats -= @ticket.num_seats_bought
+    # @show.total_seats -= @ticket.num_seats_bought
     @show.num_seats_sold += @ticket.num_seats_bought
+    @show.booking_state = 1 if @show.total_seats == @show.num_seats_sold
     @show.save
   end
 

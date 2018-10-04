@@ -14,20 +14,20 @@ class ApplicationController < ActionController::Base
 
   def check_role
     valid = true
-    unless current_user.role == "admin"
+    unless current_user.role == 'admin'
       valid = false
       redirect_to root_path, notice: 'Access Denied'
     end
     valid
-  end 
+  end
 
-rescue_from CanCan::AccessDenied do |exception|
-  flash[:warning] = exception.message
-  redirect_to root_path
-end
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:warning] = exception.message
+    redirect_to root_path
+  end
 
   protected
-  
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
     devise_parameter_sanitizer.permit(:account_update, keys: [:name])

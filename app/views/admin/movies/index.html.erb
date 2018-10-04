@@ -17,7 +17,7 @@
           <td><%= admin_movie.summary %></td>
           <td><%= admin_movie.status %></td>
           <td><%= link_to 'Show Details', admin_movie_path(admin_movie) %></td>
-          <td><%= link_to 'Edit Details', edit_admin_movie_path(admin_movie)  %></td>
+          <td><%= link_to 'Edit Details', edit_admin_movie_path(admin_movie) %></td>
           <td><%= link_to 'Delete',admin_movie_path(admin_movie), method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <% if admin_movie.status == "now_showing" %>
             <td><%= link_to 'Add Show', new_admin_show_path(movie: admin_movie.id) %></td>

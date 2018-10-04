@@ -20,5 +20,4 @@ class User < ApplicationRecord
   def user_registration_email
     UserMailer.with(user: self).welcome_email.deliver_later
   end
-
 end

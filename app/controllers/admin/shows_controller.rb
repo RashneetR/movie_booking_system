@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-#module Admin
-  #class Admin::ShowsController < BaseController
+
+# module Admin
+# class Admin::ShowsController < BaseController
 class Admin::ShowsController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource :show

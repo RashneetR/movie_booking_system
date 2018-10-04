@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MovieInterestsController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource :movie_interest
@@ -8,44 +10,42 @@ class MovieInterestsController < ApplicationController
   # GET /movie_interests
   # GET /movie_interests.json
   def index
-    if current_user.role == "admin"
-      @movie_interests = MovieInterest.where(movie_id: params[:movie_id])
-    else
-      @movie_interests = MovieInterest.where(user_id: current_user.id)
-    end
+    @movie_interests = if current_user.role == 'admin'
+                         MovieInterest.where(movie_id: params[:movie_id])
+                       else
+                         MovieInterest.where(user_id: current_user.id)
+                       end
   end
 
   # GET /movie_interests/1
   # GET /movie_interests/1.json
-  def show
-  end
+  def show; end
 
   # GET /movie_interests/new
   def new
-    #@m_id = params[:id]
+    # @m_id = params[:id]
     @movie_interest = MovieInterest.new
   end
 
   # GET /movie_interests/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /movie_interests
   # POST /movie_interests.json
   def create
-    if @movie.status == "now_showing" 
+    if @movie.status == 'now_showing'
       redirect_to movies_path, notice: 'Already showing'
     else
-        respond_to do |format|
-          if current_user.movies.exclude?(@movie)
-            current_user.movies << @movie
-            format.html { redirect_to movie_path(@movie), notice: 'Movie was successfully subscribed.' }
-            format.json { render :show, status: :created, location: @movie }
-          else
-            format.html { redirect_back(fallback_location: movies_path) }
-            flash[:error] = "Already Subscribed"
-          end
+      respond_to do |format|
+        if current_user.movies.exclude?(@movie)
+          current_user.movies << @movie
+          format.html { redirect_to movie_path(@movie), notice: 'Movie was successfully subscribed.' }
+          format.json { render :show, status: :created, location: @movie }
+        else
+          format.html { redirect_back(fallback_location: movies_path) }
+          flash[:error] = 'Already Subscribed'
         end
+      end
     end
   end
 
@@ -66,7 +66,7 @@ class MovieInterestsController < ApplicationController
   # DELETE /movie_interests/1
   # DELETE /movie_interests/1.json
   def destroy
-    #user.movies.destroy(m)
+    # user.movies.destroy(m)
     @movie_interest.destroy
     respond_to do |format|
       format.html { redirect_to movies_url, notice: 'Unsubscribed.' }
@@ -75,17 +75,18 @@ class MovieInterestsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_movie_interest
-      @movie_interest = MovieInterest.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def movie_interest_params
-      params.require(:movie_interest).permit(:user_id, :movie_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_movie_interest
+    @movie_interest = MovieInterest.find(params[:id])
+  end
 
-    def load_movie
-      @movie = Movie.find(params[:movie_id])
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def movie_interest_params
+    params.require(:movie_interest).permit(:user_id, :movie_id)
+  end
+
+  def load_movie
+    @movie = Movie.find(params[:movie_id])
+  end
 end

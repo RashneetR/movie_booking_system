@@ -1,16 +1,18 @@
-#module Admin
-  #class BaseController < ApplicationController
-    #before_filter :verify_admin
+# frozen_string_literal: true
 
-    #def current_ability
-      #@current_ability ||= AdminAbility.new(current_user)
-    #end
+# module Admin
+# class BaseController < ApplicationController
+# before_filter :verify_admin
 
-    #private
+# def current_ability
+# @current_ability ||= AdminAbility.new(current_user)
+# end
 
-    #def verify_admin
-      #redirect_to root_url unless current_user.role == "admin"
-    #end
-    # common behavior goes here ...
-  #end
-#end
+# private
+
+# def verify_admin
+# redirect_to root_url unless current_user.role == "admin"
+# end
+# common behavior goes here ...
+# end
+# end

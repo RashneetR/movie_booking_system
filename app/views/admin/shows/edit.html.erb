@@ -4,12 +4,12 @@
 <%= form_for(:admin_show, :url => {:action => 'update'}) do |f| %>
 
   <div class="field">
-    <%= f.label :movie_id%>
+    <%= f.label :movie_id %>
     <%= f.select("movie_id", @m.all.collect { |m| [m.name, m.id]}, {prompt: 'Select Movie'}) %>
   </div>
 
   <div class="field">
-    <%= f.label :theatre_id%>
+    <%= f.label :theatre_id %>
     <%= f.select("theatre_id", @theatre.all.collect { |t| [t.name, t.id]}, {prompt: 'Select Theatre'}) %>
   </div>
 
@@ -38,9 +38,8 @@
     <%= f.text_field :cost_per_seat %>
   </div>
 
-
   <div class="actions">
-    <%= f.submit "Save"%>
+    <%= f.submit "Save" %>
   </div>
 <% end %>
 

@@ -35,5 +35,10 @@
   <%= @admin_show.cost_per_seat %>
 </p>
 
+<p>
+  <strong>Booking Status</strong>
+  <%= @admin_show.booking_state %>
+</p>
+
 <%= link_to 'Edit', edit_admin_show_path(@admin_show) %> |
 <%= link_to 'Back', admin_shows_path %>

@@ -1,4 +1,5 @@
 <script src="moment.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script type="text/javascript">
 $("#admin_show_start_time").change(function()
@@ -17,7 +18,7 @@ $("#admin_show_start_time").change(function()
 <%= form_for(:admin_show, :url => {:action => 'create'}) do |f| %>
 
   <div class="field">
-    <%= f.label :movie_id%>
+    <%= f.label :movie_id %>
     <% if @m.count == 1 %>
     <%= f.select("movie_id", @m.collect { |m| [m.name, m.id]} ) %>
     <% else %>
@@ -26,7 +27,7 @@ $("#admin_show_start_time").change(function()
   </div>
 
   <div class="field">
-    <%= f.label :theatre_id%>
+    <%= f.label :theatre_id %>
     <%= f.select("theatre_id", @theatre.all.collect { |t| [t.name, t.id]}, {prompt: 'Select Theatre'}) %>
   </div>
 
@@ -36,7 +37,7 @@ $("#admin_show_start_time").change(function()
   </div>
 
   <div class="field">
-    <%= f.label :end_time , readonly: true%>
+    <%= f.label :end_time , readonly: true %>
     <%= f.text_field :end_time %>
   </div>
 
@@ -56,7 +57,7 @@ $("#admin_show_start_time").change(function()
   </div>
 
   <div class="actions">
-    <%= f.submit "Create Show"%>
+    <%= f.submit "Create Show" %>
   </div>
 <% end %>
 <%= link_to 'Back', admin_shows_path %>
