@@ -1,7 +1,7 @@
 <script src="moment.js"></script>
 
 <script type="text/javascript">
-$("#admin_show_start_time").change(myFunction()
+$("#admin_show_start_time").change(function()
 {
   m = new moment($("#admin_show_start_time").val(), 'HH:mm:ss');
   m._d;
@@ -32,7 +32,7 @@ $("#admin_show_start_time").change(myFunction()
 
   <div class="field">
     <%= f.label :start_time %>
-    <%= f.text_field :start_time,onchange: "myFunction()" %>
+    <%= f.text_field :start_time %>
   </div>
 
   <div class="field">
