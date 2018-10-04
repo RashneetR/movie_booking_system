@@ -1,4 +1,13 @@
 <p id="notice"><%= notice %></p>
+<script>
+function myFunction() {
+    var x = document.getElementById("ticket_num_seats_bought");
+    var y = document.getElementById("ticket_total_cost");
+    var z = document.getElementById("ticket_temp");
+    y.value = x.value * z.value;
+}
+</script>
+
 
 <h1>Movies</h1>
 
@@ -39,9 +48,13 @@
                 <td><%= @theatre.name %></td>
                 <td><%= show.start_time %></td>
                 <td><%= show.end_time %></td>
+
+                <%= f.hidden_field :temp, value:show.cost_per_seat %>
+                
                 <td><%= show.cost_per_seat %></td>
-                <td><%= f.number_field(:num_seats_bought, min: 1 , max: @num, step: 1) %>
-                <td><%= f.text_field :total_cost %></td>
+                <td><%= f.number_field(:num_seats_bought, min: 1 , max: @num, step: 1, onchange: "myFunction()")%>
+                <td><%= f.text_field :total_cost , readonly: true%></td>
+          
                 <td>
                 <div class="actions">
                 <td><%= f.submit "Book Tickets", class: "submit_btn" %></td>

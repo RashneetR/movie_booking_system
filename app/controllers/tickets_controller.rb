@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class TicketsController < ApplicationController
+  #load_and_authorize_resource :ticket
   before_action :set_ticket, only: %i[show edit update destroy]
 
   # GET /tickets

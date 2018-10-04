@@ -1,6 +1,8 @@
 # frozen_string_literal: true
-
+#module Admin
+  #class Admin::ShowsController < BaseController
 class Admin::ShowsController < ApplicationController
+  load_and_authorize_resource :show
   before_action :set_admin_show, only: %i[show edit update destroy]
 
   # GET /admin/shows

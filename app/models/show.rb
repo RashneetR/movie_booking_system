@@ -13,13 +13,13 @@ class Show < ApplicationRecord
   validates :movie_id, presence: true
   validates :theatre_id, presence: true
 
-  validate :current_time
+  #validate :current_time
   validate :check_num_seats_sold
 
   def current_time
     return unless start_time.present?
 
-    puts "\n\n\n hello #{start_time} \n\n\n"
+    #puts "\n\n\n hello #{start_time} \n\n\n"
     if Time.now > start_time
       errors.add(:start_time, 'Start time should be greater than current time')
     end

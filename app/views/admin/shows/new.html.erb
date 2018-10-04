@@ -1,3 +1,16 @@
+<script src="moment.js"></script>
+<script>
+function myFunction() {
+    var x = document.getElementById("admin_show_start_time");
+    var y = document.getElementById("admin_show_end_time");
+    //var d = Date.parse(x.value);
+    //var d = moment(x.value);
+    //d.add(3,'h');
+    y.value = parseInt(x.value) + 3;   //d.setHours(d.getHours() + 3)
+     
+    
+}
+</script>
 <h1>New Show</h1>
 
 <%= render 'form', admin_show: @admin_show %>
@@ -19,11 +32,11 @@
 
   <div class="field">
     <%= f.label :start_time %>
-    <%= f.text_field :start_time %>
+    <%= f.text_field :start_time ,onchange: "myFunction()" %>
   </div>
 
   <div class="field">
-    <%= f.label :end_time %>
+    <%= f.label :end_time , readonly: true%>
     <%= f.text_field :end_time %>
   </div>
 

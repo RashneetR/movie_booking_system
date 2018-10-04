@@ -1,6 +1,8 @@
 # frozen_string_literal: true
-
+#module Admin
+  #class Admin::MoviesController < BaseController
 class Admin::MoviesController < ApplicationController
+  #load_and_authorize_resource :movie
   before_action :set_admin_movie, only: %i[show edit update destroy]
 
   # GET /admin/movies

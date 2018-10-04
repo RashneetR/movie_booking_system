@@ -1,6 +1,8 @@
 # frozen_string_literal: true
-
+#module Admin
+  #class Admin::TheatresController < BaseController
 class Admin::TheatresController < ApplicationController
+  load_and_authorize_resource :theatre
   before_action :set_admin_theatre, only: %i[show edit update destroy]
 
   # GET /admin/theatres

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class MoviesController < ApplicationController
+  #load_and_authorize_resource :movie
   before_action :set_movie, only: [:show]
 
   # GET /movies
@@ -14,21 +15,6 @@ class MoviesController < ApplicationController
   def show
     @shows = Show.where(movie_id: @movie.id)
   end
-
-  #def add_movie_interest
-    #@movie_interest = MovieInterest.new
-    #@movie_interest.movie_id = params[:id]
-    #@movie_interest.user_id = current_user.id
-
-    #respond_to do |format|
-      #if @movie_interest.save
-        #format.html { redirect_to controller: 'movies', action: 'index', notice: 'Successfully subscribed' }
-      #else
-        #flash[:error] = @movie_interest.errors.full_messages.to_sentence
-        #format.html { redirect_to(fallback_location: movies_path) }
-      #end
-    #end
-  #end
 
   private
 
