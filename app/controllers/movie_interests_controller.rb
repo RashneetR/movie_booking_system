@@ -83,7 +83,7 @@ class MovieInterestsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def movie_interest_params
-    params.require(:movie_interest).permit(:user_id, :movie_id)
+    #params.require(:movie_interest).permit(:user_id, :movie_id)
   end
 
   def load_movie

@@ -5,6 +5,7 @@ ruby '2.4.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.1'
+gem 'railties'
 gem 'devise', '~> 4.2'
 gem 'momentjs-rails'
 gem 'jquery-turbolinks', '~> 2.1'

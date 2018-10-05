@@ -94,10 +94,6 @@ class Admin::MoviesController < ApplicationController
 
   def delete_movie_interests
     @subscriptions = MovieInterest.where(movie_id: @movie_id)
-    puts "\n\n\n hi 1\n\n"
-    # @subscriptions.each do |movie_interests|
-    # destroy_movie_interest_path(movie_interests)
-    # puts "\n\n\n hi 2#{movie_interests}\n\n"
     @users = @subscriptions.pluck(:user_id)
     UserMailer.with(user: @users, movie_name: @movie.name).movie_update.deliver_later
     puts "\n\n\n hi 3\n\n"

@@ -5,10 +5,13 @@
 $("#admin_show_start_time").change(function()
 {
   m = new moment($("#admin_show_start_time").val(), 'HH:mm:ss');
+  n = new moment($("#admin_show_start_time").val(), 'HH:mm:ss');
   m._d;
+  n._d;
   m.add(3,'hours');
   m._d;
   $("#admin_show_end_time").val(m);
+  $("#admin_show_start_time").val(n);
 });
 </script>
 

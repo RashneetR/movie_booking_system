@@ -35,19 +35,21 @@ class ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     @review.user_id = current_user.id
-    # @review.movie_id = params[:id]
-
-    respond_to do |format|
-      if @review.save
-        format.html { redirect_to @review, notice: 'Review was successfully created.' }
-        format.json { render :show, status: :created, location: @review }
-      else
-        flash[:error] = @review.errors.full_messages.to_sentence
-        format.html { redirect_back(fallback_location: new_review_path) }
-        # format.html { render :new }
-        # format.json { render json: @review.errors, status: :unprocessable_entity }
+    @r = Review.includes(:movie, :user).where(movie: { id: params[:id]}, user: { id: current_user.id})
+    if @r.nil?
+      respond_to do |format|
+        if @review.save
+          format.html { redirect_to @review, notice: 'Review was successfully created.' }
+          format.json { render :show, status: :created, location: @review }
+        else
+          flash[:error] = @review.errors.full_messages.to_sentence
+          format.html { redirect_back(fallback_location: new_review_path) }
+        end
       end
-    end
+      else
+        flash[:notice] = "Already reviewed"
+        redirect_to movies_path
+      end
   end
 
   # PATCH/PUT /reviews/1

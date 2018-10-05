@@ -7,7 +7,7 @@
         <li><%= link_to "Add Show", new_admin_show_path %></li>
         <li><%= link_to "Update User Role", users_path %></li>
       <% else %>
-      <li><%= link_to "Book Tickets", movies_path %></li>
+      <li><%= link_to "Movies", movies_path %></li>
       <li><%= link_to "Show Subscriptions", movie_interests_path(current_user.id) %></li>
 
       <% end %>
