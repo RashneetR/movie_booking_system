@@ -10,4 +10,5 @@ class Movie < ApplicationRecord
   validates :name, presence: true, length: { maximum: 50 }, uniqueness: true
   validates :summary, presence: true, length: { maximum: 140 }
   validates :status, presence: true
+  mount_uploader :image, ImageUploader
 end

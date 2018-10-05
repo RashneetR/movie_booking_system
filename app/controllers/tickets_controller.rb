@@ -8,8 +8,12 @@ class TicketsController < ApplicationController
   # GET /tickets
   # GET /tickets.json
   def index
-    @tickets = Ticket.all
+    if current_user.role != "admin"
+    @tickets = Ticket.where(user_id: current_user.id).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+  else
+    @tickets= Ticket.all.paginate(page: params[:page], per_page: 10)
   end
+end
 
   # GET /tickets/1
   # GET /tickets/1.json

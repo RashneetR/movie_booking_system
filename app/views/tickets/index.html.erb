@@ -1,25 +1,33 @@
+<%= will_paginate @tickets %>
 <p id="notice"><%= notice %></p>
 
 <h1>Tickets</h1>
 
 <table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @tickets.each do |ticket| %>
-      <tr>
-        <td><%= link_to 'Show', ticket %></td>
-        <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
-        <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+ <thead>
+ <th>Ticket ID</th>
+ <th>Movie Name</th>
+ <th>Theatre Name</th>
+ <th>Show ID</th>
+ <th>Start Time</th>
+ <th>Total Cost</th>
+ <th>Number of Seats</th>
+ </thead>
+ <tbody>
+ <% @tickets.each do |ticket| %>
+   <tr>
+   <td><%= ticket.id %></td>
+   <td><%= ticket.show.movie.name %></td>
+   <td><%= ticket.show.theatre.name %></td>
+   <td><%= ticket.show.id %></td>
+   <td><%= ticket.show.start_time %></td>
+   <td><%= ticket.total_cost %></td>
+   <td><%= ticket.num_seats_bought %></td>
+   </tr>
+ </tbody>
+ <% end %>
 </table>
 
 <br>
-
-<%= link_to 'New Ticket', new_ticket_path %>
+<%= will_paginate @tickets %>

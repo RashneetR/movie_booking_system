@@ -14,6 +14,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :image %><br>
+    <%= f.file_field :image %>
+  </div>
+
+  <div class="field">
     <%= f.radio_button :status, 'now_showing' %>
     <%= f.label :status, "Now Showing" %><br />
   </div>

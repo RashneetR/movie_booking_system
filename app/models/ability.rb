@@ -7,7 +7,7 @@ class Ability
     user ||= User.new # guest user (not logged in)
     alias_action :edit, to: :update
     alias_action :index, :show, to: :read
-    alias_action :show, :new, :create, to: :access
+    alias_action :show, :new, :create, :index, to: :access
     if user.role == 'admin'
       can :manage, [Movie, Theatre, Show]
       can :read, Review

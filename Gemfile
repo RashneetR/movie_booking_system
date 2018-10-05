@@ -17,6 +17,8 @@ gem 'will_paginate', '~> 3.1'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
 gem 'rubocop', '~> 0.59.2'
+gem 'carrierwave', '~> 1.2', '>= 1.2.3'
+gem 'mini_magick', '~> 4.9', '>= 4.9.2'
 # Use Puma as the app server
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 gem 'puma', '~> 3.11'

@@ -9,6 +9,7 @@
       <% else %>
       <li><%= link_to "Movies", movies_path %></li>
       <li><%= link_to "Show Subscriptions", movie_interests_path(current_user.id) %></li>
+      <li><%= link_to "Show bookings", tickets_path %></li>
 
       <% end %>
     <% end %>

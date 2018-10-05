@@ -89,7 +89,7 @@ class Admin::MoviesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def admin_movie_params
-    params.require(:admin_movie).permit(:name, :summary, :status)
+    params.require(:admin_movie).permit(:name, :summary, :status,:remove_image)
   end
 
   def delete_movie_interests
