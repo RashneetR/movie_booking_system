@@ -19,6 +19,7 @@ $("#admin_show_start_time").change(function()
 
 <%= render 'form', admin_show: @admin_show %>
 <%= form_for(:admin_show, :url => {:action => 'create'}) do |f| %>
+<div class= "form-horizontal">
 
   <div class="field">
     <%= f.label :movie_id %>
@@ -36,31 +37,32 @@ $("#admin_show_start_time").change(function()
 
   <div class="field">
     <%= f.label :start_time %>
-    <%= f.text_field :start_time %>
+    <%= f.text_field :start_time , class: 'form-control'%>
   </div>
 
   <div class="field">
     <%= f.label :end_time , readonly: true %>
-    <%= f.text_field :end_time %>
+    <%= f.text_field :end_time , class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= f.label :total_seats %>
-    <%= f.text_field :total_seats %>
+    <%= f.text_field :total_seats , class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= f.label :num_seats_sold %>
-    <%= f.text_field :num_seats_sold %>
+    <%= f.text_field :num_seats_sold , class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= f.label :cost_per_seat %>
-    <%= f.text_field :cost_per_seat %>
+    <%= f.text_field :cost_per_seat , class: 'form-control' %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Create Show" %>
+    <%= f.submit "Create Show", class: 'btn btn-primary' %>
+  </div>
   </div>
 <% end %>
 <%= link_to 'Back', admin_shows_path %>

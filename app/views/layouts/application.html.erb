@@ -4,9 +4,10 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag    'application', media: 'all','data-turbolinks-track': 'reload' %>
      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+     
   <%= render 'layouts/header' %>
   <%= render 'layouts/sidebar' %>
-
+<div class="main">
  <div class="container">
   <% flash.each do |key, value| %>
     <div id="error_explanation">
@@ -25,6 +26,6 @@
     </div>
   </body>
 </html>
-
+</div>
 <%= yield :top_content %>
 <%= render 'layouts/footer' %>

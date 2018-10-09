@@ -2,15 +2,15 @@
 
 <%= render 'form', admin_theatre: @admin_theatre %>
 <%= form_for(:admin_theatre, :url => {:action => 'update'}) do |f| %>
-
+<div class= "form-horizontal">
   <div class="field">
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name , class: 'form-control' %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Save" %>
+    <%= f.submit "Save" , class: 'btn btn-primary'%>
   </div>
 <% end %>
-
+</div>
 <%= link_to 'Back', admin_theatres_path %>

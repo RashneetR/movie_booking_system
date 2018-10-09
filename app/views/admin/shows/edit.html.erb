@@ -2,7 +2,7 @@
 
 <%= render 'form', admin_show: @admin_show %>
 <%= form_for(:admin_show, :url => {:action => 'update'}) do |f| %>
-
+<div class= "form-horizontal">
   <div class="field">
     <%= f.label :movie_id %>
     <%= f.select("movie_id", @m.all.collect { |m| [m.name, m.id]}, {prompt: 'Select Movie'}) %>
@@ -15,33 +15,33 @@
 
   <div class="field">
     <%= f.label :start_time %>
-    <%= f.text_field :start_time %>
+    <%= f.text_field :start_time , class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= f.label :end_time %>
-    <%= f.text_field :end_time %>
+    <%= f.text_field :end_time, class: 'form-control'  %>
   </div>
 
   <div class="field">
     <%= f.label :total_seats %>
-    <%= f.text_field :total_seats %>
+    <%= f.text_field :total_seats , class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= f.label :num_seats_sold %>
-    <%= f.text_field :num_seats_sold %>
+    <%= f.text_field :num_seats_sold , class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= f.label :cost_per_seat %>
-    <%= f.text_field :cost_per_seat %>
+    <%= f.text_field :cost_per_seat , class: 'form-control' %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Save" %>
+    <%= f.submit "Save" , class: 'btn btn-primary'%>
   </div>
 <% end %>
-
+</div>
 <%= link_to 'Show', @admin_show %> |
 <%= link_to 'Back', admin_shows_path %>

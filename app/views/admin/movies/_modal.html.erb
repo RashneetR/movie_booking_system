@@ -1,0 +1,33 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">x</button>
+      <h4 class="modal-title">Show Details</h4>
+    </div>
+    <div class="modal-body">
+      <p id="notice"><%= notice %></p>
+      <p>
+        <strong>Movie Name:</strong>
+        <%= @admin_movie.name %>
+      </p>
+      <p>
+        <strong>Movie Summary</strong>
+        <%= @admin_movie.summary %>
+      </p>
+      <p>
+        <strong>Status</strong>
+        <%= @admin_movie.status %>
+      </p>
+      <%= image_tag(@admin_movie.image_url(:thumb).to_s) %>
+      <%= link_to 'Edit', edit_admin_movie_path(@admin_movie) %> |
+      <%= link_to 'Back', admin_movies_path %>
+    </div>
+    <div class="modal-footer">
+      <script>
+        $('#reveal').on('click', function(){
+          $("#modal-window").modal("hide");
+        });
+      </script>
+    </div>
+  </div>
+</div>

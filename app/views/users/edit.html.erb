@@ -2,39 +2,41 @@
 
 <%= render 'form', user: @user %>
 <%= form_for(@user) do |f| %>
+<div class= "form-horizontal">
 
   <div class="field">
     <%= f.label :name %>
     <% if current_user.role == "admin" %>
-    <%= f.text_field :name, :readonly => true%>
+    <%= f.text_field :name, :readonly => true, class: 'form-control'%>
     <% else %>
-    <%= f.text_field :name%>
+    <%= f.text_field :name, class: 'form-control'%>
     <% end %>
   </div>
 
   <div class="field">
     <%= f.label :email %>
     <% if current_user.role == "admin" %>
-    <%= f.text_field :email, :readonly => true %>
+    <%= f.text_field :email, :readonly => true , class: 'form-control'%>
     <% else %>
-    <%= f.text_field :email%>
+    <%= f.text_field :email, class: 'form-control'%>
     <% end %>
   </div>
 
   <div class="field">
-    <%= f.radio_button :role, 'customer'%>
+    <%= f.radio_button :role, 'customer', class: 'form-control', class: 'form-control'%>
     <%= f.label :role, "Customer" %><br />
   </div>
 
   <div class="field">
-    <%= f.radio_button :role, 'critic'%>
+    <%= f.radio_button :role, 'critic', class: 'form-control'%>
     <%= f.label :role, "Critic" %><br />
   </div>
 
   <div class="actions">
-    <%= f.submit "Save"%>
+    <%= f.submit "Save", class: 'btn btn-primary'%>
   </div>
 <% end %>
+</div>
 
 <%= link_to 'Show', @user %> |
 <%= link_to 'Back', users_path %>

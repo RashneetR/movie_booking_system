@@ -10,8 +10,18 @@ class Admin::ShowsController < ApplicationController
   # GET /admin/shows
   # GET /admin/shows.json
   def index
+    @m = Movie.where(status: "now_showing")
+    @t = Theatre.all
     @admin_shows = Show.includes(:theatre, :movie).all.paginate(page: params[:page], per_page: 10)
+    @flag = 0
   end
+
+  def search
+    @flag = 1
+    @admin_shows = Show.where(movie_id: params[:movie_id])
+    render index 
+  end
+
 
   # GET /admin/shows/1
   # GET /admin/shows/1.json

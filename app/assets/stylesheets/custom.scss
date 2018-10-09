@@ -138,6 +138,56 @@ footer {
   margin-top: 45px;
   @include box_sizing;
 }
+
+
+
+/*.sidenav {
+    height: 100%;
+    width: 190px;
+    position: fixed;
+    z-index: 1;
+    top: 8.5%;
+    left: 2px;
+    background: #eee;
+    overflow-x: hidden;
+    padding: 8px 0;
+    
+    .heading1{
+      font-size: 25px;
+      color: #818181;
+
+    }
+    .heading2{
+      font-size: 22px;
+
+      color: #818181;
+      left: 5px;
+
+    }
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #2196F3;
+    display: block;
+}
+
+.sidenav a:hover {
+    color: #064579;
+}
+
+.main {
+    margin-left: 170px; 
+    padding: 0px 10px;
+}
+*/
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
 /* sidebar */
 sidebar{
 aside {
@@ -177,11 +227,20 @@ aside {
 }
 /* forms */
 
+.btn
+{
+  text-align: center;
+  margin-left: 36%;
+  margin-right: 36%;
+  width: 28%
+}
+
 input, textarea, select, .uneditable-input {
 
-  text-align: center;
+  text-align: left;
   border: 1px solid #bbb;
-  width: 100%;
+  text-align: left;
+  width: 40%;
   margin-bottom: 15px;
   @include box_sizing;
 }

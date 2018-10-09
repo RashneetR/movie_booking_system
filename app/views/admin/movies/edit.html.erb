@@ -2,31 +2,31 @@
 
 <%= render 'form', admin_movie: @admin_movie %>
 <%= form_for(:admin_movie, :url => {:action => 'update'}) do |f| %>
-
+<div class= "form-horizontal">
   <div class="field">
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name , class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= f.label :summary %>
-    <%= f.text_field :summary %>
+    <%= f.text_field :summary , class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= f.radio_button :status, 'now_showing' %>
-    <%= f.label :status, "Now Showing" %><br />
+    <%= f.label :status, "Now Showing" , class: 'form-control' %><br />
   </div>
 
   <div class="field">
     <%= f.radio_button :status, 'future_release' %>
-    <%= f.label :status, "Future Release" %><br />
+    <%= f.label :status, "Future Release" , class: 'form-control'%><br />
   </div>
 
   <div class="actions">
-    <%= f.submit "Save" %>
+    <%= f.submit "Save" , class: 'btn btn-primary'%>
   </div>
 <% end %>
-
+</div>
 <%= link_to 'Show', @admin_movie %> |
 <%= link_to 'Back', admin_movies_path %>
