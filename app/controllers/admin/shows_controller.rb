@@ -12,16 +12,42 @@ class Admin::ShowsController < ApplicationController
   def index
     @m = Movie.where(status: "now_showing")
     @t = Theatre.all
-    @admin_shows = Show.includes(:theatre, :movie).all.paginate(page: params[:page], per_page: 10)
-    @flag = 0
+    @admin_show = Show.new
+    if params[:show].nil? 
+      puts "hi"
+      @admin_shows = Show.includes(:theatre, :movie).all.paginate(page: params[:page], per_page: 10)
+    else
+    puts "\n\n hello \n\n\n"
+    
+      if !params[:show][:movie_id].nil?
+        @movie_id = params[:show][:movie_id]
+      end
+      if !params[:show][:theatre_id].nil?
+        @theatre_id = params[:show][:theatre_id]
+      end
+      puts "\n\n #{@movie_id}\n\n\n"
+      puts "\n\n #{@theatre_id}\n\n\n"
+      
+      if (@movie_id.empty? && @theatre_id.count < 2)
+        @admin_shows = Show.includes(:theatre, :movie).all.paginate(page: params[:page], per_page: 10)
+      elsif @movie_id.empty?  
+        @admin_shows = Show.where(theatre_id: params[:show][:theatre_id]).all.paginate(page: params[:page], per_page: 10)
+      elsif @theatre_id.count < 2
+        @admin_shows = Show.where(movie_id: @movie_id).all.paginate(page: params[:page], per_page: 10)
+      else
+        @admin_shows = Show.where(movie_id: @movie_id, theatre_id: params[:show][:theatre_id]).all.paginate(page: params[:page], per_page: 10)
+      end
+    end
+    respond_to do |format|
+        format.html 
+        format.js
+      end
   end
 
-  def search
-    @flag = 1
-    @admin_shows = Show.where(movie_id: params[:movie_id])
-    render index 
+  def search    
+    @m = Movie.where(status: "now_showing")
+    @t = Theatre.all
   end
-
 
   # GET /admin/shows/1
   # GET /admin/shows/1.json

@@ -13,6 +13,7 @@ gem 'jquery-ui-rails', '~> 5.0', '>= 5.0.5'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'rspec-rails', '~> 3.4', '>= 3.4.2'
 gem 'cancancan', '~> 1.15'
+gem 'select2-rails', '~> 4.0', '>= 4.0.3'
 gem 'erb_lint', '~> 0.0.26'
 gem 'will_paginate', '~> 3.1'
 # Use mysql as the database for Active Record

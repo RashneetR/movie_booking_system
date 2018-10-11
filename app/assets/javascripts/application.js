@@ -1,3 +1,4 @@
+
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -16,6 +17,7 @@
 //= require rails-ujs
 //= require jquery.turbolinks
 //= require jquery-ui
+//= require select2-full
 //= require bootstrap
 //= require bootstrap.min
 //= require bootstrap/dropdown
@@ -28,4 +30,4 @@ $(document).ready(function() {
     alert('You clicked the Hide link');
     event.preventDefault();
   });
-}
+});

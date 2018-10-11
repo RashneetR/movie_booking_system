@@ -1,6 +1,7 @@
 @import "bootstrap";
 @import "bootstrap-sprockets";
 @import "bootstrap/theme";
+@import "select2.min.css";
 .alert-alert {
   @extend .alert-warning;
 }

@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   root to: "static_pages#home"
   post '/admin/movies/:id', to: 'admin/movies#update'
+  get '/admin/shows/search', to: 'admin/shows#search'
   post '/admin/shows/:id', to: 'admin/shows#update'
   post '/admin/theatres/:id', to: 'admin/theatres#update'
-  post '/admin/shows/search', to: 'admin/shows#search'
   
   post '/signup',  to: 'users#create'
   get '/add_movie_interest', to: 'movie_interests#create'

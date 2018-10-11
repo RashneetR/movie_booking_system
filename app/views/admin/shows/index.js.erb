@@ -1,0 +1,5 @@
+<% if @admin_shows.any? %>
+  $("#adminshows").html('<%= escape_javascript(render("shows")) %>').addClass("table");
+<% else %>
+  $("#adminshows").html('<%= escape_javascript(render :text => "No results found for you search. Try again" ) %>').removeClass("table");
+<% end %>
