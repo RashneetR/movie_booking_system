@@ -170,6 +170,7 @@ GEM
     parallel (1.12.1)
     parser (2.5.1.2)
       ast (~> 2.4.0)
+    pg (0.18.4)
     powerpack (0.1.2)
     public_suffix (3.0.3)
     puma (3.12.0)
@@ -318,6 +319,7 @@ DEPENDENCIES
   mini_magick (~> 4.9, >= 4.9.2)
   momentjs-rails
   mysql2 (>= 0.4.4, < 0.6.0)
+  pg (~> 0.18.4)
   puma (~> 3.11)
   rails (~> 5.2.1)
   railties
