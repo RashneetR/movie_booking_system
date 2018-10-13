@@ -11,6 +11,7 @@ class Ticket < ApplicationRecord
   after_create :ticket_booked_email
 
   def ticket_booked_email
+     puts "\n\n\nhello\n\n\n\n"
     UserMailer.with(ticket: self).ticket_booked.deliver_later
   end
 end

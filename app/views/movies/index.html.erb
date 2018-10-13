@@ -1,6 +1,5 @@
 <%= will_paginate @movies %>
 <div class="container">
-    <p id="notice"><%= notice %></p>
   </div>
 <h1>Movies</h1>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -24,15 +23,12 @@
       <td><%= movie.status %></td>
       <% if movie.status == "now_showing" %>
       <td><%= link_to 'Book', movie, class: 'btn btn-primary btn-lg' %></td>
+      <% else %>
+      <td><%= link_to 'Subscribe', add_movie_interest_path(:movie_id => movie.id), class: 'btn btn-primary btn-lg' %></td>
       <% end %>
       <td>
       <% if current_user.role == "critic"  && movie.status == "now_showing"%>
         <%=link_to "Review", new_review_path(:id => movie.id) %>
-      <% end %>
-      </td>
-      <td>
-      <% if movie.status == "future_release" %>
-        <%= link_to 'Subscribe', add_movie_interest_path(:movie_id => movie.id), class: 'btn btn-primary btn-lg' %>
       <% end %>
       </td>
     </tr>

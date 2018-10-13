@@ -18,6 +18,7 @@ class User < ApplicationRecord
   after_create :user_registration_email
 
   def user_registration_email
+    puts "\n\n\nhello\n\n\n\n"
     UserMailer.with(user: self).welcome_email.deliver_later
   end
 end

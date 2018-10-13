@@ -1,29 +1,28 @@
 <%= will_paginate @tickets %>
-<p id="notice"><%= notice %></p>
-
 <h1>Tickets</h1>
 
 <table>
 
  <thead>
  <th>Ticket ID</th>
+ <th>Show ID</th>
  <th>Movie Name</th>
  <th>Theatre Name</th>
- <th>Show ID</th>
- <th>Start Time</th>
- <th>Total Cost</th>
+ <th>Show Time</th>
  <th>Number of Seats</th>
+ <th>Total Cost</th>
+ 
  </thead>
  <tbody>
  <% @tickets.each do |ticket| %>
    <tr>
    <td><%= ticket.id %></td>
+   <td><%= ticket.show.id %></td>
    <td><%= ticket.show.movie.name %></td>
    <td><%= ticket.show.theatre.name %></td>
-   <td><%= ticket.show.id %></td>
    <td><%= ticket.show.start_time %></td>
-   <td><%= ticket.total_cost %></td>
    <td><%= ticket.num_seats_bought %></td>
+   <td><%= ticket.total_cost %></td>
    </tr>
  </tbody>
  <% end %>

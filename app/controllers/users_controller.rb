@@ -21,7 +21,16 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1/edit
-  def edit; end
+   def edit
+    puts " \n\n\n hello \n\n i#{params[:id]}\n\n\n"
+    if params[:id].nil?
+      puts " \n\n\n hi raashi \n\n i#{params[:user]}\n\n\n"
+      @user = current_user
+    else
+      @user = User.find_by_id(params[:id])
+       puts " \n\n\n hello \n\n #{@user.name}\n\n\n"
+    end
+  end
 
   # POST /users
   # POST /users.json
@@ -67,12 +76,12 @@ class UsersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user
-    @user = if params[:id] = 'sign_out'
+    @user = if params[:id] == 'sign_out'
               User.find(current_user.id)
             else
               User.find(params[:id])
           end
-end
+  end
 
   def role?
     role == current_user.role

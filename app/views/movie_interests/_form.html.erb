@@ -1,29 +1,30 @@
 <%= form_with(model: movie_interest, local: true) do |form| %>
-<div class= "form-horizontal">
-  <% if movie_interest.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(movie_interest.errors.count, "error") %> prohibited this movie_interest from being saved:</h2>
 
-      <ul>
-      <% movie_interest.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+    <div class= "form-horizontal">
+      <% if movie_interest.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(movie_interest.errors.count, "error") %> prohibited this movie_interest from being saved:</h2>
+
+          <ul>
+          <% movie_interest.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
+
+      <div class="field">
+        <%= form.label :user_id, readonly: true %>
+        <%= form.number_field :user_id , class: 'form-control' %>
+      </div>
+
+      <div class="field">
+        <%= form.label :movie_id, readonly: true %>
+        <%= form.number_field :movie_id , class: 'form-control' %>
+      </div>
+
+      <div class="actions">
+        <%= form.submit %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :user_id, readonly: true %>
-    <%= form.number_field :user_id , class: 'form-control' %>
-  </div>
-
-  <div class="field">
-    <%= form.label :movie_id, readonly: true %>
-    <%= form.number_field :movie_id , class: 'form-control' %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-  </div>
 <% end %>

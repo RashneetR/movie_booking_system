@@ -52,3 +52,4 @@ production:
   database: movie_booking_system_production
   username: rashneet
   password: mysql@123
+  url: <%= ENV['DATABASE_URL'] %>

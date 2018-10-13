@@ -21,4 +21,7 @@ Things you may want to cover:
 
 * Deployment instructions
 
+redis-server
+bundle exec sidekiq -q default -q mailers
+
 * ...
