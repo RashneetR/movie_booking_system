@@ -15,14 +15,14 @@
             <%= f.text_field :summary , class: 'form-control' %>
           </div>
 
-          <div class="field">
-            <%= f.radio_button :status, 'now_showing' %>
-            <%= f.label :status, "Now Showing" , class: 'form-control' %><br />
-          </div>
+          <div class="radio-inline">
+            <%= f.radio_button :status, 'now_showing'  %>
+            <%= f.label :status, "Now Showing" %><br />
+          </div><br>
 
-          <div class="field">
-            <%= f.radio_button :status, 'future_release' %>
-            <%= f.label :status, "Future Release" , class: 'form-control'%><br />
+          <div class="radio-inline">
+            <%= f.radio_button :status, 'future_release'  %>
+            <%= f.label :status, "Future Release" %><br />
           </div>
 
           <div class="actions">

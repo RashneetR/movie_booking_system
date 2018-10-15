@@ -129,3 +129,82 @@ $("#admin_show_start_time").change(function()
 <p id="notice"><%= notice %></p>
 
 <%= #will_paginate @admin_shows %>
+
+
+##############################################
+<div class="sidenav">
+
+<sidebar class="navbar navbar-fixed-right navbar">
+  <div class="container">
+  
+    <% if user_signed_in? %>
+      <div class="heading1">
+        <%= current_user.name %>
+      </div>
+      <div class = "heading2">
+        <%= current_user.role %>
+      </div>
+      </br></br>
+      <% if current_user.role == "admin" %>
+      
+        <%= link_to "Add Movie", new_admin_movie_path %>
+       
+        <%= link_to "Add Theatre", new_admin_theatre_path %>
+        
+        <%= link_to "Add Show", new_admin_show_path %>
+        
+        <%= link_to "Update User Role", users_path %>
+       
+      <% else %>
+      <%= link_to "Movies", movies_path %>
+      
+      <%= link_to "Show Subscriptions", movie_interests_path(current_user.id) %>
+      
+      <%= link_to "Show bookings", tickets_path %>
+      
+      
+
+      <% end %>
+    <% end %>
+  </div>
+</sidebar>
+</div>
+</div>
+<div class="wrapper">
+    
+      <nav id="sidebar">
+        <div class="sidebar-header">
+        <% if user_signed_in? %>
+            <h3><%= current_user.name %></h3>
+        </div>
+        <ul class="list-unstyled components">
+          <p><%= current_user.role %></p>
+            <% if current_user.role == "admin" %>
+                  <%= link_to "Add Movie", new_admin_movie_path %>
+              </li>
+              <li>
+                  <%= link_to "Add Theatre", new_admin_theatre_path %>
+              </li>
+              <li>
+                  <%= link_to "Add Show", new_admin_show_path %>
+              </li>
+              <li>
+                  <%= link_to "Update User Role", users_path %>
+              </li>
+            <% else %>
+              <li>
+                  <%= link_to "Movies", movies_path %>
+              </li>
+              <li>
+                  <%= link_to "Show Subscriptions", movie_interests_path(current_user.id) %>
+              </li>
+              <li>
+                  <%= link_to "Show bookings", tickets_path %>
+              </li>
+             <% end %>
+
+        </ul>
+        <% end %>
+    </nav>
+
+</div>

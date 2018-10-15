@@ -4,11 +4,11 @@
   <div class="container">
   
     <% if user_signed_in? %>
-    <div class="heading1">
-      <%= current_user.name %>
+      <div class="heading1">
+        <%= current_user.name %>
       </div>
       <div class = "heading2">
-      <%= current_user.role %>
+        <%= current_user.role %>
       </div>
       </br></br>
       <% if current_user.role == "admin" %>
