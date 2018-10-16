@@ -22,6 +22,7 @@ class Admin::MoviesController < ApplicationController
       format.html { render :show }
       format.json { render :show }
       format.js {}
+      
     end
   end
 
@@ -40,7 +41,7 @@ class Admin::MoviesController < ApplicationController
 
     respond_to do |format|
       if @admin_movie.save
-        format.html { redirect_to admin_movie_path(@admin_movie), notice: 'Movie was successfully created.' }
+        format.html { render :show, notice: 'Movie was successfully created.' }
         format.json { render :show, status: :created, location: @admin_movie }
       else
         format.html { render :new }
@@ -54,8 +55,8 @@ class Admin::MoviesController < ApplicationController
   def update
     respond_to do |format|
       if @admin_movie.update(admin_movie_params)
-        format.html { redirect_to admin_movie_path(@admin_movie), notice: 'Movie was successfully updated.' }
-        format.json { render :show, status: :ok, location: @admin_movie }
+        format.html { redirect_to admin_movies_url, notice: 'Movie details Updated' }
+        format.json { head :no_content } 
       else
         format.html { render :edit }
         format.json { render json: @admin_movie.errors, status: :unprocessable_entity }
@@ -65,11 +66,18 @@ class Admin::MoviesController < ApplicationController
 
   # DELETE /admin/movies/1
   # DELETE /admin/movies/1.json
-  def destroy
-    @admin_movie.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_movies_url, notice: 'Movie was successfully destroyed.' }
-      format.json { head :no_content }
+  def destroy 
+    if
+     @admin_movie.destroy
+      respond_to do |format|
+        format.html { redirect_to admin_movies_url, notice: 'Movie was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to admin_movies_url, notice: 'Movie cannot be deleted.' }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -88,7 +96,7 @@ class Admin::MoviesController < ApplicationController
   end
 
   private
-
+  
   # Use callbacks to share common setup or constraints between actions.
   def set_admin_movie
     @admin_movie = Movie.find(params[:id])

@@ -66,9 +66,20 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user.destroy
+    #byebug
+    @user.active = 0
+    #@user.name = self.name
+    #@user.email = self.email
+    #@user.role = self.role
+    #@user.id = self.id
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
+      #if @user.update
+        format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+        format.json { head :no_content }
+      #else
+        #format.html { redirect_to users_url, notice: 'Error deleting user' }
+        #format.json { head :no_content }
+      #end
     end
   end
 

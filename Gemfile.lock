@@ -197,6 +197,8 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
+    rails-observers (0.1.5)
+      activemodel (>= 4.0)
     railties (5.2.1)
       actionpack (= 5.2.1)
       activesupport (= 5.2.1)
@@ -322,6 +324,7 @@ DEPENDENCIES
   pg (~> 0.18.4)
   puma (~> 3.11)
   rails (~> 5.2.1)
+  rails-observers (~> 0.1.5)
   railties
   redis (~> 3.3, >= 3.3.1)
   rspec-rails (~> 3.4, >= 3.4.2)
@@ -341,4 +344,4 @@ RUBY VERSION
    ruby 2.4.4p296
 
 BUNDLED WITH
-   1.16.4
+   1.16.6

@@ -208,3 +208,50 @@ $("#admin_show_start_time").change(function()
     </nav>
 
 </div>
+
+
+============
+v = check_show_child
+    if v && @admin_movie.destroy
+      respond_to do |format|
+        format.html { redirect_to admin_movies_url, notice: 'Movie was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to admin_movies_url, notice: 'Movie cannot be deleted.' }
+        format.json { head :no_content }
+      end
+    end
+
+    ------------------------
+    def destroy
+    #@user.destroy
+    byebug
+    @user.active = 0
+    @user.name = self.name
+    @user.email = self.email
+    @user.role = self.role
+    @user.id = self.id
+    respond_to do |format|
+      if @user.update
+        format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to users_url, notice: 'Error deleting user' }
+        format.json { head :no_content }
+      end
+    end
+  end
+
+
+<% if @admin_shows.any? %>
+  <div class = "table" id = "adminshows" >
+    <%= render 'shows' %>
+  </div>
+<% else %>
+  <p> No results found </p>
+<% end %>
+
+
+<%= link_to 'Edit', edit_review_path(@review) %> |

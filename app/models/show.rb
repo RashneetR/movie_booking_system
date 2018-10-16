@@ -15,7 +15,7 @@ class Show < ApplicationRecord
   validates :theatre_id, presence: true
   validates :booking_state, presence: true
 
-  # validate :current_time
+  #validate :current_time
   validate :check_num_seats_sold
 
   def current_time

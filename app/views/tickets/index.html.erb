@@ -2,7 +2,8 @@
 <h1>Tickets</h1>
 
 <table>
-
+<% if @tickets.any? %>
+ 
  <thead>
  <th>Ticket ID</th>
  <th>Show ID</th>
@@ -26,6 +27,9 @@
    </tr>
  </tbody>
  <% end %>
+ <% else %>
+  <p> No tickets </p>
+<% end %>
 </table>
 
 <br>

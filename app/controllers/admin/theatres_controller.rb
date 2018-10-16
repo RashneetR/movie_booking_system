@@ -60,14 +60,22 @@ class Admin::TheatresController < ApplicationController
   # DELETE /admin/theatres/1
   # DELETE /admin/theatres/1.json
   def destroy
-    @admin_theatre.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_theatres_url, notice: 'Theatre was successfully destroyed.' }
-      format.json { head :no_content }
+    if @admin_theatre.shows.blank?
+      @admin_theatre.destroy
+      respond_to do |format|
+        format.html { redirect_to admin_theatres_url, notice: 'Theatre was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to admin_theatres_url, notice: 'Cannot delete theatre' }
+        format.json { head :no_content }
+      end
     end
   end
 
   private
+
 
   # Use callbacks to share common setup or constraints between actions.
   def set_admin_theatre

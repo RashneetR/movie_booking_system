@@ -10,7 +10,7 @@ class Ability
     alias_action :show, :new, :create, :index, to: :access
     if user.role == 'admin'
       can :manage, [Movie, Theatre, Show]
-      can :read, Review
+      can :manage, Review
       can %i[update read], User
       can :read, MovieInterest
     elsif user.role == 'customer'

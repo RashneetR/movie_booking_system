@@ -1,3 +1,19 @@
+<script src="moment.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+$("#admin_show_start_time").change(function()
+{
+  m = new moment($("#admin_show_start_time").val(), 'HH:mm:ss');
+  n = new moment($("#admin_show_start_time").val(), 'HH:mm:ss');
+  m._d;
+  n._d;
+  m.add(3,'hours');
+  m._d;
+  $("#admin_show_end_time").val(m);
+  $("#admin_show_start_time").val(n);
+});
+</script>
 <h1>Editing Admin Show</h1>
 <div class= "row">
   <div class="col-md-4 col-md-offset-4">
@@ -47,8 +63,6 @@
         <% end %>
         </div>
       
-
-    <%= link_to 'Show', @admin_show %> |
     <%= link_to 'Back', admin_shows_path %>
   </div>
 </div>

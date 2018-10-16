@@ -18,6 +18,9 @@ $gray-medium-light: #eaeaea;
   box-sizing:         border-box;
 }
 
+#reveal {
+  margin-top:30px;
+}
 .pagination {
   .previous_page { background:#7777ff; color:white }
   .previous_page.disabled { background: white; color: #777 }

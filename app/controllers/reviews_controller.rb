@@ -35,8 +35,8 @@ class ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     @review.user_id = current_user.id
-    @r = Review.includes(:movie, :user).where(movie: { id: params[:id]}, user: { id: current_user.id})
-    if @r.nil?
+    @r = Review.includes(:movie, :user).where(movie_id: params[:review][:movie_id], user_id: current_user.id)
+    if @r.empty?
       respond_to do |format|
         if @review.save
           format.html { redirect_to @review, notice: 'Review was successfully created.' }
@@ -69,9 +69,10 @@ class ReviewsController < ApplicationController
   # DELETE /reviews/1
   # DELETE /reviews/1.json
   def destroy
+    byebug
     @review.destroy
     respond_to do |format|
-      if current_user.role == 'admin'
+      if current_user.role == "admin"
         format.html { redirect_to admin_movies_url, notice: 'Review was successfully destroyed.' }
         format.json { head :no_content }
       else

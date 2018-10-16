@@ -12,6 +12,7 @@ function myFunction() {
 <h1>Movies</h1>
 
 <table>
+
   <thead>
     <tr>
       <th>Name</th> 
@@ -23,7 +24,9 @@ function myFunction() {
     </tr>
   </thead>
 <% if @movie.status == "now_showing" %>
+<% if @shows.any? %>
   <table>
+  
     <thead>
       <tr>
         <th>Theatre Name</th>
@@ -67,7 +70,11 @@ function myFunction() {
     </tbody>
   </table>
 <br>
+<% else %>
+  <p> No shows yet </p>
+<% end %>
 </table>
 <% end %>
+
 <%= link_to 'Back', movies_path %>
 <%= will_paginate @shows %>

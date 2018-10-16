@@ -21,6 +21,7 @@ gem 'rubocop', '~> 0.59.2'
 gem 'carrierwave', '~> 1.2', '>= 1.2.3'
 gem 'mini_magick', '~> 4.9', '>= 4.9.2'
 gem 'bootstrap_form', '~> 2.7'
+gem 'rails-observers', '~> 0.1.5'
 # Use Puma as the app server
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 gem 'puma', '~> 3.11'

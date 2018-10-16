@@ -1,3 +1,4 @@
+
 # frozen_string_literal: true
 
 # module Admin
@@ -6,6 +7,7 @@ class Admin::ShowsController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource :show
   before_action :set_admin_show, only: %i[show edit update destroy]
+  
 
   # GET /admin/shows
   # GET /admin/shows.json
@@ -62,7 +64,7 @@ class Admin::ShowsController < ApplicationController
       @movie = Movie.find(params[:movie])
       @m << @movie
     else
-      @m = Movie.all
+      @m = Movie.where(status: "now_showing")
     end
   end
 
@@ -109,10 +111,17 @@ class Admin::ShowsController < ApplicationController
   # DELETE /admin/shows/1
   # DELETE /admin/shows/1.json
   def destroy
-    @admin_show.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_shows_url, notice: 'Show was successfully destroyed.' }
-      format.json { head :no_content }
+    if @admin_show.tickets.blank?
+     @admin_show.destroy
+      respond_to do |format|
+        format.html { redirect_to admin_shows_url, notice: 'Show was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to admin_shows_url, notice: 'Show cannot be destroyed because tickets exist.' }
+        format.json { head :no_content }
+      end
     end
   end
 
