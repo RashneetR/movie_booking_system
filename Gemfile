@@ -5,7 +5,7 @@ ruby '2.4.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.1'
-gem 'railties'
+#gem 'railties'
 gem 'devise', '~> 4.2'
 gem 'momentjs-rails'
 gem 'jquery-turbolinks', '~> 2.1'
@@ -16,12 +16,20 @@ gem 'cancancan', '~> 1.15'
 gem 'select2-rails', '~> 4.0', '>= 4.0.3'
 gem 'erb_lint', '~> 0.0.26'
 gem 'will_paginate', '~> 3.1'
+gem 'better_errors'
 # Use mysql as the database for Active Record
 gem 'rubocop', '~> 0.59.2'
-gem 'carrierwave', '~> 1.2', '>= 1.2.3'
+gem 'carrierwave-mongoid', '~> 1.1'
+gem 'mongoid-grid_fs'
 gem 'mini_magick', '~> 4.9', '>= 4.9.2'
 gem 'bootstrap_form', '~> 2.7'
-gem 'rails-observers', '~> 0.1.5'
+gem 'mongoid'
+
+gem 'bson_ext'
+#gem 'mongoid-observers'
+#gem 'rails-observers'
+
+
 # Use Puma as the app server
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 gem 'puma', '~> 3.11'
@@ -52,11 +60,12 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.1.0', require: false
+# gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'mysql2', '>= 0.4.4', '< 0.6.0'
+  gem 'annotate'
+  #gem 'mysql2', '>= 0.4.4', '< 0.6.0'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

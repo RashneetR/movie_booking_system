@@ -11,7 +11,7 @@ class Admin::MoviesController < ApplicationController
   # GET /admin/movies
   # GET /admin/movies.json
   def index
-    @admin_movies = Movie.all.paginate(page: params[:page], per_page: 10)
+    @admin_movies = Movie.all#.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /admin/movies/1
@@ -41,8 +41,8 @@ class Admin::MoviesController < ApplicationController
 
     respond_to do |format|
       if @admin_movie.save
-        format.html { render :show, notice: 'Movie was successfully created.' }
-        format.json { render :show, status: :created, location: @admin_movie }
+        format.html { redirect_to admin_movies_url, notice: 'Movie was successfully created.' }
+        format.json { head :no_content }
       else
         format.html { render :new }
         format.json { render json: @admin_movie.errors, status: :unprocessable_entity }
@@ -83,8 +83,8 @@ class Admin::MoviesController < ApplicationController
 
   def change_status
     @movie_id = params[:id]
-    @movie = Movie.find_by_id(@movie_id)
-    @movie.status = 'now_showing'
+    @movie = Movie.find_by(id: @movie_id)
+    @movie.status = "Now Showing"
 
     respond_to do |format|
       if @movie.save
@@ -110,7 +110,7 @@ class Admin::MoviesController < ApplicationController
   def delete_movie_interests
     @subscriptions = MovieInterest.where(movie_id: @movie_id)
     @users = @subscriptions.pluck(:user_id)
-    UserMailer.with(user: @users, movie_name: @movie.name).movie_update.deliver_later
+    #UserMailer.with(user: @users, movie_name: @movie.name).movie_update.deliver_later
     puts "\n\n\n hi 3\n\n"
     @subscriptions.each(&:destroy)
   end

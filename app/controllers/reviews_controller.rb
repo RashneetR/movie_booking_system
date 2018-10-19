@@ -10,9 +10,9 @@ class ReviewsController < ApplicationController
   def index
     if current_user.role == 'admin'
       @movie_id = params[:movie]
-      @reviews = Review.where(movie_id: @movie_id).all.paginate(page: params[:page], per_page: 10)
+      @reviews = Review.where(movie_id: @movie_id).all#.paginate(page: params[:page], per_page: 10)
     else
-      @reviews = Review.all.paginate(page: params[:page], per_page: 10)
+      @reviews = Review.all#.paginate(page: params[:page], per_page: 10)
     end
   end
 
@@ -69,7 +69,6 @@ class ReviewsController < ApplicationController
   # DELETE /reviews/1
   # DELETE /reviews/1.json
   def destroy
-    byebug
     @review.destroy
     respond_to do |format|
       if current_user.role == "admin"

@@ -27,7 +27,7 @@ class UsersController < ApplicationController
       puts " \n\n\n hi raashi \n\n i#{params[:user]}\n\n\n"
       @user = current_user
     else
-      @user = User.find_by_id(params[:id])
+      @user = User.find_by(id: params[:id])
        puts " \n\n\n hello \n\n #{@user.name}\n\n\n"
     end
   end
@@ -100,7 +100,7 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    if current_user.role == 'admin'
+    if current_user.role == "admin"
       params.require(:user).permit(:name, :email, :role)
     else
       params.fetch(:user, {})

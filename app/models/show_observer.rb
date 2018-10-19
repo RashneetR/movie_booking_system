@@ -1,4 +1,4 @@
-class ShowObserver < ActiveRecord::Observer
+class ShowObserver < Mongoid::Observer
   def before_destroy(admin_show)
     return true if admin_show.tickets.blank?
 

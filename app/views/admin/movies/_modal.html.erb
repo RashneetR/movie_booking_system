@@ -18,7 +18,7 @@
         <strong>Status</strong>
         <%= @admin_movie.status %>
       </p>
-      <%= image_tag(@admin_movie.image_url(:thumb).to_s) %>
+      
       <%= link_to 'Edit', edit_admin_movie_path(@admin_movie) %> |
       <%= link_to 'Back', admin_movies_path %>
     </div>

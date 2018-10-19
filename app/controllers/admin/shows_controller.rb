@@ -12,12 +12,12 @@ class Admin::ShowsController < ApplicationController
   # GET /admin/shows
   # GET /admin/shows.json
   def index
-    @m = Movie.where(status: "now_showing")
+    @m = Movie.where(status: "Now Showing")
     @t = Theatre.all
     @admin_show = Show.new
     if params[:show].nil? 
       puts "hi"
-      @admin_shows = Show.includes(:theatre, :movie).all.paginate(page: params[:page], per_page: 10)
+      @admin_shows = Show.includes(:theatre, :movie).all#.paginate(page: params[:page], per_page: 10)
     else
     puts "\n\n hello \n\n\n"
     
@@ -31,23 +31,23 @@ class Admin::ShowsController < ApplicationController
       puts "\n\n #{@theatre_id}\n\n\n"
       
       if (@movie_id.empty? && @theatre_id.count < 2)
-        @admin_shows = Show.includes(:theatre, :movie).all.paginate(page: params[:page], per_page: 10)
+        @admin_shows = Show.includes(:theatre, :movie).all#.paginate(page: params[:page], per_page: 10)
       elsif @movie_id.empty?  
-        @admin_shows = Show.where(theatre_id: params[:show][:theatre_id]).all.paginate(page: params[:page], per_page: 10)
+        @admin_shows = Show.where(theatre_id: params[:show][:theatre_id]).all#.paginate(page: params[:page], per_page: 10)
       elsif @theatre_id.count < 2
-        @admin_shows = Show.where(movie_id: @movie_id).all.paginate(page: params[:page], per_page: 10)
+        @admin_shows = Show.where(movie_id: @movie_id).all#.paginate(page: params[:page], per_page: 10)
       else
-        @admin_shows = Show.where(movie_id: @movie_id, theatre_id: params[:show][:theatre_id]).all.paginate(page: params[:page], per_page: 10)
+        @admin_shows = Show.where(movie_id: @movie_id, theatre_id: params[:show][:theatre_id]).all#.paginate(page: params[:page], per_page: 10)
       end
     end
     respond_to do |format|
-        format.html 
-        format.js
+        format.html { render :index }
+        format.json { render :index }
       end
   end
 
   def search    
-    @m = Movie.where(status: "now_showing")
+    @m = Movie.where(status: "Now Showing")
     @t = Theatre.all
   end
 
@@ -64,7 +64,7 @@ class Admin::ShowsController < ApplicationController
       @movie = Movie.find(params[:movie])
       @m << @movie
     else
-      @m = Movie.where(status: "now_showing")
+      @m = Movie.where(status: "Now Showing")
     end
   end
 

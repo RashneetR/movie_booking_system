@@ -1,0 +1,7 @@
+ email user.rb 
+
+ paginate everywhere 
+
+
+ <!--<%= #image_tag(@admin_movie.image_url(:thumb).to_s) %>-->
+ movies _modal pop up partial

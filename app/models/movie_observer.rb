@@ -1,4 +1,4 @@
-class MovieObserver < ActiveRecord::Observer
+class MovieObserver < Mongoid::Observer
   def before_destroy(admin_movie)
     return true if admin_movie.shows.blank? && admin_movie.reviews.blank?
 

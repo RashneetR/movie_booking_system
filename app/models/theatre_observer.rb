@@ -1,4 +1,4 @@
-class TheatreObserver < ActiveRecord::Observer
+class TheatreObserver < Mongoid::Observer
 
   def before_destroy(admin_theatre)
     byebug

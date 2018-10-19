@@ -9,9 +9,9 @@ class TicketsController < ApplicationController
   # GET /tickets.json
   def index
     if current_user.role != "admin"
-    @tickets = Ticket.where(user_id: current_user.id).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    @tickets = Ticket.where(user_id: current_user.id).order(created_at: :desc)#.paginate(page: params[:page], per_page: 10)
   else
-    @tickets= Ticket.all.paginate(page: params[:page], per_page: 10)
+    @tickets= Ticket.all#.paginate(page: params[:page], per_page: 10)
   end
 end
 
@@ -70,7 +70,7 @@ end
   private
 
   def update_count
-    @show = Show.find_by_id(@ticket.show_id)
+    @show = Show.find_by(id: @ticket.show_id)
     # @show.total_seats -= @ticket.num_seats_bought
     @show.num_seats_sold += @ticket.num_seats_bought
     @show.booking_state = 1 if @show.total_seats == @show.num_seats_sold
