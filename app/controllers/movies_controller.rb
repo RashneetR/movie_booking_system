@@ -8,15 +8,13 @@ class MoviesController < ApplicationController
   # GET /movies
   # GET /movies.json
   def index
-    #@movies = Movie.all.paginate(page: params[:page], per_page: 10)
-    @movies = Movie.all
+    @movies = Movie.all.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /movies/1
   # GET /movies/1.json
   def show
-    #@shows = Show.where(movie_id: @movie.id).paginate(page: params[:page], per_page: 10)
-    @shows = Show.where(movie_id: @movie.id)
+    @shows = Show.where(movie_id: @movie.id).paginate(page: params[:page], per_page: 10)
   end
 
   private

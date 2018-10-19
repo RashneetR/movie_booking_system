@@ -6,15 +6,13 @@ class Admin::TheatresController < ApplicationController
   # GET /admin/theatres
   # GET /admin/theatres.json
   def index
-    #@admin_theatres = Theatre.all.paginate(page: params[:page], per_page: 10)
-    @admin_theatres = Theatre.all
+    @admin_theatres = Theatre.all.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /admin/theatres/1
   # GET /admin/theatres/1.json
   def show
-    #@shows = Show.where(theatre_id: @admin_theatre.id).paginate(page: params[:page], per_page: 10)
-    @shows = Show.where(theatre_id: @admin_theatre.id)
+    @shows = Show.where(theatre_id: @admin_theatre.id).paginate(page: params[:page], per_page: 10)
   end
 
   # GET /admin/theatres/new

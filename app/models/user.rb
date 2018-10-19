@@ -35,10 +35,13 @@ class User
   validates :role, presence: true
   validates :active, presence: true
   validates :email, presence: true, length: { maximum: 255 }
-  #after_create :user_registration_email
+  #after_save :user_registration_email
 
   def user_registration_email
     puts "\n\n\nhello\n\n\n\n"
-    UserMailer.with(user: self).welcome_email.deliver_later
+    #UserMailer.with(user: self).welcome_email.deliver_now
+    puts "\n\n\n\n\n hi hi #{self} hi hi \n\n\n\n"
+    puts "\n\n\n\n\n hi hi #{self.id} hi hi \n\n\n\n"
+    UserMailer.welcome_email(self).deliver_later
   end
 end

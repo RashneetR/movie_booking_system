@@ -16,19 +16,23 @@ gem 'cancancan', '~> 1.15'
 gem 'select2-rails', '~> 4.0', '>= 4.0.3'
 gem 'erb_lint', '~> 0.0.26'
 gem 'will_paginate', '~> 3.1'
+gem 'will_paginate_mongoid', '~> 2.0', '>= 2.0.1'
 gem 'better_errors'
 # Use mysql as the database for Active Record
 gem 'rubocop', '~> 0.59.2'
-gem 'carrierwave-mongoid', '~> 1.1'
+gem 'carrierwave'
+gem 'carrierwave-mongoid'
 gem 'mongoid-grid_fs'
 gem 'mini_magick', '~> 4.9', '>= 4.9.2'
 gem 'bootstrap_form', '~> 2.7'
 gem 'mongoid'
 
+
+
 gem 'bson_ext'
 #gem 'mongoid-observers'
 #gem 'rails-observers'
-
+#gem 'mongoid-observers', '~> 0.1.1'
 
 # Use Puma as the app server
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'

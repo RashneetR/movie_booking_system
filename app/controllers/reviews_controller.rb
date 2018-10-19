@@ -10,9 +10,9 @@ class ReviewsController < ApplicationController
   def index
     if current_user.role == 'admin'
       @movie_id = params[:movie]
-      @reviews = Review.where(movie_id: @movie_id).all#.paginate(page: params[:page], per_page: 10)
+      @reviews = Review.where(movie_id: @movie_id).all.paginate(page: params[:page], per_page: 10)
     else
-      @reviews = Review.all#.paginate(page: params[:page], per_page: 10)
+      @reviews = Review.all.paginate(page: params[:page], per_page: 10)
     end
   end
 

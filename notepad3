@@ -5,3 +5,89 @@
 
  <!--<%= #image_tag(@admin_movie.image_url(:thumb).to_s) %>-->
  movies _modal pop up partial
+
+
+ mailer
+
+user.rb
+
+ # frozen_string_literal: true
+
+class UserMailer < ApplicationMailer
+  default from: 'rashneetforsampleapp@gmail.com'
+
+  def welcome_email(user)
+    puts "\n\n\n\n\n hi hi #{user} hi hi \n\n\n\n"
+    puts "\n\n\n\n\n hi hi #{user.id} hi hi \n\n\n\n"
+    @user = User.find_by(id: user.id)
+    #@user = User.find_by(id: params[:user][:id])
+    #@user = params[:user]
+    mail(to: @user.email, subject: 'Welcome to BookMyShow')
+  end
+
+  def movie_update
+    # @subscriptions = params[:subscription]
+    @users = params[:user]
+    @movie_name = params[:movie_name]
+    @users.each do |user_id|
+      @user = User.find(user_id)
+      mail(to: @user.email, subject: 'Movie release!')
+    end
+  end
+
+  def ticket_booked
+    @ticket = params[:ticket]
+    mail(to: @ticket.user.email, subject: 'Tickets Confirmed')
+  end
+
+  def sample_email
+    puts 'Hello1 '
+    @user = User.find(params[:user][:id])
+    puts "\n\n\n\n\n #{@user}\n\n\n"
+    mail(to: @user.email, subject: 'Sample Email')
+    puts 'Hello3 '
+  end
+end
+
+
+////////////////////////////////////////
+class MovieObserver < Mongoid::Observer
+  def before_destroy(admin_movie)
+    return true if admin_movie.shows.blank? && admin_movie.reviews.blank?
+
+    #admin_theatre.errors.add(:base, "Cannot delete theatre due to existing shows for the theatre")
+    throw(:abort)
+  end
+
+  def after_destroy(admin_movie)
+    @subscriptions = MovieInterest.where(movie_id: admin_movie.id)
+    @subscriptions.each(&:destroy)
+  end
+end
+
+
+class ShowObserver < Mongoid::Observer
+  def before_destroy(admin_show)
+    return true if admin_show.tickets.blank?
+
+    #admin_theatre.errors.add(:base, "Cannot delete theatre due to existing shows for the theatre")
+    throw(:abort)
+  end
+  
+
+
+end
+
+
+
+class TheatreObserver < Mongoid::Observer
+
+  def before_destroy(admin_theatre)
+    byebug
+    return true if admin_theatre.shows.blank?
+
+    admin_theatre.errors.add(:base, "Cannot delete theatre due to existing shows for the theatre")
+    throw(:abort)
+  end
+end
+

@@ -1,3 +1,4 @@
+<%= will_paginate @reviews %>
 <h1>Reviews</h1>
 <% if @reviews.any? %>
 
@@ -38,3 +39,4 @@
 <% if current_user.role != "admin" %>
 <%= link_to 'New Review', new_review_path %>
  <% end %>
+ <%= will_paginate @reviews %>
