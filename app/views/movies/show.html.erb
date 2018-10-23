@@ -1,7 +1,9 @@
 <%= will_paginate @shows %>
 <script>
   function function1(ele) {
-  $(ele).closest('.rash').find('input.total_cost').val($(ele).val()*200);
+  //$(ele).closest('#rash').find('input.total_cost').val($(ele).val()*400);
+  var x = $(ele).closest('#rash').find('input.ticket_temp').val();
+  $(ele).closest('#rash').find('input.total_cost').val($(ele).val()*x);
 }
 </script>
 
@@ -34,7 +36,7 @@
         </thead>
         <tbody>
           <% @shows.each do |show| %>
-            <tr class: "rash">
+            <tr id= "rash">
               <% @num = show.total_seats - show.num_seats_sold %>
               <% if @num>0 %>
                 <%= form_for(:ticket, :url => url_for(action: 'create', controller:'tickets')) do |f| %>
@@ -46,7 +48,7 @@
                   <%= f.hidden_field :temp, class: "ticket_temp", value:show.cost_per_seat %>
                   <td><%= show.cost_per_seat %></td>
                   <td><%= f.number_field(:num_seats_bought, min: 1 , max: @num, step: 1, onchange: "function1(this)") %>
-                  <td><%= f.text_field :total_cost, class: "total_cost"%></td>
+                  <td><%= f.text_field :total_cost, class: "total_cost", readonly: true %></td>
                   <td>
                     <div class="actions">
                       <td><%= f.submit "Book Tickets", class: "submit_btn" %></td>

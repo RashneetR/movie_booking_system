@@ -29,12 +29,12 @@ class Show
 
   def current_time
     return unless start_time.present?
-    puts "\n\n\n #{Time.now}\n\n\n"
-    puts  Time.now > start_time
-    puts "\n\n\n #{start_time}\n\n\n"
+    #puts "\n\n\n #{Time.now}\n\n\n"
+    if Time.now > start_time
+    #puts "\n\n\n #{start_time}\n\n\n"
     
-      #errors.add(:start_time, 'Start time should be greater than current time')
-    #end
+      errors.add(:start_time, 'should be greater than current time')
+    end
   end
 
   def check_num_seats_sold

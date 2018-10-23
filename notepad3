@@ -125,36 +125,11 @@ function myFunction() {
   }
 
 
-  <div>
-          <%= f.label :contact %>
-          <%= f.text_field :contact, class: 'form-control'%>
-        </div>
-
-
         , readonly: true 
-/////////////////////////////////////
-
-embeds_many :contacts
-  accepts_nested_attributes_for :contacts
 
 
-  class Contact
-  include Mongoid::Document
-
-  embedded_in :user
-
-  field :contact_no,type: String
-
-  validates :contact_no, length: { is: 10 }, inclusion: { in: 0...9 }
-end
-
-
-<%= f.fields_for :contact do |ff| %>
-         <div>
-          <%= ff.label :contact_no %>
-          <%= ff.text_field :contact_no, class: 'form-control'%>
-        </div>
-        <% end %>
-
-
-<%= @admin_theatre.address %>
+        #@admin_movies.map! do |admin_movie|
+      #@movie = Movie.find_by(id: admin_movie["_id"])
+      #admin_movie["_id"] = @movie.name
+      #puts "\nexcuse me #{admin_movie["_id"]}\n\n"
+    #end
