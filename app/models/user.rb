@@ -4,13 +4,12 @@ class User
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :confirmable, :lockable
   has_many :tickets
   has_many :reviews
   has_many :movie_interests
-  #enum role: { admin: 0, customer: 1, critic: 2 }
-  #enum active: { inactive: 0, uactive: 1}
-
+  
+  
   ## Database authenticatable
   field :email,              type: String, default: ""
   field :encrypted_password, type: String, default: ""
@@ -25,23 +24,49 @@ class User
   ## Customized
   field :name, type: String
   field :role, type: String, default: "customer"
-  field :active, type: String, default: "uactive"
+  field :active, type: String, default: "active"
+
+   ## Confirmable
+  field :confirmation_token,   type: String
+  field :confirmed_at,         type: Time
+  field :confirmation_sent_at, type: Time
+  field :unconfirmed_email,    type: String # Only if using reconfirmable
+
+ ## Lockable
+  field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
+  field :unlock_token,    type: String # Only if unlock strategy is :email or :both
+  field :locked_at,       type: Time
+ 
 
   index({ email: 1}, { unique: true})
   index({ reset_password_token: 1}, { unique: true})
+  index({ confirmation_token: 1 }, {unique: true} )
+  index({ unlock_token: 1}, { unique: true})
  
   validates :name, presence: true, length: { minimum: 3, maximum: 40 }
   validates :encrypted_password, presence: true, confirmation: true
   validates :role, presence: true
   validates :active, presence: true
   validates :email, presence: true, length: { maximum: 255 }
-  #after_save :user_registration_email
+  after_create :user_registration_email
 
   def user_registration_email
-    puts "\n\n\nhello\n\n\n\n"
-    #UserMailer.with(user: self).welcome_email.deliver_now
-    puts "\n\n\n\n\n hi hi #{self} hi hi \n\n\n\n"
-    puts "\n\n\n\n\n hi hi #{self.id} hi hi \n\n\n\n"
-    UserMailer.welcome_email(self).deliver_later
+    UserMailer.welcome_email(self.id.to_s).deliver_later
   end
+
+  protected
+    def will_save_change_to_email?
+      false
+    end
+
+  #def active_for_authentication?
+     #return true if super && self.active == "active"
+     #if super && self.active == "inactive"
+      #inactive_message
+    #end
+  #end
+
+  #def inactive_message
+    #{}"This account is inactive. Do you want to activate it?"
+  #end
 end

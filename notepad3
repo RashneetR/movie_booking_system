@@ -91,3 +91,70 @@ class TheatreObserver < Mongoid::Observer
   end
 end
 
+
+
+===
+
+sign_in @ser
+
+sesison .clear
+
+def cancel
+
+end
+
+
+def active_for_authentication?
+     return true if super && self.active == "active"
+     if super && self.active == "inactive"
+      errors.add(:active,'Account is inactive. Please click on confirm account to activate')
+    end
+
+  end
+
+function parth(ele) {
+  //$(elem).find().next().find('input').val($(ele).val()*200);
+  $(elem).closest('.rash').find('input.total_cost').val($(ele).val()*200);
+}
+
+function myFunction() {
+    var x = document.getElementById("ticket_num_seats_bought");
+    var y = document.getElementById("ticket_total_cost");
+    var z = document.getElementById("ticket_temp");
+    y.value = x.value * z.value;
+  }
+
+
+  <div>
+          <%= f.label :contact %>
+          <%= f.text_field :contact, class: 'form-control'%>
+        </div>
+
+
+        , readonly: true 
+/////////////////////////////////////
+
+embeds_many :contacts
+  accepts_nested_attributes_for :contacts
+
+
+  class Contact
+  include Mongoid::Document
+
+  embedded_in :user
+
+  field :contact_no,type: String
+
+  validates :contact_no, length: { is: 10 }, inclusion: { in: 0...9 }
+end
+
+
+<%= f.fields_for :contact do |ff| %>
+         <div>
+          <%= ff.label :contact_no %>
+          <%= ff.text_field :contact_no, class: 'form-control'%>
+        </div>
+        <% end %>
+
+
+<%= @admin_theatre.address %>

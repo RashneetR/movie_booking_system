@@ -26,11 +26,9 @@ gem 'mongoid-grid_fs'
 gem 'mini_magick', '~> 4.9', '>= 4.9.2'
 gem 'bootstrap_form', '~> 2.7'
 gem 'mongoid'
-
-
-
+gem 'whenever', '~> 0.9.4'
 gem 'bson_ext'
-#gem 'mongoid-observers'
+# gem 'mongoid-observers'
 #gem 'rails-observers'
 #gem 'mongoid-observers', '~> 0.1.1'
 

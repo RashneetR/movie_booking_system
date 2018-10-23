@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource :user
   before_action :set_user, only: %i[show edit update destroy]
-
   # GET /users
   # GET /users.json
   def index
@@ -36,7 +35,6 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -63,23 +61,48 @@ class UsersController < ApplicationController
   end
 
   # DELETE /users/1
+  respond_to do |format|
+          if (@user.destroy if check_admin_count)
+            sign_out @user
+            format.html { redirect_to static_pages_home_url, notice: 'User was successfully destroyed.' }
+            format.json { head :no_content }
+          else
+            flash[:error] = "Error deleting user"
+            format.html { redirect_back(fallback_location: admin_movies_url)}
+            format.json { head :no_content }
+          end
+        end
   # DELETE /users/1.json
   def destroy
-    @user.destroy
-    #byebug
-    @user.active = 0
-    #@user.name = self.name
-    #@user.email = self.email
-    #@user.role = self.role
-    #@user.id = self.id
-    respond_to do |format|
-      #if @user.update
-        format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-        format.json { head :no_content }
-      #else
-        #format.html { redirect_to users_url, notice: 'Error deleting user' }
-        #format.json { head :no_content }
-      #end
+    byebug
+    if @user.role == "admin"
+      @users = User.where(role: "admin")
+      respond_to do |format|
+        if @users.count >=2
+          if @user.destroy
+            sign_out @user
+            format.html { redirect_to static_pages_home_url, notice: 'User was successfully destroyed.' }
+            format.json { head :no_content }
+          end
+        else
+          flash[:error] = "Cannot delete account since you are the only admin!"
+              format.html { redirect_back(fallback_location: admin_movies_url)}
+              format.json { head :no_content }
+        end
+      end
+    else
+      @user.active = "inactive"
+      respond_to do |format|
+        if @user.update
+          sign_out @user
+          format.html { redirect_to static_pages_home_url, notice: 'User was successfully destroyed.' }
+          format.json { head :no_content }
+        else
+          flash[:error] = "Error deleting user"
+          format.html { redirect_back(fallback_location: movies_url)}
+          format.json { head :no_content }
+        end
+      end
     end
   end
 
@@ -105,5 +128,6 @@ class UsersController < ApplicationController
     else
       params.fetch(:user, {})
     end
-end
+  end
+
 end

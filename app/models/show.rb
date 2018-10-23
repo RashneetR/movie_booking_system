@@ -24,14 +24,17 @@ class Show
   validates :theatre_id, presence: true
   validates :booking_state, presence: true
 
-  #validate :current_time
+  validate :current_time
   validate :check_num_seats_sold
 
   def current_time
     return unless start_time.present?
-    if Time.now > start_time
-      errors.add(:start_time, 'Start time should be greater than current time')
-    end
+    puts "\n\n\n #{Time.now}\n\n\n"
+    puts  Time.now > start_time
+    puts "\n\n\n #{start_time}\n\n\n"
+    
+      #errors.add(:start_time, 'Start time should be greater than current time')
+    #end
   end
 
   def check_num_seats_sold

@@ -17,7 +17,6 @@ class Admin::MoviesController < ApplicationController
   # GET /admin/movies/1
   # GET /admin/movies/1.json
   def show
-    # byebug
     respond_to do |format|
       format.html { render :show }
       format.json { render :show }
@@ -67,7 +66,7 @@ class Admin::MoviesController < ApplicationController
   # DELETE /admin/movies/1
   # DELETE /admin/movies/1.json
   def destroy 
-    if
+    if @admin_movie.shows.blank? && @admin_movie.reviews.blank?
      @admin_movie.destroy
       respond_to do |format|
         format.html { redirect_to admin_movies_url, notice: 'Movie was successfully destroyed.' }
@@ -91,7 +90,7 @@ class Admin::MoviesController < ApplicationController
         flash[:notice] = 'Successfully updated to Now Showing '
         format.html { redirect_to controller: 'admin/movies', action: 'index' }
         delete_movie_interests
-        end
+      end
     end
   end
 
@@ -110,8 +109,9 @@ class Admin::MoviesController < ApplicationController
   def delete_movie_interests
     @subscriptions = MovieInterest.where(movie_id: @movie_id)
     @users = @subscriptions.pluck(:user_id)
-    #UserMailer.with(user: @users, movie_name: @movie.name).movie_update.deliver_later
-    puts "\n\n\n hi 3\n\n"
+    @users.each do |user|
+    UserMailer.movie_update(user.to_s, @movie.name.to_s).deliver_later
     @subscriptions.each(&:destroy)
+    end
   end
 end

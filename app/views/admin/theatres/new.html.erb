@@ -12,6 +12,12 @@
                 <%= f.label :name %>
                 <%= f.text_field :name , class: 'form-control' %>
               </div>
+              <%= f.fields_for :address do |ff| %>
+              <div>
+                <%= ff.label :address %>
+                <%= ff.text_field :address, class: 'form-control'%>
+              </div>
+              <% end %>
               <div class="actions">
                 <%= f.submit "Create", class: 'btn btn-primary'  %>
               </div>

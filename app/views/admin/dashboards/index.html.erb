@@ -1,0 +1,36 @@
+<h1>Admin Dashboard</h1>
+<div class = "row">
+  <table>
+    <thead>
+      <tr>
+        <th>Movie Name</th>
+          <th>Collection</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @admin_movies.zip(@movies).each do |admin_movie,movie_name| %>
+        <tr>
+          <td><%= movie_name %></td>
+          <td><%= admin_movie["total_revenue"] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <table>
+    <thead>
+      <tr>
+        <th>Theatre Name</th>
+          <th>Collection</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @admin_theatres.zip(@theatres).each do |admin_theatre,theatre_name| %>
+        <tr>
+          <td><%= theatre_name %></td>
+          <td><%= admin_theatre["total_revenue"] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+</div>

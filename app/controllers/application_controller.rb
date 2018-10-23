@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   def check_role
     valid = true
-    unless current_user.role == 'admin'
+    unless current_user.try(:role) == 'admin'
       valid = false
       redirect_to root_path, notice: 'Access Denied'
     end
@@ -39,6 +39,11 @@ class ApplicationController < ActionController::Base
     else
       admin_movies_path
     end
+  end
+
+  def after_confirmation_path_for(_resource)
+    sign_in(resource) # In case you want to sign in the user
+    after_sign_in_path_for(_resource)
   end
 
   def after_sign_up_path_for(_resource)

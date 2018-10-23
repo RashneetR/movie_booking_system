@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   post '/signup',  to: 'users#create'
   get '/add_movie_interest', to: 'movie_interests#create'
   namespace :admin do
-    resources :movies,:theatres,:shows
+    resources :movies,:theatres,:shows, :dashboards
   end
 
   get 'movies/index'

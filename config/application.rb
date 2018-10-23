@@ -38,7 +38,7 @@ module MovieBookingSystem
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
     config.active_job.queue_adapter = :sidekiq
-    #config.mongoid.observers = :show_observer, :theatre_observer, :movie_observer
+    # config.mongoid.observers = :show_observer, :theatre_observer, :movie_observer
     config.generators do |g|
       g.orm             :mongoid
       g.template_engine :haml

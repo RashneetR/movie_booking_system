@@ -16,20 +16,14 @@ class Admin::ShowsController < ApplicationController
     @t = Theatre.all
     @admin_show = Show.new
     if params[:show].nil? 
-      puts "hi"
       @admin_shows = Show.includes(:theatre, :movie).all.paginate(page: params[:page], per_page: 10)
     else
-    puts "\n\n hello \n\n\n"
-    
       if !params[:show][:movie_id].nil?
         @movie_id = params[:show][:movie_id]
       end
       if !params[:show][:theatre_id].nil?
         @theatre_id = params[:show][:theatre_id]
-      end
-      puts "\n\n #{@movie_id}\n\n\n"
-      puts "\n\n #{@theatre_id}\n\n\n"
-      
+      end  
       if (@movie_id.empty? && @theatre_id.count < 2)
         @admin_shows = Show.includes(:theatre, :movie).all.paginate(page: params[:page], per_page: 10)
       elsif @movie_id.empty?  
@@ -42,7 +36,7 @@ class Admin::ShowsController < ApplicationController
     end
     respond_to do |format|
         format.html { render :index }
-        format.json { render :index }
+        format.js { render :index }
       end
   end
 
@@ -84,12 +78,8 @@ class Admin::ShowsController < ApplicationController
         format.html { redirect_to admin_show_path(@admin_show), notice: 'Show was successfully created.' }
         format.json { render :show, status: :created, location: @admin_show }
       else
-        # format.html { render new_admin_show_path }
-        # format.json { render json: @admin_show.errors, status: :unprocessable_entity }
         flash[:error] = @admin_show.errors.full_messages.to_sentence
-        format.html { redirect_back(fallback_location: new_admin_show_path) }
-
-        # render json: @admin_show.errors, status: :unprocessable_entity
+        format.html { redirect_back(fallback_location: new_admin_show_path)}
       end
     end
   end

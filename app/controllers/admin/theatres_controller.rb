@@ -28,8 +28,9 @@ class Admin::TheatresController < ApplicationController
   def create
     @admin_theatre = Theatre.new(admin_theatre_params)
 
+
     respond_to do |format|
-      if @admin_theatre.save
+      if @admin_theatre.save && @admin_theatre.update(:address_attributes => {:address => params[:admin_theatre][:address]["address"]})
         format.html { redirect_to admin_theatre_path(@admin_theatre), notice: 'Theatre was successfully created.' }
         format.json { render :show, status: :created, location: @admin_theatre }
       else
@@ -43,7 +44,7 @@ class Admin::TheatresController < ApplicationController
   # PATCH/PUT /admin/theatres/1.json
   def update
     respond_to do |format|
-      if @admin_theatre.update(admin_theatre_params)
+      if @admin_theatre.update(admin_theatre_params) && @admin_theatre.update(:address_attributes => {:address => params[:admin_theatre][:address]["address"]})
         format.html { redirect_to admin_theatre_path(@admin_theatre), notice: 'Theatre was successfully updated.' }
         format.json { render :show, status: :ok, location: @admin_theatre }
       else
@@ -80,6 +81,6 @@ class Admin::TheatresController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def admin_theatre_params
-    params.require(:admin_theatre).permit(:name)
+    params.require(:admin_theatre).permit(:name, :address)
   end
 end

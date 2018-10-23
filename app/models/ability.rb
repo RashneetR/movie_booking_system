@@ -5,14 +5,16 @@ class Ability
 
   def initialize(user)
     user ||= User.new # guest user (not logged in)
+    alias_action :index, :destroy, to: :see
     alias_action :edit, to: :update
     alias_action :index, :show, to: :read
     alias_action :show, :new, :create, :index, to: :access
-    if user.role == 'admin'
+      if user.role == 'admin'
       can :manage, [Movie, Theatre, Show]
-      can :manage, Review
-      can %i[update read], User
-      can :read, MovieInterest
+      can %i[see], Review
+      can %i[update read destroy], User
+      can %i[index], MovieInterest
+      can %i[see read update_count], Ticket
     elsif user.role == 'customer'
       can :read, Movie
       can :read, Review

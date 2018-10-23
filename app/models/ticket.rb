@@ -14,10 +14,10 @@ class Ticket
   validates :user_id, presence: true
   validates :num_seats_bought, presence: true, numericality: { greater_than: 0 }
 
-  #after_create :ticket_booked_email
+  after_create :ticket_booked_email
 
   def ticket_booked_email
      puts "\n\n\nhello\n\n\n\n"
-    UserMailer.with(ticket: self).ticket_booked.deliver_later
+    UserMailer.ticket_booked(self.id.to_s).deliver_later
   end
 end
