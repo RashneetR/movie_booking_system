@@ -54,19 +54,16 @@ class User
     UserMailer.welcome_email(self.id.to_s).deliver_later
   end
 
+  def active_for_authentication?
+    super && self.active == "active" 
+  end
+
+  def inactive_message
+    "Sorry, this account has been deactivated. Sign up and activate account"
+  end
+
   protected
     def will_save_change_to_email?
       false
     end
-
-  #def active_for_authentication?
-     #return true if super && self.active == "active"
-     #if super && self.active == "inactive"
-      #inactive_message
-    #end
-  #end
-
-  #def inactive_message
-    #{}"This account is inactive. Do you want to activate it?"
-  #end
 end

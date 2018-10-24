@@ -14,13 +14,9 @@ Rails.application.routes.draw do
 
   get 'movies/index'
   get 'movies/show'
-  #match '/tickets/new', to: 'tickets/create', via: [:post]
-  #post 'tickets/create' ,as 'new_ticket'
   resources :tickets
   resources :movie_interests
-
-  #get 'movies/add_movie_interest'
-  get 'admin/movies/change_status/:id', to: 'admin/movies#change_status' ,as: 'admin/movies/change_status'
+  get 'admin/movies/change_status/:id', to: 'admin/movies#change_status', as: 'admin/movies/change_status'
   resources :movies
   resources :movies
   resources :reviews
@@ -29,11 +25,14 @@ Rails.application.routes.draw do
 
   get 'static_pages/home'
   get 'static_pages/help'
+ 
+  devise_for :users, controllers: { registrations: 'myregistrations'}
 
-  devise_for :users do
-    get '/users/sign_out' => 'devise/sessions#destroy'
+  post '/users/activate_account', to: 'users#activate_account_mail'
+  get '/users/activate_user_account/:email', to: 'users#activate_user_account', as: 'activate_user_account'
+  resources :users do
+    get 'activate_account', to: 'users#activate_account', on: :collection
+    
   end
-
-  resources :users
   resources :static_pages
 end

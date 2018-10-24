@@ -16,4 +16,10 @@ class UserMailer < ApplicationMailer
     @ticket = Ticket.find(ticket_id)
     mail(to: @ticket.user.email, subject: 'Tickets Confirmed')
   end
+
+  def activate_user_account(email)
+    @email = email
+    mail(to: @email, subject: 'Activate Account')
+  end
+
 end

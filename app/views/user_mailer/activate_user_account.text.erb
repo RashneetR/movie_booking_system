@@ -1,0 +1,5 @@
+Hello <%= @email %>!
+You have requested to activate your account. You can do this through the link below.
+<%= link_to 'Activate Account', activate_user_account_url(@email) %>
+
+If you didn't request this, please ignore this email.

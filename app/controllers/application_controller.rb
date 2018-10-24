@@ -33,14 +33,6 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [:name])
   end
 
-  def after_sign_in_path_for(_resource)
-    if current_user.role != 'admin'
-      movies_index_url
-    else
-      admin_movies_path
-    end
-  end
-
   def after_confirmation_path_for(_resource)
     sign_in(resource) # In case you want to sign in the user
     after_sign_in_path_for(_resource)
@@ -51,7 +43,22 @@ class ApplicationController < ActionController::Base
       movies_index_url
     else
       admin_movies_path
-
     end
   end
+
+  def after_sign_in_path_for(_resource)
+    if current_user.role != 'admin'
+      movies_index_url
+    else
+      admin_movies_path
+    end
+   end
+
+  #def after_sign_out_path_for(_resource)
+    #if _resource.active == "inactive"
+      #puts "\n\nhelloooo\n"
+    #else
+        #puts "\n\n\n okaaay\n\n"
+    #end
+  #end
 end

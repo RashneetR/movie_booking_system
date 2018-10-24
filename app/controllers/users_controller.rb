@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource :user
   before_action :set_user, only: %i[show edit update destroy]
+  skip_before_action :authenticate_user!, only: [:activate_account, :activate_account_mail, :activate_user_account]
   # GET /users
   # GET /users.json
   def index
@@ -21,13 +22,10 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
    def edit
-    puts " \n\n\n hello \n\n i#{params[:id]}\n\n\n"
     if params[:id].nil?
-      puts " \n\n\n hi raashi \n\n i#{params[:user]}\n\n\n"
       @user = current_user
     else
       @user = User.find_by(id: params[:id])
-       puts " \n\n\n hello \n\n #{@user.name}\n\n\n"
     end
   end
 
@@ -74,7 +72,6 @@ class UsersController < ApplicationController
         end
   # DELETE /users/1.json
   def destroy
-    byebug
     if @user.role == "admin"
       @users = User.where(role: "admin")
       respond_to do |format|
@@ -104,6 +101,25 @@ class UsersController < ApplicationController
         end
       end
     end
+  end
+
+  def activate_account
+    #byebug
+    render 'activate_account'
+  end
+
+  def activate_account_mail
+    UserMailer.activate_user_account(params[:user][:email]).deliver_now
+    flash[:notice] = "Email sent. Please check your mail"
+    redirect_to static_pages_home_url
+  end
+
+  def activate_user_account
+    @email = params[:email] + ".com"
+    @user = User.where(email: @email).first
+    @user.active = "active"
+    flash[:notice] = "Account activated. You  can now login." if @user.save
+    redirect_to new_user_session_path
   end
 
   private

@@ -1,14 +1,3 @@
- email user.rb 
-
- paginate everywhere 
-
-
- <!--<%= #image_tag(@admin_movie.image_url(:thumb).to_s) %>-->
- movies _modal pop up partial
-
-
- mailer
-
 user.rb
 
  # frozen_string_literal: true
@@ -112,20 +101,6 @@ def active_for_authentication?
 
   end
 
-function parth(ele) {
-  //$(elem).find().next().find('input').val($(ele).val()*200);
-  $(elem).closest('.rash').find('input.total_cost').val($(ele).val()*200);
-}
-
-function myFunction() {
-    var x = document.getElementById("ticket_num_seats_bought");
-    var y = document.getElementById("ticket_total_cost");
-    var z = document.getElementById("ticket_temp");
-    y.value = x.value * z.value;
-  }
-
-
-        , readonly: true 
 
 
         #@admin_movies.map! do |admin_movie|
@@ -133,3 +108,30 @@ function myFunction() {
       #admin_movie["_id"] = @movie.name
       #puts "\nexcuse me #{admin_movie["_id"]}\n\n"
     #end
+
+
+    , controllers: { sessions: 'mydevise/sessions'}
+
+home.html.erb
+    <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-primary btn-sm' %>
+
+
+    def new
+    super
+  end
+  # POST /my_devise/sessions
+  # POST /my_devise/sessions.json
+  def create
+    super
+    if @user.active == "inactive"
+      puts "\n\n\n\ninactive bro\n\n\n\n\n"
+      sign_out @user
+      redirect_to static_pages_home_path, notice: 'Account Exists. Activate account?'
+    else
+    redirect_to movies_path, notice: 'User signed in'
+    end
+  end
+
+  def destroy
+    super
+  end
