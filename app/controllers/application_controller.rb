@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -30,7 +28,6 @@ class ApplicationController < ActionController::Base
     valid
   end
 
-
   rescue_from CanCan::AccessDenied do |exception|
     flash[:warning] = exception.message
     redirect_to root_path
@@ -50,7 +47,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_up_path_for(_resource)
     if current_user.role != 'admin'
-      movies_index_url
+      movies_path
     else
       admin_movies_path
     end
@@ -58,17 +55,9 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(_resource)
     if current_user.role != 'admin'
-      movies_index_url
+      movies_path
     else
       admin_movies_path
     end
    end
-
-  #def after_sign_out_path_for(_resource)
-    #if _resource.active == "inactive"
-      #puts "\n\nhelloooo\n"
-    #else
-        #puts "\n\n\n okaaay\n\n"
-    #end
-  #end
 end

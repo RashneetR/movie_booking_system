@@ -1,7 +1,3 @@
-# frozen_string_literal: true
-
-# module Admin
-# class Admin::MoviesController < BaseController
 class Admin::MoviesController < ApplicationController
   before_action :check_role
   before_action :authenticate_user!
@@ -21,7 +17,6 @@ class Admin::MoviesController < ApplicationController
       format.html { render :show }
       format.json { render :show }
       format.js {}
-      
     end
   end
 
@@ -37,7 +32,6 @@ class Admin::MoviesController < ApplicationController
   # POST /admin/movies.json
   def create
     @admin_movie = Movie.new(admin_movie_params)
-
     respond_to do |format|
       if @admin_movie.save
         format.html { redirect_to admin_movies_url, notice: 'Movie was successfully created.' }
@@ -55,7 +49,7 @@ class Admin::MoviesController < ApplicationController
     respond_to do |format|
       if @admin_movie.update(admin_movie_params)
         format.html { redirect_to admin_movies_url, notice: 'Movie details Updated' }
-        format.json { head :no_content } 
+        format.json { head :no_content }
       else
         format.html { render :edit }
         format.json { render json: @admin_movie.errors, status: :unprocessable_entity }
@@ -65,9 +59,9 @@ class Admin::MoviesController < ApplicationController
 
   # DELETE /admin/movies/1
   # DELETE /admin/movies/1.json
-  def destroy 
+  def destroy
     if @admin_movie.shows.blank? && @admin_movie.reviews.blank?
-     @admin_movie.destroy
+      @admin_movie.destroy
       respond_to do |format|
         format.html { redirect_to admin_movies_url, notice: 'Movie was successfully destroyed.' }
         format.json { head :no_content }
@@ -83,7 +77,7 @@ class Admin::MoviesController < ApplicationController
   def change_status
     @movie_id = params[:id]
     @movie = Movie.find_by(id: @movie_id)
-    @movie.status = "Now Showing"
+    @movie.status = 'Now Showing'
 
     respond_to do |format|
       if @movie.save
@@ -95,7 +89,7 @@ class Admin::MoviesController < ApplicationController
   end
 
   private
-  
+
   # Use callbacks to share common setup or constraints between actions.
   def set_admin_movie
     @admin_movie = Movie.find(params[:id])
@@ -110,8 +104,8 @@ class Admin::MoviesController < ApplicationController
     @subscriptions = MovieInterest.where(movie_id: @movie_id)
     @users = @subscriptions.pluck(:user_id)
     @users.each do |user|
-    UserMailer.movie_update(user.to_s, @movie.name.to_s).deliver_later
-    @subscriptions.each(&:destroy)
+      UserMailer.movie_update(user.to_s, @movie.name.to_s).deliver_later
+      @subscriptions.each(&:destroy)
     end
   end
 end

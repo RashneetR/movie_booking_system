@@ -5,15 +5,13 @@ Rails.application.routes.draw do
   post '/admin/shows/:id', to: 'admin/shows#update'
   post '/admin/theatres/:id', to: 'admin/theatres#update'
   
-  post '/signup',  to: 'users#create'
+  #post '/signup',  to: 'users#create'
   get '/add_movie_interest', to: 'movie_interests#create'
   namespace :admin do
     resources :movies,:theatres,:shows
     resources :dashboards, only: [:index]
   end
 
-  get 'movies/index'
-  get 'movies/show'
   resources :tickets
   resources :movie_interests
   get 'admin/movies/change_status/:id', to: 'admin/movies#change_status', as: 'admin/movies/change_status'
