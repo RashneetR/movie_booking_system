@@ -21,6 +21,16 @@ class ApplicationController < ActionController::Base
     valid
   end
 
+  def check_user
+    valid = true
+    unless current_user.try(:role) != 'admin'
+      valid = false
+      redirect_to root_path, notice: 'Access Denied'
+    end
+    valid
+  end
+
+
   rescue_from CanCan::AccessDenied do |exception|
     flash[:warning] = exception.message
     redirect_to root_path

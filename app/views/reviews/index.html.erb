@@ -1,5 +1,9 @@
 <%= will_paginate @reviews %>
+<% if current_user.role != 'admin' %>
+<h1>Reviews Given</h1>
+<% else %>
 <h1>Reviews</h1>
+<% end %>
 <% if @reviews.any? %>
 
 <table>
@@ -20,10 +24,12 @@
         <td><%= review.movie.name %></td>
         <td><%= review.user.name %></td>
         <td><%= review.rating %></td>
+        <% if review.comment.empty? %>
+        <td><%= "--" %></td>
+        <% else %>
         <td><%= review.comment %></td>
+        <% end %>
         <% if current_user.role != "admin" %>
-        <td><%= link_to 'Show', review %></td>
-        <td><%= link_to 'Edit', edit_review_path(review) %></td>
         <% end %>
         <td><%= link_to 'Delete', review, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         
@@ -36,7 +42,4 @@
 </table>
 
 <br>
-<% if current_user.role != "admin" %>
-<%= link_to 'New Review', new_review_path %>
- <% end %>
  <%= will_paginate @reviews %>

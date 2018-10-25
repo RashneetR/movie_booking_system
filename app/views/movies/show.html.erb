@@ -1,7 +1,6 @@
 <%= will_paginate @shows %>
 <script>
   function function1(ele) {
-  //$(ele).closest('#rash').find('input.total_cost').val($(ele).val()*400);
   var x = $(ele).closest('#rash').find('input.ticket_temp').val();
   $(ele).closest('#rash').find('input.total_cost').val($(ele).val()*x);
 }

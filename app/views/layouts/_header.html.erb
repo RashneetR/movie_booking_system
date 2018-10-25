@@ -24,7 +24,8 @@
             </a>
             <ul class="dropdown-menu" role="Add">
               <li><%= link_to "Show Subscriptions", movie_interests_path(current_user.id) %></li>
-              <li><%= link_to "Show bookings", tickets_path %></li>
+              <li><%= link_to "Show Bookings", tickets_path %></li>
+              <li><%= link_to "Show Reviews", reviews_path %></li>
             </ul>
           </li>
         <% end %>
@@ -45,6 +46,7 @@
                     <li><%= link_to 'Theatres', admin_theatres_path %></li>
                     <li><%= link_to 'Shows', admin_shows_path %></li>
                     <li><%= link_to 'Dashboard', admin_dashboards_path %></li>
+                    <li><%= link_to 'Tickets', tickets_path %></li>
                   </ul>
                 </li>
             <% end %>

@@ -16,9 +16,9 @@ class UsersController < ApplicationController
   def show; end
 
   # GET /users/new
-  def new
-    @user = User.new
-  end
+  #def new
+    #@user = User.new
+  #end
 
   # GET /users/1/edit
    def edit
@@ -31,18 +31,18 @@ class UsersController < ApplicationController
 
   # POST /users
   # POST /users.json
-  def create
-    @user = User.new(user_params)
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #def create
+    #@user = User.new(user_params)
+    #respond_to do |format|
+      #if @user.save
+        #format.html { redirect_to @user, notice: 'User was successfully created.' }
+        #format.json { render :show, status: :created, location: @user }
+      #else
+        #format.html { render :new }
+        #format.json { render json: @user.errors, status: :unprocessable_entity }
+      #end
+    #end
+  #end
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
@@ -53,23 +53,12 @@ class UsersController < ApplicationController
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+       format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /users/1
-  respond_to do |format|
-          if (@user.destroy if check_admin_count)
-            sign_out @user
-            format.html { redirect_to static_pages_home_url, notice: 'User was successfully destroyed.' }
-            format.json { head :no_content }
-          else
-            flash[:error] = "Error deleting user"
-            format.html { redirect_back(fallback_location: admin_movies_url)}
-            format.json { head :no_content }
-          end
-        end
   # DELETE /users/1.json
   def destroy
     if @user.role == "admin"
@@ -104,7 +93,6 @@ class UsersController < ApplicationController
   end
 
   def activate_account
-    #byebug
     render 'activate_account'
   end
 

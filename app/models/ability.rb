@@ -1,58 +1,33 @@
-# frozen_string_literal: true
-
 class Ability
   include CanCan::Ability
 
   def initialize(user)
     user ||= User.new # guest user (not logged in)
     alias_action :index, :destroy, to: :see
-    alias_action :edit, to: :update
-    alias_action :index, :show, to: :read
-    alias_action :show, :new, :create, :index, to: :access
-      if user.role == 'admin'
+    #alias_action :edit, to: :update
+    alias_action :new, :to => :create1
+    #alias_action :index, :show, to: :read
+    alias_action :show, :create, :index, :update_count, to: :access
+    alias_action :activate_account, :activate_account_mail, :activate_user_account, to: :activate
+    if user.role == 'admin'
       can :manage, [Movie, Theatre, Show]
       can %i[see], Review
-      can %i[update read destroy], User
+      can %i[update read], User
       can %i[index], MovieInterest
-      can %i[see read update_count], Ticket
-    elsif user.role == 'customer'
+      can %i[read], Ticket
+    else
       can :read, Movie
-      can :read, Review
-      can :access, Ticket
-      can :manage, User
-      can :manage, MovieInterest
-    elsif user.role == 'critic'
-      can :manage, Review
-      can :read, Movie
-      can :access, Ticket
-      can :manage, User
-      can :manage, MovieInterest
-    elsif user.role.nil?
-      can :read, Movie
- end
+      can %i[activate], User
+      if !user.role.nil?
+        can :access, Ticket
+        can %i[update show destroy ], User
+        can %i[see read create], MovieInterest
+        if user.role == 'customer'
+          can :read, Review
+        elsif user.role == 'critic'
+          can %i[read update create new], Review
+        end
+      end  
+    end
   end
 end
-
-#   if user.admin?
-#     can :manage, :all
-#   else
-#     can :read, :all
-#   end
-#
-# The first argument to `can` is the action you are giving the user
-# permission to do.
-# If you pass :manage it will apply to every action. Other common actions
-# here are :read, :create, :update and :destroy.
-#
-# The second argument is the resource the user can perform the action on.
-# If you pass :all it will apply to every resource. Otherwise pass a Ruby
-# class of the resource.
-#
-# The third argument is an optional hash of conditions to further filter the
-# objects.
-# For example, here the user can only update published articles.
-#
-#   can :update, Article, :published => true
-#
-# See the wiki for details:
-# https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities

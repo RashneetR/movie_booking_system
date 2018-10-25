@@ -76,3 +76,6 @@ Send email to activate account?
 
 <p><%= link_to 'Activate Account', activate_account_url(@resource) %></p>
 <%= link_to 'Activate Account', activate_account_url(@resource) %>
+////////////////////////////////////////////////////////////////////////
+
+<%= link_to 'Activate Account', activate_user_account_url(@email) %>

@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   resources :movie_interests
   get 'admin/movies/change_status/:id', to: 'admin/movies#change_status', as: 'admin/movies/change_status'
   resources :movies
-  resources :movies
   resources :reviews
   resources :shows
   resources :theatres
@@ -31,8 +30,6 @@ Rails.application.routes.draw do
   post '/users/activate_account', to: 'users#activate_account_mail'
   get '/users/activate_user_account/:email', to: 'users#activate_user_account', as: 'activate_user_account'
   resources :users do
-    get 'activate_account', to: 'users#activate_account', on: :collection
-    
+    get 'activate_account', to: 'users#activate_account', on: :collection   
   end
-  resources :static_pages
 end

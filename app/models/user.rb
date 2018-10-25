@@ -55,11 +55,15 @@ class User
   end
 
   def active_for_authentication?
-    super && self.active == "active" 
+      super && self.active == "active"
   end
 
   def inactive_message
+    if self.active == "inactive"
     "Sorry, this account has been deactivated. Sign up and activate account"
+    else
+      "Confirmation mail sent"
+    end
   end
 
   protected

@@ -12,13 +12,13 @@ class ReviewsController < ApplicationController
       @movie_id = params[:movie]
       @reviews = Review.where(movie_id: @movie_id).all.paginate(page: params[:page], per_page: 10)
     else
-      @reviews = Review.all.paginate(page: params[:page], per_page: 10)
+      @reviews = Review.where(user_id: current_user.id).paginate(page: params[:page], per_page: 10)
     end
   end
 
   # GET /reviews/1
   # GET /reviews/1.json
-  def show; end
+  
 
   # GET /reviews/new
   def new
@@ -28,8 +28,7 @@ class ReviewsController < ApplicationController
   end
 
   # GET /reviews/1/edit
-  def edit; end
-
+  
   # POST /reviews
   # POST /reviews.json
   def create
@@ -54,17 +53,17 @@ class ReviewsController < ApplicationController
 
   # PATCH/PUT /reviews/1
   # PATCH/PUT /reviews/1.json
-  def update
-    respond_to do |format|
-      if @review.update(review_params)
-        format.html { redirect_to @review, notice: 'Review was successfully updated.' }
-        format.json { render :show, status: :ok, location: @review }
-      else
-        format.html { render :edit }
-        format.json { render json: @review.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #def update
+    #respond_to do |format|
+      #if @review.update(review_params)
+        #format.html { redirect_to @review, notice: 'Review was successfully updated.' }
+        #format.json { render :show, status: :ok, location: @review }
+      #else
+        #format.html { render :edit }
+        #format.json { render json: @review.errors, status: :unprocessable_entity }
+      #end
+    #end
+  #end
 
   # DELETE /reviews/1
   # DELETE /reviews/1.json

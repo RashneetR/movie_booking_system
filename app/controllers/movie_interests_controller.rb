@@ -22,13 +22,8 @@ class MovieInterestsController < ApplicationController
   def show; end
 
   # GET /movie_interests/new
-  def new
-    # @m_id = params[:id]
-    @movie_interest = MovieInterest.new
-  end
 
   # GET /movie_interests/1/edit
-  def edit; end
 
   # POST /movie_interests
   # POST /movie_interests.json
@@ -37,7 +32,6 @@ class MovieInterestsController < ApplicationController
       redirect_to movies_path, notice: 'Already showing'
     else
       respond_to do |format|
-        #byebug
         #if MovieInterest.excludes(movie_id: @movie.id, user_id: current_user.id)
         if MovieInterest.where(movie_id: @movie.id, user_id: current_user.id).empty?
           @movie_interest.movie_id = @movie.id
@@ -55,22 +49,10 @@ class MovieInterestsController < ApplicationController
 
   # PATCH/PUT /movie_interests/1
   # PATCH/PUT /movie_interests/1.json
-  def update
-    respond_to do |format|
-      if @movie_interest.update(movie_interest_params)
-        format.html { redirect_to @movie_interest, notice: 'Movie interest was successfully updated.' }
-        format.json { render :show, status: :ok, location: @movie_interest }
-      else
-        format.html { render :edit }
-        format.json { render json: @movie_interest.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
   # DELETE /movie_interests/1
   # DELETE /movie_interests/1.json
   def destroy
-    # user.movies.destroy(m)
     @movie_interest.destroy
     respond_to do |format|
       format.html { redirect_to movies_url, notice: 'Unsubscribed.' }
