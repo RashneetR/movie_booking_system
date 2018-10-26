@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
   root to: 'static_pages#home'
   post '/admin/movies/:id', to: 'admin/movies#update'
-  get '/admin/shows/search', to: 'admin/shows#search'
   post '/admin/shows/:id', to: 'admin/shows#update'
   post '/admin/theatres/:id', to: 'admin/theatres#update'
-  get '/add_movie_interest', to: 'movie_interests#create'
-  get 'admin/movies/change_status/:id', to: 'admin/movies#change_status', as: 'admin/movies/change_status'
+  get '/add_movie_interest', to: 'movie_interests#create' #post 
+  get 'admin/movies/change_status/:id', to: 'admin/movies#change_status', as: 'admin/movies/change_status' #post
 
   namespace :admin do
     resources :movies, :theatres, :shows
@@ -21,8 +20,8 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: 'myregistrations' }
 
-  post '/users/activate_account', to: 'users#activate_account_mail'
-  get '/users/activate_user_account/:email', to: 'users#activate_user_account', as: 'activate_user_account'
+  post '/users/activate_account', to: 'users#activate_account_mail' #
+  get '/users/activate_user_account/:email', to: 'users#activate_user_account', as: 'activate_user_account' #should be post
   resources :users do
     get 'activate_account', to: 'users#activate_account', on: :collection
   end

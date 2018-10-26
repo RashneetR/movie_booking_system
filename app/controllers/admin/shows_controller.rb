@@ -30,11 +30,6 @@ class Admin::ShowsController < ApplicationController
     end
   end
 
-  def search
-    @m = Movie.where(status: 'Now Showing')
-    @t = Theatre.all
-  end
-
   def show; end
 
   def new
