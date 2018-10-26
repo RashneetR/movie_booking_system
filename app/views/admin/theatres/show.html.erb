@@ -4,11 +4,12 @@
   <strong>Theatre Name:</strong>
   <%= @admin_theatre.name %>
 </p>
-
+<% if (!@admin_theatre.address.nil? && !@admin_theatre.address.address.empty?) %>
 <p>
   <strong>Theatre Address:</strong>
   <%= @admin_theatre.address.address %>
 </p>
+<% end %>
 
 <table>
   <thead>
