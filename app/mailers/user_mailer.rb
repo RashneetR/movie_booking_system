@@ -21,5 +21,4 @@ class UserMailer < ApplicationMailer
     @email = email
     mail(to: @email, subject: 'Activate Account')
   end
-
 end

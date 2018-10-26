@@ -1,4 +1,4 @@
-<%= will_paginate @users%>
+<%= will_paginate @users %>
 <h1>Users</h1>
 
 <table>
@@ -13,24 +13,22 @@
 
   <tbody>
     <% @users.each do |user| %>
-    <% if user.role!= "admin" %>
-      <tr>
-        <td><%= user.name %>
-        <td><%= user.email %>
-        <td><%= user.role %>
-        <td><%= link_to 'Show', user %></td>
-        <% if current_user.role == "admin" %>
-        <td><%= link_to 'Edit Role', edit_user_path(user) %></td>
-        <% else %>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        
-        <td><%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
-    <% end %>
+      <% if user.role!= "admin" %>
+        <tr>
+          <td><%= user.name %>
+          <td><%= user.email %>
+          <td><%= user.role %>
+          <td><%= link_to 'Show', user %></td>
+          <% if current_user.role == "admin" %>
+            <td><%= link_to 'Edit Role', edit_user_path(user) %></td>
+          <% else %>
+            <td><%= link_to 'Edit', edit_user_path(user) %></td>
+            <td><%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
-
-<br>
-<%= will_paginate @users%>
+<br />
+<%= will_paginate @users %>

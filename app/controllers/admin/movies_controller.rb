@@ -1,43 +1,29 @@
-# frozen_string_literal: true
-
-# module Admin
-# class Admin::MoviesController < BaseController
 class Admin::MoviesController < ApplicationController
   before_action :check_role
   before_action :authenticate_user!
   load_and_authorize_resource :movie
   before_action :set_admin_movie, only: %i[show edit update destroy]
 
-  # GET /admin/movies
-  # GET /admin/movies.json
   def index
     @admin_movies = Movie.all.paginate(page: params[:page], per_page: 10)
   end
 
-  # GET /admin/movies/1
-  # GET /admin/movies/1.json
   def show
     respond_to do |format|
       format.html { render :show }
       format.json { render :show }
       format.js {}
-      
     end
   end
 
-  # GET /admin/movies/new
   def new
     @admin_movie = Movie.new
   end
 
-  # GET /admin/movies/1/edit
   def edit; end
 
-  # POST /admin/movies
-  # POST /admin/movies.json
   def create
     @admin_movie = Movie.new(admin_movie_params)
-
     respond_to do |format|
       if @admin_movie.save
         format.html { redirect_to admin_movies_url, notice: 'Movie was successfully created.' }
@@ -49,13 +35,11 @@ class Admin::MoviesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /admin/movies/1
-  # PATCH/PUT /admin/movies/1.json
   def update
     respond_to do |format|
       if @admin_movie.update(admin_movie_params)
         format.html { redirect_to admin_movies_url, notice: 'Movie details Updated' }
-        format.json { head :no_content } 
+        format.json { head :no_content }
       else
         format.html { render :edit }
         format.json { render json: @admin_movie.errors, status: :unprocessable_entity }
@@ -63,11 +47,9 @@ class Admin::MoviesController < ApplicationController
     end
   end
 
-  # DELETE /admin/movies/1
-  # DELETE /admin/movies/1.json
-  def destroy 
+  def destroy
     if @admin_movie.shows.blank? && @admin_movie.reviews.blank?
-     @admin_movie.destroy
+      @admin_movie.destroy
       respond_to do |format|
         format.html { redirect_to admin_movies_url, notice: 'Movie was successfully destroyed.' }
         format.json { head :no_content }
@@ -83,8 +65,7 @@ class Admin::MoviesController < ApplicationController
   def change_status
     @movie_id = params[:id]
     @movie = Movie.find_by(id: @movie_id)
-    @movie.status = "Now Showing"
-
+    @movie.status = 'Now Showing'
     respond_to do |format|
       if @movie.save
         flash[:notice] = 'Successfully updated to Now Showing '
@@ -95,13 +76,11 @@ class Admin::MoviesController < ApplicationController
   end
 
   private
-  
-  # Use callbacks to share common setup or constraints between actions.
+
   def set_admin_movie
     @admin_movie = Movie.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def admin_movie_params
     params.require(:admin_movie).permit(:name, :summary, :status, :image)
   end
@@ -110,8 +89,8 @@ class Admin::MoviesController < ApplicationController
     @subscriptions = MovieInterest.where(movie_id: @movie_id)
     @users = @subscriptions.pluck(:user_id)
     @users.each do |user|
-    UserMailer.movie_update(user.to_s, @movie.name.to_s).deliver_later
-    @subscriptions.each(&:destroy)
+      UserMailer.movie_update(user.to_s, @movie.name.to_s).deliver_later
+      @subscriptions.each(&:destroy)
     end
   end
 end

@@ -1,45 +1,39 @@
 <%= will_paginate @reviews %>
 <% if current_user.role != 'admin' %>
-<h1>Reviews Given</h1>
+  <h1>Reviews Given</h1>
 <% else %>
-<h1>Reviews</h1>
+  <h1>Reviews</h1>
 <% end %>
-<% if @reviews.any? %>
-
 <table>
-  <thead>
-    <tr>
-      <th>Movie Name</th>
-      <th>User Name</th>
-      <th>Rating</th>
-      <th>Comment</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  
-
-  <tbody>
-    <% @reviews.each do |review| %>
+  <% if @reviews.any? %>
+    <thead>
       <tr>
-        <td><%= review.movie.name %></td>
-        <td><%= review.user.name %></td>
-        <td><%= review.rating %></td>
-        <% if review.comment.empty? %>
-        <td><%= "--" %></td>
-        <% else %>
-        <td><%= review.comment %></td>
-        <% end %>
-        <% if current_user.role != "admin" %>
-        <% end %>
-        <td><%= link_to 'Delete', review, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        
+        <th>Movie Name</th>
+        <th>User Name</th>
+        <th>Rating</th>
+        <th>Comment</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-  <% else %>
-  <p> No reviews to display </p>
-<% end %>
-</table>
+    </thead>
 
-<br>
- <%= will_paginate @reviews %>
+    <tbody>
+      <% @reviews.each do |review| %>
+        <tr>
+          <td><%= review.movie.name %></td>
+          <td><%= review.user.name %></td>
+          <td><%= review.rating %></td>
+          <% if review.comment.empty? %>
+            <td><%= "--" %></td>
+          <% else %>
+            <td><%= review.comment %></td>
+          <% end %>
+          <td><%= link_to 'Delete', review, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% else %>
+    <p> No reviews to display </p>
+  <% end %>
+</table>
+<br />
+<%= will_paginate @reviews %>

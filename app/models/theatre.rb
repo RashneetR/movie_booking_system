@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Theatre
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -8,7 +6,7 @@ class Theatre
   embeds_one :address
   accepts_nested_attributes_for :address
 
-  field :name,type: String
+  field :name, type: String
 
   validates :name, presence: true, length: { maximum: 50 }, uniqueness: true
 end

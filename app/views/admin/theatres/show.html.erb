@@ -1,4 +1,4 @@
-<%= will_paginate @shows%>
+<%= will_paginate @shows %>
 <h1>Admin Theatre</h1>
 <p>
   <strong>Theatre Name:</strong>
@@ -7,7 +7,7 @@
 
 <p>
   <strong>Theatre Address:</strong>
- <%= @admin_theatre.address["address"] %>
+  <%= @admin_theatre.address.address %>
 </p>
 
 <table>
@@ -38,4 +38,4 @@
 
 <%= link_to 'Edit', edit_admin_theatre_path(@admin_theatre) %> |
 <%= link_to 'Back', admin_theatres_path %>
-<%= will_paginate @shows%>
+<%= will_paginate @shows %>

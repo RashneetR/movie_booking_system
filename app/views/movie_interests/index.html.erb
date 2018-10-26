@@ -1,7 +1,6 @@
-  <%= will_paginate @movie_interests %>
-  <h1>Movie Interests</h1>
-  <% if @movie_interests.any? %>
-
+<%= will_paginate @movie_interests %>
+<h1>Movie Interests</h1>
+<% if @movie_interests.any? %>
   <% if current_user.role == "admin" %>
     <table>
       <thead>
@@ -22,30 +21,28 @@
         <% end %>
       </tbody>
     </table>
-
   <% else %>
     <table>
-    <thead>
-      <tr>
-        <th>Movie Name</th>
-        <th colspan="2"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @movie_interests.each do |movie_interest| %>
+      <thead>
         <tr>
-          <td><%= movie_interest.movie.name %></td>
-          <td><%= link_to 'Show', movie_path(movie_interest.movie_id) %></td>
-          <td><%= link_to 'Unsubscribe', movie_interest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-
+          <th>Movie Name</th>
+          <th colspan="2"></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+        <% @movie_interests.each do |movie_interest| %>
+          <tr>
+            <td><%= movie_interest.movie.name %></td>
+            <td><%= link_to 'Show', movie_path(movie_interest.movie_id) %></td>
+            <td><%= link_to 'Unsubscribe', movie_interest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   <% end %>
-  <br>
+  <br />
 <% else %>
   <p> No subscriptions </p>
 <% end %>
-  <%= will_paginate @movie_interests %>
+<%= will_paginate @movie_interests %>

@@ -1,18 +1,20 @@
+# frozen_string_literal: true
+
 require 'carrierwave'
-#require 'carrierwave/orm/activerecord'
+# require 'carrierwave/orm/activerecord'
 
 require_relative 'boot'
 
-#require "rails"
-#require "active_storage/engine"
-#require "action_controller/railtie"
-#require "action_mailer/railtie"
-#require "sprockets/railtie"
-#require "rails/test_unit/railtie"
+# require "rails"
+# require "active_storage/engine"
+# require "action_controller/railtie"
+# require "action_mailer/railtie"
+# require "sprockets/railtie"
+# require "rails/test_unit/railtie"
 
-require "rails"
+require 'rails'
 
-%w(
+%w[
   action_controller/railtie
   action_view/railtie
   action_mailer/railtie
@@ -20,14 +22,12 @@ require "rails"
   action_cable/engine
   rails/test_unit/railtie
   sprockets/railtie
-).each do |railtie|
+].each do |railtie|
   begin
     require railtie
   rescue LoadError
   end
 end
-
-
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

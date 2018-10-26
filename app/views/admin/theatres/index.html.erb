@@ -4,11 +4,10 @@
 <table>
   <thead>
     <tr>
-    <th>Theatre Name</th>
+      <th>Theatre Name</th>
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @admin_theatres.each do |admin_theatre| %>
       <tr>
@@ -20,6 +19,5 @@
     <% end %>
   </tbody>
 </table>
-
 <br />
-<%= will_paginate @admin_theatres%>
+<%= will_paginate @admin_theatres %>

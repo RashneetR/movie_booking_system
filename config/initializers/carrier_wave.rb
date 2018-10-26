@@ -1,1 +1,3 @@
-#require 'carrierwave/orm/mongoid'
+# frozen_string_literal: true
+
+# require 'carrierwave/orm/mongoid'

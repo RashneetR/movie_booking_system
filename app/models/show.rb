@@ -1,18 +1,15 @@
-# frozen_string_literal: true
-
-class Show 
+class Show
   include Mongoid::Document
   include Mongoid::Timestamps
   belongs_to :movie, foreign_key: :movie_id
   belongs_to :theatre, foreign_key: :theatre_id
   has_many :tickets
-  #enum booking_state: { vacant: 0, booked: 1 }
 
   field :start_time, type: Time
   field :end_time, type: Time
   field :total_seats, type: Integer, default: 300
-  field :num_seats_sold, type: Integer,  default: 0
-  field :booking_state, type: String, default: "vacant"
+  field :num_seats_sold, type: Integer, default: 0
+  field :booking_state, type: String, default: 'vacant'
   field :cost_per_seat, type: Float, default: 200
 
   validates :start_time, presence: true
@@ -29,10 +26,7 @@ class Show
 
   def current_time
     return unless start_time.present?
-    #puts "\n\n\n #{Time.now}\n\n\n"
     if Time.now > start_time
-    #puts "\n\n\n #{start_time}\n\n\n"
-    
       errors.add(:start_time, 'should be greater than current time')
     end
   end
