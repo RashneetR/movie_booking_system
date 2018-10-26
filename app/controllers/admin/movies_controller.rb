@@ -4,14 +4,10 @@ class Admin::MoviesController < ApplicationController
   load_and_authorize_resource :movie
   before_action :set_admin_movie, only: %i[show edit update destroy]
 
-  # GET /admin/movies
-  # GET /admin/movies.json
   def index
     @admin_movies = Movie.all.paginate(page: params[:page], per_page: 10)
   end
 
-  # GET /admin/movies/1
-  # GET /admin/movies/1.json
   def show
     respond_to do |format|
       format.html { render :show }
@@ -20,16 +16,12 @@ class Admin::MoviesController < ApplicationController
     end
   end
 
-  # GET /admin/movies/new
   def new
     @admin_movie = Movie.new
   end
 
-  # GET /admin/movies/1/edit
   def edit; end
 
-  # POST /admin/movies
-  # POST /admin/movies.json
   def create
     @admin_movie = Movie.new(admin_movie_params)
     respond_to do |format|
@@ -43,8 +35,6 @@ class Admin::MoviesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /admin/movies/1
-  # PATCH/PUT /admin/movies/1.json
   def update
     respond_to do |format|
       if @admin_movie.update(admin_movie_params)
@@ -57,8 +47,6 @@ class Admin::MoviesController < ApplicationController
     end
   end
 
-  # DELETE /admin/movies/1
-  # DELETE /admin/movies/1.json
   def destroy
     if @admin_movie.shows.blank? && @admin_movie.reviews.blank?
       @admin_movie.destroy
@@ -78,7 +66,6 @@ class Admin::MoviesController < ApplicationController
     @movie_id = params[:id]
     @movie = Movie.find_by(id: @movie_id)
     @movie.status = 'Now Showing'
-
     respond_to do |format|
       if @movie.save
         flash[:notice] = 'Successfully updated to Now Showing '
@@ -90,12 +77,10 @@ class Admin::MoviesController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_admin_movie
     @admin_movie = Movie.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def admin_movie_params
     params.require(:admin_movie).permit(:name, :summary, :status, :image)
   end

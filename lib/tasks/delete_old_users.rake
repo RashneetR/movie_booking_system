@@ -18,4 +18,3 @@ task :delete_old_users => :environment do
     end
   end
 end
-

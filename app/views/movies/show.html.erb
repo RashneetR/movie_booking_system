@@ -5,13 +5,12 @@
   $(ele).closest('#rash').find('input.total_cost').val($(ele).val()*x);
 }
 </script>
-
 <h1>Movies</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Name</th> 
+      <th>Name</th>
       <td><%= @movie.name %></td>
     </tr>
     <tr>
@@ -21,7 +20,7 @@
   </thead>
   <% if @movie.status == "Now Showing" %>
     <% if @shows.any? %>
-      <table>  
+      <table>
         <thead>
           <tr>
             <th>Theatre Name</th>
@@ -35,12 +34,12 @@
         </thead>
         <tbody>
           <% @shows.each do |show| %>
-            <tr id= "rash">
+            <tr id="rash">
               <% @num = show.total_seats - show.num_seats_sold %>
               <% if @num>0 %>
                 <%= form_for(:ticket, :url => url_for(action: 'create', controller:'tickets')) do |f| %>
-                  <%=f.hidden_field :show_id, value: show.id %>
-                  <%=f.hidden_field :user_id, value: current_user.id %>
+                  <%= f.hidden_field :show_id, value: show.id %>
+                  <%= f.hidden_field :user_id, value: current_user.id %>
                   <td><%= show.theatre.name %></td>
                   <td><%= show.start_time %></td>
                   <td><%= show.end_time %></td>
@@ -56,14 +55,14 @@
                 <% end %>
               <% end %>
             </tr>
-          <%end %>
+          <% end %>
         </tbody>
       </table>
-      <br>
     <% else %>
+      <br />
       <p> No shows yet </p>
     <% end %>
-<% end %>
+  <% end %>
 </table>
 <%= link_to 'Back', movies_path %>
 <%= will_paginate @shows %>

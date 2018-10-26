@@ -59,5 +59,5 @@ class ApplicationController < ActionController::Base
     else
       admin_movies_path
     end
-   end
+  end
 end

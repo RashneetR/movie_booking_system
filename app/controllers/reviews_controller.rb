@@ -1,12 +1,8 @@
-# frozen_string_literal: true
-
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource :review
   before_action :set_review, only: %i[show edit update destroy]
 
-  # GET /reviews
-  # GET /reviews.json
   def index
     if current_user.role == 'admin'
       @movie_id = params[:movie]
@@ -16,21 +12,12 @@ class ReviewsController < ApplicationController
     end
   end
 
-  # GET /reviews/1
-  # GET /reviews/1.json
-  
-
-  # GET /reviews/new
   def new
     @review = Review.new
     @review.user_id = current_user.id
     @review.movie_id = params[:id]
   end
 
-  # GET /reviews/1/edit
-  
-  # POST /reviews
-  # POST /reviews.json
   def create
     @review = Review.new(review_params)
     @review.user_id = current_user.id
@@ -45,18 +32,16 @@ class ReviewsController < ApplicationController
           format.html { redirect_back(fallback_location: new_review_path) }
         end
       end
-      else
-        flash[:notice] = "Already reviewed"
-        redirect_to movies_path
+    else
+      flash[:notice] = 'Already reviewed'
+      redirect_to movies_path
       end
   end
-  
-  # DELETE /reviews/1
-  # DELETE /reviews/1.json
+
   def destroy
     @review.destroy
     respond_to do |format|
-      if current_user.role == "admin"
+      if current_user.role == 'admin'
         format.html { redirect_to admin_movies_url, notice: 'Review was successfully destroyed.' }
         format.json { head :no_content }
       else
@@ -68,12 +53,10 @@ class ReviewsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_review
     @review = Review.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def review_params
     params.require(:review).permit(:rating, :comment, :user_id, :movie_id)
   end

@@ -7,7 +7,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-admin = User.new(name: 'Admin User', email: 'rashneetforsampleapp@gmail.com', password: 'admin@123', password_confirmation: 'admin@123', role: 'admin', confirmed_at: "ISODate(\"2018-10-22T11:39:03.675Z\")")
+admin = User.new(name: 'Admin User', email: 'rashneetforsampleapp@gmail.com', password: 'admin@123', password_confirmation: 'admin@123', role: 'admin', confirmed_at: 'ISODate("2018-10-22T11:39:03.675Z")')
 
 if admin.valid?
   admin.save

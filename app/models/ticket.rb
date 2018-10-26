@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-class Ticket 
+class Ticket
   include Mongoid::Document
   include Mongoid::Timestamps
   belongs_to :user, foreign_key: :user_id
@@ -8,7 +6,7 @@ class Ticket
 
   field :total_cost, type: Float
   field :num_seats_bought, type: Integer, default: 1
- 
+
   validates :show_id, presence: true
   validates :total_cost, presence: true
   validates :user_id, presence: true
@@ -17,7 +15,6 @@ class Ticket
   after_create :ticket_booked_email
 
   def ticket_booked_email
-     puts "\n\n\nhello\n\n\n\n"
-    UserMailer.ticket_booked(self.id.to_s).deliver_later
+    UserMailer.ticket_booked(id.to_s).deliver_later
   end
 end

@@ -1,36 +1,32 @@
 <%= will_paginate @tickets %>
 <h1>Tickets</h1>
-
 <table>
-<% if @tickets.any? %>
- 
- <thead>
- <th>Ticket ID</th>
- <th>Show ID</th>
- <th>Movie Name</th>
- <th>Theatre Name</th>
- <th>Show Time</th>
- <th>Number of Seats</th>
- <th>Total Cost</th>
- 
- </thead>
- <tbody>
- <% @tickets.each do |ticket| %>
-   <tr>
-   <td><%= ticket.id.to_s %></td>
-   <td><%= ticket.show.id.to_s %></td>
-   <td><%= ticket.show.movie.name %></td>
-   <td><%= ticket.show.theatre.name %></td>
-   <td><%= ticket.show.start_time %></td>
-   <td><%= ticket.num_seats_bought %></td>
-   <td><%= ticket.total_cost %></td>
-   </tr>
- </tbody>
- <% end %>
- <% else %>
-  <p> No tickets </p>
-<% end %>
+  <% if @tickets.any? %>
+    <thead>
+      <th>Ticket ID</th>
+      <th>Show ID</th>
+      <th>Movie Name</th>
+      <th>Theatre Name</th>
+      <th>Show Time</th>
+      <th>Number of Seats</th>
+      <th>Total Cost</th>
+    </thead>
+    <tbody>
+      <% @tickets.each do |ticket| %>
+        <tr>
+          <td><%= ticket.id.to_s %></td>
+          <td><%= ticket.show.id.to_s %></td>
+          <td><%= ticket.show.movie.name %></td>
+          <td><%= ticket.show.theatre.name %></td>
+          <td><%= ticket.show.start_time %></td>
+          <td><%= ticket.num_seats_bought %></td>
+          <td><%= ticket.total_cost %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% else %>
+    <p> No tickets </p>
+  <% end %>
 </table>
-
-<br>
+<br />
 <%= will_paginate @tickets %>

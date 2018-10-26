@@ -1,29 +1,18 @@
-# frozen_string_literal: true
-
 class TicketsController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource :ticket
   before_action :set_ticket, only: %i[show edit update destroy]
 
-  # GET /tickets
-  # GET /tickets.json
   def index
-    if current_user.role != "admin"
-    @tickets = Ticket.where(user_id: current_user.id).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
-  else
-    @tickets= Ticket.all.paginate(page: params[:page], per_page: 10)
+    if current_user.role != 'admin'
+      @tickets = Ticket.where(user_id: current_user.id).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    else
+      @tickets = Ticket.all.paginate(page: params[:page], per_page: 10)
+    end
   end
-end
 
-  # GET /tickets/1
-  # GET /tickets/1.json
   def show; end
 
-  # GET /tickets/1/edit
-  #def edit; end
-
-  # POST /tickets
-  # POST /tickets.json
   def create
     @ticket = Ticket.new(ticket_params)
     respond_to do |format|
@@ -38,8 +27,6 @@ end
     end
   end
 
-  # DELETE /tickets/1
-  # DELETE /tickets/1.json
   def destroy
     @ticket.destroy
     respond_to do |format|
@@ -52,18 +39,15 @@ end
 
   def update_count
     @show = Show.find_by(id: @ticket.show_id)
-    # @show.total_seats -= @ticket.num_seats_bought
     @show.num_seats_sold += @ticket.num_seats_bought
     @show.booking_state = 1 if @show.total_seats == @show.num_seats_sold
     @show.save
   end
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_ticket
     @ticket = Ticket.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def ticket_params
     params.require(:ticket).permit(:show_id, :total_cost, :num_seats_bought, :user_id)
   end
