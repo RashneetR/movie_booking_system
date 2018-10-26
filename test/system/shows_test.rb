@@ -6,12 +6,12 @@ class ShowsTest < ApplicationSystemTestCase
   end
 
   test "visiting the index" do
-    visit shows_url
+    visit admin_shows_url
     assert_selector "h1", text: "Shows"
   end
 
   test "creating a Show" do
-    visit shows_url
+    visit admin_shows_url
     click_on "New Show"
 
     fill_in "Edit", with: @show.edit
@@ -25,7 +25,7 @@ class ShowsTest < ApplicationSystemTestCase
   end
 
   test "updating a Show" do
-    visit shows_url
+    visit admin_shows_url
     click_on "Edit", match: :first
 
     fill_in "Edit", with: @show.edit
@@ -39,7 +39,7 @@ class ShowsTest < ApplicationSystemTestCase
   end
 
   test "destroying a Show" do
-    visit shows_url
+    visit admin_shows_url
     page.accept_confirm do
       click_on "Destroy", match: :first
     end

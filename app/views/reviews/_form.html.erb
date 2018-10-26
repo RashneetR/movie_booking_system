@@ -1,15 +1,6 @@
 <%= form_with(model: review, local: true) do |form| %>
   <div class="form-horizontal">
-    <% if review.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:</h2>
-        <ul>
-          <% review.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+    <%= error_messages_for(@review) %>
     <%= form.hidden_field :movie_id, value: params[:id] %>
 
     <div class="field">

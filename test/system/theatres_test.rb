@@ -6,12 +6,12 @@ class TheatresTest < ApplicationSystemTestCase
   end
 
   test "visiting the index" do
-    visit theatres_url
+    visit admin_theatres_url
     assert_selector "h1", text: "Theatres"
   end
 
   test "creating a Theatre" do
-    visit theatres_url
+    visit admin_theatres_url
     click_on "New Theatre"
 
     fill_in "Edit", with: @theatre.edit
@@ -25,7 +25,7 @@ class TheatresTest < ApplicationSystemTestCase
   end
 
   test "updating a Theatre" do
-    visit theatres_url
+    visit admin_theatres_url
     click_on "Edit", match: :first
 
     fill_in "Edit", with: @theatre.edit
@@ -39,7 +39,7 @@ class TheatresTest < ApplicationSystemTestCase
   end
 
   test "destroying a Theatre" do
-    visit theatres_url
+    visit admin_theatres_url
     page.accept_confirm do
       click_on "Destroy", match: :first
     end

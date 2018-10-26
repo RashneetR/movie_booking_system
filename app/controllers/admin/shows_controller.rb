@@ -73,8 +73,8 @@ class Admin::ShowsController < ApplicationController
         format.html { redirect_to admin_show_path(@admin_show), notice: 'Show was successfully updated.' }
         format.json { render :show, status: :ok, location: @admin_show }
       else
-        format.html { render :edit }
-        format.json { render json: @admin_show.errors, status: :unprocessable_entity }
+        flash[:error] = @admin_show.errors.full_messages.to_sentence
+        format.html { redirect_to edit_admin_show_path(@admin_show) }
       end
     end
   end
