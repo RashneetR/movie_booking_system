@@ -10,7 +10,7 @@ class Ability
     if user.role == 'admin'
       can :manage, [Movie, Theatre, Show]
       can %i[see], Review
-      can %i[update read], User
+      can %i[update read destroy], User
       can %i[index], MovieInterest
       can %i[read], Ticket
     else
