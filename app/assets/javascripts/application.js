@@ -1,3 +1,4 @@
+
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -10,7 +11,23 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
 //= require activestorage
 //= require turbolinks
+//= require jquery3
+//= require rails-ujs
+//= require jquery.turbolinks
+//= require jquery-ui
+//= require select2-full
+//= require bootstrap
+//= require bootstrap.min
+//= require bootstrap/dropdown
+//= require moment
+//= require turbolinks
 //= require_tree .
+
+$(document).ready(function() {
+  $('[data-js-hide-link]').click(function(event){
+    alert('You clicked the Hide link');
+    event.preventDefault();
+  });
+});

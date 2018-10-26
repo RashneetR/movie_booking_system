@@ -1,0 +1,14 @@
+<%= form_for(admin_theatre) do |form| %>
+  <% if admin_theatre.errors.any? %>
+    <div id="error_explanation">
+      <div class="alert alert-danger">
+        <h2><%= pluralize(admin_theatre.errors.count, "error") %> prohibited this admin_theatre from being saved:</h2>
+        <ul>
+        <% admin_theatre.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+<% end %>

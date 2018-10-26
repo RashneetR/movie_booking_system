@@ -50,5 +50,6 @@ test:
 production:
   <<: *default
   database: movie_booking_system_production
-  username: movie_booking_system
-  password: <%= ENV['MOVIE_BOOKING_SYSTEM_DATABASE_PASSWORD'] %>
+  username: rashneet
+  password: mysql@123
+  url: <%= ENV['DATABASE_URL'] %>

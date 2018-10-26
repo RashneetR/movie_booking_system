@@ -1,0 +1,69 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <%= link_to "BookyMyShow", root_path, id: "logo" %>
+    
+    <ul class="nav navbar-nav">
+      <% if user_signed_in? %>
+        <% if current_user.role == "admin" %>
+          <li><%= link_to "Update User Role", users_path %></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Add
+              <span class="caret"></span>
+            </a>
+          <ul class="dropdown-menu" role="Add">
+            <li><%= link_to "Add Movie", new_admin_movie_path %></li>
+            <li><%= link_to "Add Theatre", new_admin_theatre_path %></li>
+            <li><%= link_to "Add Show", new_admin_show_path %></li>
+          </ul>
+          </li>
+        <% else %>
+          <li><%= link_to "Movies", movies_path %></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Show
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="Add">
+              <li><%= link_to "Show Subscriptions", movie_interests_path(current_user.id) %></li>
+              <li><%= link_to "Show bookings", tickets_path %></li>
+            </ul>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>          
+      <nav>
+        <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to "Home",root_path %></li>
+          <li><%= link_to "Help",   static_pages_help_path %></li>
+          <% if user_signed_in? %>
+            <% if current_user.role == "admin" %>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Sections
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="Sections">
+                    <li><%= link_to 'Movies', admin_movies_path %></li>
+                    <li><%= link_to 'Theatres', admin_theatres_path %></li>
+                    <li><%= link_to 'Shows', admin_shows_path %></li>
+                  </ul>
+                </li>
+            <% end %>
+            <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <%= current_user.name + " (#{current_user.role})" %>
+            <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+            <li><%= link_to 'Profile', edit_user_registration_path %></li>
+            <li><%= link_to 'Log out', destroy_user_session_path, method: :get %></li>
+            </ul>
+            </li>
+          <% else %>
+            <li><%= link_to 'Log In', new_user_session_path %></li>
+            <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+
+            </ul>
+          <% end %>
+        </ul>
+      </nav>
+  </div>
+</header>

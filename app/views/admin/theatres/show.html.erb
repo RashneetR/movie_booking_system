@@ -1,0 +1,36 @@
+<%= will_paginate @shows %>
+<h1>Admin Theatre</h1>
+<p>
+  <strong>Theatre Name:</strong>
+  <%= @admin_theatre.name %>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Movie Name</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Total Seats</th>
+      <th>Number of Seats Sold</th>
+      <th>Cost per seat</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @shows.each do |admin_show| %>
+      <tr>
+        <td><%= admin_show.movie.name %></td>
+        <td><%= admin_show.start_time %></td>
+        <td><%= admin_show.end_time %></td>
+        <td><%= admin_show.total_seats %></td>
+        <td><%= admin_show.num_seats_sold %></td>
+        <td><%= admin_show.cost_per_seat %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Edit', edit_admin_theatre_path(@admin_theatre) %> |
+<%= link_to 'Back', admin_theatres_path %>
+<%= will_paginate @shows %>

@@ -1,0 +1,139 @@
+
+# frozen_string_literal: true
+
+# module Admin
+# class Admin::ShowsController < BaseController
+class Admin::ShowsController < ApplicationController
+  before_action :authenticate_user!
+  load_and_authorize_resource :show
+  before_action :set_admin_show, only: %i[show edit update destroy]
+  
+
+  # GET /admin/shows
+  # GET /admin/shows.json
+  def index
+    @m = Movie.where(status: "now_showing")
+    @t = Theatre.all
+    @admin_show = Show.new
+    if params[:show].nil? 
+      puts "hi"
+      @admin_shows = Show.includes(:theatre, :movie).all.paginate(page: params[:page], per_page: 10)
+    else
+    puts "\n\n hello \n\n\n"
+    
+      if !params[:show][:movie_id].nil?
+        @movie_id = params[:show][:movie_id]
+      end
+      if !params[:show][:theatre_id].nil?
+        @theatre_id = params[:show][:theatre_id]
+      end
+      puts "\n\n #{@movie_id}\n\n\n"
+      puts "\n\n #{@theatre_id}\n\n\n"
+      
+      if (@movie_id.empty? && @theatre_id.count < 2)
+        @admin_shows = Show.includes(:theatre, :movie).all.paginate(page: params[:page], per_page: 10)
+      elsif @movie_id.empty?  
+        @admin_shows = Show.where(theatre_id: params[:show][:theatre_id]).all.paginate(page: params[:page], per_page: 10)
+      elsif @theatre_id.count < 2
+        @admin_shows = Show.where(movie_id: @movie_id).all.paginate(page: params[:page], per_page: 10)
+      else
+        @admin_shows = Show.where(movie_id: @movie_id, theatre_id: params[:show][:theatre_id]).all.paginate(page: params[:page], per_page: 10)
+      end
+    end
+    respond_to do |format|
+        format.html 
+        format.js
+      end
+  end
+
+  def search    
+    @m = Movie.where(status: "now_showing")
+    @t = Theatre.all
+  end
+
+  # GET /admin/shows/1
+  # GET /admin/shows/1.json
+  def show; end
+
+  # GET /admin/shows/new
+  def new
+    @admin_show = Show.new
+    @theatre = Theatre.all
+    if params[:movie]
+      @m = []
+      @movie = Movie.find(params[:movie])
+      @m << @movie
+    else
+      @m = Movie.where(status: "now_showing")
+    end
+  end
+
+  # GET /admin/shows/1/edit
+  def edit
+    @theatre = Theatre.all
+    @m = Movie.all
+  end
+
+  # POST /admin/shows
+  # POST /admin/shows.json
+  def create
+    @admin_show = Show.new(admin_show_params)
+
+    respond_to do |format|
+      if @admin_show.save
+        format.html { redirect_to admin_show_path(@admin_show), notice: 'Show was successfully created.' }
+        format.json { render :show, status: :created, location: @admin_show }
+      else
+        # format.html { render new_admin_show_path }
+        # format.json { render json: @admin_show.errors, status: :unprocessable_entity }
+        flash[:error] = @admin_show.errors.full_messages.to_sentence
+        format.html { redirect_back(fallback_location: new_admin_show_path) }
+
+        # render json: @admin_show.errors, status: :unprocessable_entity
+      end
+    end
+  end
+
+  # PATCH/PUT /admin/shows/1
+  # PATCH/PUT /admin/shows/1.json
+  def update
+    respond_to do |format|
+      if @admin_show.update(admin_show_params)
+        format.html { redirect_to admin_show_path(@admin_show), notice: 'Show was successfully updated.' }
+        format.json { render :show, status: :ok, location: @admin_show }
+      else
+        format.html { render :edit }
+        format.json { render json: @admin_show.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /admin/shows/1
+  # DELETE /admin/shows/1.json
+  def destroy
+    if @admin_show.tickets.blank?
+     @admin_show.destroy
+      respond_to do |format|
+        format.html { redirect_to admin_shows_url, notice: 'Show was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to admin_shows_url, notice: 'Show cannot be destroyed because tickets exist.' }
+        format.json { head :no_content }
+      end
+    end
+  end
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_admin_show
+    @admin_show = Show.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def admin_show_params
+    params.require(:admin_show).permit(:start_time, :end_time, :total_seats, :num_seats_sold, :cost_per_seat, :movie_id, :theatre_id)
+  end
+end

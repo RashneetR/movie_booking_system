@@ -1,0 +1,41 @@
+<h1>Admin Shows</h1> 
+  <%= form_for @admin_show, url: admin_shows_path, method: 'get', remote: 'true', class: "form-inline" do |f| %>
+    <script>
+      $(document).ready(function() {
+          $('#myselect21').select2({
+            placeholder: "Select a movie"
+          });
+          $('#myselect22').select2({
+            placeholder: "Select a theatre"
+          });
+      });
+    </script>
+    <div class="row">
+      <div class="col-sm-3">
+        <div class= "field">
+          <%= f.label :movie_id %>
+          <%= f.select("movie_id", @m.collect { |m| [m.name, m.id]}, {prompt: @m.first},{id: "myselect21"}) %>
+        </div>
+        </div>
+        <div class="col-sm-3">
+
+        <div class= "field">
+          <%= f.label :theatre_id %>
+          <%= f.select("theatre_id", @t.collect { |t| [t.name, t.id]}, {prompt: @t.last},{id: "myselect22", multiple: "multiple"}) %>
+          </div>
+        </div>
+        <div class="col-sm-3">
+        <%= submit_tag "Apply",:id => 'reveal' ,class: "btn btn-primary"%>
+        </div>
+      </div>
+      </div>
+    <% end %>
+  </form>
+
+<% if @admin_shows.any? %>
+  <div class = "table" id = "adminshows" >
+    <%= render 'shows' %>
+  </div>
+<% else %>
+<table><p> No shows exist </p></table>
+<% end %>

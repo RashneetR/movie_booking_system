@@ -1,0 +1,80 @@
+<%= will_paginate @shows %>
+<script>
+function myFunction() {
+    var x = document.getElementById("ticket_num_seats_bought");
+    var y = document.getElementById("ticket_total_cost");
+    var z = document.getElementById("ticket_temp");
+    y.value = x.value * z.value;
+}
+</script>
+
+
+<h1>Movies</h1>
+
+<table>
+
+  <thead>
+    <tr>
+      <th>Name</th> 
+        <td><%= @movie.name %></td>
+    </tr>
+    <tr>
+      <th>Summary</th>
+        <td><%= @movie.summary %></td>
+    </tr>
+  </thead>
+<% if @movie.status == "now_showing" %>
+<% if @shows.any? %>
+  <table>
+  
+    <thead>
+      <tr>
+        <th>Theatre Name</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Cost per Seat</th>
+        <th>Number of seats</th>
+        <th>Total Cost</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @shows.each do |show| %>
+        <tr>
+          <% @num = show.total_seats - show.num_seats_sold %>
+            <% if @num>0 %>
+              <%= form_for(:ticket, :url => url_for(action: 'create', controller:'tickets')) do |f| %>
+                <%=f.hidden_field :show_id, value: show.id %>
+                <%=f.hidden_field :user_id, value: current_user.id %>
+                <% @theatre=Theatre.find(show.theatre_id) %>
+                <td><%= @theatre.name %></td>
+                <td><%= show.start_time %></td>
+                <td><%= show.end_time %></td>
+
+                <%= f.hidden_field :temp, value:show.cost_per_seat %>
+                
+                <td><%= show.cost_per_seat %></td>
+                <td><%= f.number_field(:num_seats_bought, min: 1 , max: @num, step: 1, onchange: "myFunction()")%>
+                <td><%= f.text_field :total_cost , readonly: true%></td>
+          
+                <td>
+                <div class="actions">
+                <td><%= f.submit "Book Tickets", class: "submit_btn" %></td>
+                </div>
+                </td>
+              <% end %>
+            <% end %>
+        </tr>
+      <%end %>
+    </tbody>
+  </table>
+<br>
+<% else %>
+  <p> No shows yet </p>
+<% end %>
+</table>
+<% end %>
+
+<%= link_to 'Back', movies_path %>
+<%= will_paginate @shows %>
