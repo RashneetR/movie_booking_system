@@ -23,7 +23,7 @@ class Ability
         if user.role == 'customer'
           can :read, Review
         elsif user.role == 'critic'
-          can %i[read update create new], Review
+          can %i[read update create new destroy], Review
         end
       end
     end

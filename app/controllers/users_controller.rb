@@ -37,7 +37,7 @@ class UsersController < ApplicationController
         if @users.count >= 2
           if @user.destroy
             sign_out @user
-            format.html { redirect_to root_path, notice: 'User was successfully destroyed.' }
+            format.html { redirect_to root_url, notice: 'User was successfully destroyed.' }
             format.json { head :no_content }
           end
         else
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
       respond_to do |format|
         if @user.update
           sign_out @user
-          format.html { redirect_to root_path, notice: 'User was successfully destroyed.' }
+          format.html { redirect_to root_url, notice: 'User was successfully destroyed.' }
           format.json { head :no_content }
         else
           flash[:error] = 'Error deleting user'
@@ -69,14 +69,14 @@ class UsersController < ApplicationController
   def activate_account_mail
     UserMailer.activate_user_account(params[:user][:email]).deliver_now
     flash[:notice] = 'Email sent. Please check your mail'
-    redirect_to root_path
+    redirect_to root_url
   end
 
   def activate_user_account
     @user = User.where(email: params[:email]).first
     @user.active = 'active'
     flash[:notice] = 'Account activated. You  can now login.' if @user.save
-    redirect_to new_user_session_path
+    redirect_to new_user_session_url
   end
 
   private

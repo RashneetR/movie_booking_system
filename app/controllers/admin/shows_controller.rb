@@ -53,7 +53,7 @@ class Admin::ShowsController < ApplicationController
     @admin_show = Show.new(admin_show_params)
     respond_to do |format|
       if @admin_show.save
-        format.html { redirect_to admin_show_path(@admin_show), notice: 'Show was successfully created.' }
+        format.html { redirect_to admin_show_url(@admin_show), notice: 'Show was successfully created.' }
         format.json { render :show, status: :created, location: @admin_show }
       else
         flash[:error] = @admin_show.errors.full_messages.to_sentence

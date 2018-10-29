@@ -4,7 +4,7 @@ class MyregistrationsController < Devise::RegistrationsController
   def before_sign_up
     @user = User.where(email: params[:user][:email]).first
     if @user && @user.try(:active) == 'inactive'
-      redirect_to activate_account_user_path(@user)
+      redirect_to activate_account_user_url(@user)
     else
       return
     end

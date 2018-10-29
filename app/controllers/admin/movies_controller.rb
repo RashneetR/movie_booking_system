@@ -1,8 +1,8 @@
 class Admin::MoviesController < ApplicationController
   before_action :check_role
   before_action :authenticate_user!
-  load_and_authorize_resource :movie
-  before_action :set_admin_movie, only: %i[show edit update destroy]
+  #load_and_authorize_resource :movie
+  before_action :set_admin_movie, only: %i[show edit update destroy change_status]
 
   def index
     @admin_movies = Movie.all.paginate(page: params[:page], per_page: 10)
@@ -63,11 +63,9 @@ class Admin::MoviesController < ApplicationController
   end
 
   def change_status
-    @movie_id = params[:id]
-    @movie = Movie.find_by(id: @movie_id)
-    @movie.status = 'Now Showing'
+    @admin_movie.status = 'Now Showing'
     respond_to do |format|
-      if @movie.save
+      if @admin_movie.save
         flash[:notice] = 'Successfully updated to Now Showing '
         format.html { redirect_to controller: 'admin/movies', action: 'index' }
         delete_movie_interests
@@ -89,7 +87,7 @@ class Admin::MoviesController < ApplicationController
     @subscriptions = MovieInterest.where(movie_id: @movie_id)
     @users = @subscriptions.pluck(:user_id)
     @users.each do |user|
-      UserMailer.movie_update(user.to_s, @movie.name.to_s).deliver_later
+      UserMailer.movie_update(user.to_s, @admin_movie.name.to_s).deliver_later
       @subscriptions.each(&:destroy)
     end
   end

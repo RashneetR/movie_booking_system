@@ -18,6 +18,8 @@ class ReviewsController < ApplicationController
     @review.movie_id = params[:id]
   end
 
+  def show; end
+
   def create
     @review = Review.new(review_params)
     @review.user_id = current_user.id
@@ -34,7 +36,7 @@ class ReviewsController < ApplicationController
       end
     else
       flash[:notice] = 'Already reviewed'
-      redirect_to movies_path
+      redirect_to movies_url
       end
   end
 

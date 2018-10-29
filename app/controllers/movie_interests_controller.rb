@@ -17,7 +17,7 @@ class MovieInterestsController < ApplicationController
 
   def create
     if @movie.status == 'Now Showing'
-      redirect_to movies_path, notice: 'Already showing'
+      redirect_to movies_url, notice: 'Already showing'
     else
       respond_to do |format|
         # if MovieInterest.excludes(movie_id: @movie.id, user_id: current_user.id)
@@ -25,7 +25,7 @@ class MovieInterestsController < ApplicationController
           @movie_interest.movie_id = @movie.id
           @movie_interest.user_id = current_user.id
           @movie_interest.save
-          format.html { redirect_to movie_path(@movie), notice: 'Movie was successfully subscribed.' }
+          format.html { redirect_to movie_url(@movie), notice: 'Movie was successfully subscribed.' }
           format.json { render :show, status: :created, location: @movie }
         else
           format.html { redirect_back(fallback_location: movies_path) }

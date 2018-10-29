@@ -5,7 +5,9 @@ class Admin::DashboardsController < ApplicationController
   def index
     @theatres = []
     @movies = []
-    @admin_movies = Show.collection.aggregate([{ '$group' => { '_id' => '$movie_id', 'total_revenue' => { '$sum' => { '$multiply' => ['$cost_per_seat', '$num_seats_sold'] } } } }])
+    #@admin_movies = Show.collection.aggregate([{ '$group' => { '_id' => '$movie_id', 'total_revenue' => { '$sum' => { '$multiply' => ['$cost_per_seat', '$num_seats_sold'] } } } }])
+
+    @admin_movies = Show.collection.aggregate([{ '$group' => { '_id' => '$movie_id', 'total_revenue' => { '$sum' => { '$multiply' => ['$cost_per_seat', '$num_seats_sold'] } } , 'name' => '$movie.name' } }])
     @admin_movies.each do |admin_movie|
       @movie = Movie.find_by(id: admin_movie['_id'])
       @movies << @movie.name

@@ -21,7 +21,7 @@ class Admin::TheatresController < ApplicationController
     @admin_theatre = Theatre.new(admin_theatre_params)
     respond_to do |format|
       if @admin_theatre.save && @admin_theatre.update(address_attributes: { address: params[:admin_theatre][:address]['address'] })
-        format.html { redirect_to admin_theatre_path(@admin_theatre), notice: 'Theatre was successfully created.' }
+        format.html { redirect_to admin_theatre_url(@admin_theatre), notice: 'Theatre was successfully created.' }
         format.json { render :show, status: :created, location: @admin_theatre }
       else
         format.html { render :new }
@@ -33,7 +33,7 @@ class Admin::TheatresController < ApplicationController
   def update
     respond_to do |format|
       if @admin_theatre.update(admin_theatre_params)
-        format.html { redirect_to admin_theatre_path(@admin_theatre), notice: 'Theatre was successfully updated.' }
+        format.html { redirect_to admin_theatre_url(@admin_theatre), notice: 'Theatre was successfully updated.' }
         format.json { render :show, status: :ok, location: @admin_theatre }
       else
         format.html { render :edit }
