@@ -32,7 +32,7 @@ class Admin::TheatresController < ApplicationController
 
   def update
     respond_to do |format|
-      if @admin_theatre.update(admin_theatre_params) && @admin_theatre.update(address_attributes: { address: params[:admin_theatre][:address]['address'] })
+      if @admin_theatre.update(admin_theatre_params)
         format.html { redirect_to admin_theatre_path(@admin_theatre), notice: 'Theatre was successfully updated.' }
         format.json { render :show, status: :ok, location: @admin_theatre }
       else
@@ -64,6 +64,6 @@ class Admin::TheatresController < ApplicationController
   end
 
   def admin_theatre_params
-    params.require(:admin_theatre).permit(:name, :address)
+    params.require(:admin_theatre).permit(:name, address_attributes: [:address, :id])
   end
 end

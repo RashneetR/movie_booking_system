@@ -3,7 +3,7 @@
   <div class="col-md-4 col-md-offset-4">
     <div class="form-horizontal">
       <%= error_messages_for(@admin_show) %>
-      <%= form_for(:admin_show, :url => {:action => 'update'}) do |f| %>
+      <%= form_for(@admin_show, as: :admin_show, url: admin_show_path(@admin_show), html: { method: :patch}) do |f| %>
       
         <div class="field">
           <%= f.label :movie_id %>

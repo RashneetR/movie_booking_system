@@ -20,7 +20,7 @@
           <% if movie.status == "Now Showing" %>
             <td><%= link_to 'Book', movie, class: 'btn btn-primary btn-lg' %></td>
           <% else %>
-            <td><%= link_to 'Subscribe', add_movie_interest_path(:movie_id => movie.id), class: 'btn btn-primary btn-lg' %></td>
+            <td><%= link_to 'Subscribe', movie_interests_path(:movie_id => movie.id), method: :post, class: 'btn btn-primary btn-lg' %></td>
           <% end %>
           <% if current_user.role == "critic"  && movie.status == "Now Showing" %>
             <td><%= link_to "Review", new_review_path(:id => movie.id) %></td>
