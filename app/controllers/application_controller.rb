@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_up_path_for(_resource)
-    if current_user.role != 'admin'
+    if current_user.role == 'critic' || current_user.role == 'customer'
       movies_path
     else
       admin_movies_path

@@ -3,7 +3,7 @@
   <div class="col-md-4 col-md-offset-4">
     Send email to activate account?
     <div class="form-horizontal">
-      <%= form_for(:user) do |f| %>
+      <%= form_for(:user, url: activate_account_mail_user_path(@user)) do |f| %>
 
         <div class="field">
           <%= f.label :email %><br />
