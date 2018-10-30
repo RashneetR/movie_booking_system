@@ -1,6 +1,5 @@
 class Admin::DashboardsController < ApplicationController
   before_action :check_role
-  before_action :set_admin_dashboard, only: %i[show edit update destroy]
 
   def index
     @admin_movies = Show.collection.aggregate([{ '$group' => { '_id' => '$movie_id', 'total_revenue' => { '$sum' => { '$multiply' => ['$cost_per_seat', '$num_seats_sold'] } } } }])

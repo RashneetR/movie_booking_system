@@ -1,5 +1,5 @@
 class Admin::TheatresController < ApplicationController
-  before_action :authenticate_user!
+  #before_action :authenticate_user!
   load_and_authorize_resource :theatre
   before_action :set_admin_theatre, only: %i[show edit update destroy]
 

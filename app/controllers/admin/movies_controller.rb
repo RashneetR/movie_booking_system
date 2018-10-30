@@ -1,6 +1,6 @@
 class Admin::MoviesController < ApplicationController
   before_action :check_role
-  before_action :authenticate_user!
+  #before_action :authenticate_user!
   #load_and_authorize_resource :movie
   before_action :set_admin_movie, only: %i[show edit update destroy change_status]
 
@@ -84,7 +84,7 @@ class Admin::MoviesController < ApplicationController
   end
 
   def delete_movie_interests
-    @subscriptions = MovieInterest.where(movie_id: @movie_id)
+    @subscriptions = MovieInterest.where(movie_id: @admin_movie.id)
     @users = @subscriptions.pluck(:user_id)
     @users.each do |user|
       UserMailer.movie_update(user.to_s, @admin_movie.name.to_s).deliver_later

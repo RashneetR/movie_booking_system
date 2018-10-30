@@ -1,7 +1,7 @@
 class TicketsController < ApplicationController
-  before_action :authenticate_user!
+  #before_action :authenticate_user!
   load_and_authorize_resource :ticket
-  before_action :set_ticket, only: %i[show edit update destroy]
+  before_action :set_ticket, only: %i[show destroy]
 
   def index
     if current_user.role != 'admin'

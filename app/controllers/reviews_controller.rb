@@ -1,12 +1,11 @@
 class ReviewsController < ApplicationController
-  before_action :authenticate_user!
+  #before_action :authenticate_user!
   load_and_authorize_resource :review
-  before_action :set_review, only: %i[show edit update destroy]
+  before_action :set_review, only: %i[show destroy]
 
   def index
     if current_user.role == 'admin'
-      @movie_id = params[:movie]
-      @reviews = Review.where(movie_id: @movie_id).all.paginate(page: params[:page], per_page: 10)
+      @reviews = Review.where(movie_id: params[:movie]).all.paginate(page: params[:page], per_page: 10)
     else
       @reviews = Review.where(user_id: current_user.id).paginate(page: params[:page], per_page: 10)
     end
@@ -22,8 +21,7 @@ class ReviewsController < ApplicationController
 
   def create
     @review = Review.new(review_params)
-    @review.user_id = current_user.id
-    @r = Review.includes(:movie, :user).where(movie_id: params[:review][:movie_id], user_id: current_user.id)
+    @r = Review.where(movie_id: params[:review][:movie_id], user_id: current_user.id)
     if @r.empty?
       respond_to do |format|
         if @review.save

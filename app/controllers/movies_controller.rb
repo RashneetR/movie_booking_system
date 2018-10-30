@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
   before_action :check_user
-  before_action :authenticate_user!
+  #before_action :authenticate_user!
   #load_and_authorize_resource :movie
 
   def index
@@ -8,6 +8,7 @@ class MoviesController < ApplicationController
   end
 
   def show
+    @movie = Movie.find(params[:id])
     @shows = Show.where(movie_id: @movie.id).paginate(page: params[:page], per_page: 10)
   end
 end
