@@ -2,7 +2,7 @@
 <html>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-  <%= stylesheet_link_tag    'application', media: 'all','data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'application', media: 'all','data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" rel="stylesheet" />
@@ -30,6 +30,5 @@
       </div>
     </body>
   </div>
-  <%= yield :top_content %>
   <%= render 'layouts/footer' %>
 </html>

@@ -1,5 +1,4 @@
 class Admin::ShowsController < ApplicationController
-  #before_action :authenticate_user!
   load_and_authorize_resource :show
   before_action :set_admin_show, only: %i[show edit update destroy]
 
@@ -8,20 +7,28 @@ class Admin::ShowsController < ApplicationController
     @t = Theatre.all
     @admin_show = Show.new
     if params[:show].nil?
-      @admin_shows = Show.includes(:theatre, :movie).all.paginate(page: params[:page], per_page: 10)
+      @admin_shows = Show.collection.aggregate([{ '$lookup' => { 'from' => 'theatres', 'localField' => 'theatre_id', 'foreignField' => '_id', 'as' => 'movie_show' } }, { '$unwind' => '$movie_show' }, { '$lookup' => { 'from' => 'movies', 'localField' => 'movie_id', 'foreignField' => '_id', 'as' => 'theatre_show' } }, { '$unwind' => '$theatre_show' }, { '$project' => { '_id' => 1, 'total_seats' => 1, 'num_seats_sold' => 1, 'booking_state' => 1, 'cost_per_seat' => 1, 'start_time' => 1, 'end_time' => 1, 'movie_id' => 1, 'theatre_id' => 1, 'theatre_name' => '$movie_show.name', 'movie_name' => '$theatre_show.name' } }])
     else
-      @movie_id = params[:show][:movie_id] unless params[:show][:movie_id].nil?
-      unless params[:show][:theatre_id].nil?
-        @theatre_id = params[:show][:theatre_id]
+      ids = []
+      tids = []
+      unless params[:show][:movie_id].empty?
+        ids << to_bson(params[:show][:movie_id])
       end
-      if @movie_id.empty? && @theatre_id.count < 2
-        @admin_shows = Show.includes(:theatre, :movie).all.paginate(page: params[:page], per_page: 10)
-      elsif @movie_id.empty?
-        @admin_shows = Show.where(theatre_id: params[:show][:theatre_id]).all.paginate(page: params[:page], per_page: 10)
-      elsif @theatre_id.count < 2
-        @admin_shows = Show.where(movie_id: @movie_id).all.paginate(page: params[:page], per_page: 10)
+      unless params[:show][:theatre_id].reject(&:blank?).empty?
+        params[:show][:theatre_id].reject(&:blank?).each do |t|
+          tids << to_bson(t)
+        end
+      end
+      if ids.empty? && tids.empty?
+        @admin_shows = Show.collection.aggregate([{ '$lookup' => { 'from' => 'theatres', 'localField' => 'theatre_id', 'foreignField' => '_id', 'as' => 'movie_show' } }, { '$unwind' => '$movie_show' }, { '$lookup' => { 'from' => 'movies', 'localField' => 'movie_id', 'foreignField' => '_id', 'as' => 'theatre_show' } }, { '$unwind' => '$theatre_show' }, { '$project' => { '_id' => 1, 'total_seats' => 1, 'num_seats_sold' => 1, 'booking_state' => 1, 'cost_per_seat' => 1, 'start_time' => 1, 'end_time' => 1, 'movie_id' => 1, 'theatre_id' => 1, 'theatre_name' => '$movie_show.name', 'movie_name' => '$theatre_show.name' } }])
+      elsif ids.empty?
+        @admin_shows = Show.collection.aggregate([{ '$lookup' => { 'from' => 'theatres', 'localField' => 'theatre_id', 'foreignField' => '_id', 'as' => 'movie_show' } }, { '$unwind' => '$movie_show' }, { '$lookup' => { 'from' => 'movies', 'localField' => 'movie_id', 'foreignField' => '_id', 'as' => 'theatre_show' } }, { '$unwind' => '$theatre_show' }, { '$match' => { 'theatre_id' => { '$in' => tids } } }, { '$project' => { '_id' => 1, 'total_seats' => 1, 'num_seats_sold' => 1, 'booking_state' => 1, 'cost_per_seat' => 1, 'start_time' => 1, 'end_time' => 1, 'movie_id' => 1, 'theatre_id' => 1, 'theatre_name' => '$movie_show.name', 'movie_name' => '$theatre_show.name' } }])
+
+      elsif tids.empty?
+        @admin_shows = Show.collection.aggregate([{ '$lookup' => { 'from' => 'theatres', 'localField' => 'theatre_id', 'foreignField' => '_id', 'as' => 'movie_show' } }, { '$unwind' => '$movie_show' }, { '$lookup' => { 'from' => 'movies', 'localField' => 'movie_id', 'foreignField' => '_id', 'as' => 'theatre_show' } }, { '$unwind' => '$theatre_show' }, { '$match' => { 'movie_id' => { '$in' => ids } } }, { '$project' => { '_id' => 1, 'total_seats' => 1, 'num_seats_sold' => 1, 'booking_state' => 1, 'cost_per_seat' => 1, 'start_time' => 1, 'end_time' => 1, 'movie_id' => 1, 'theatre_id' => 1, 'theatre_name' => '$movie_show.name', 'movie_name' => '$theatre_show.name' } }])
+
       else
-        @admin_shows = Show.where(movie_id: @movie_id, theatre_id: params[:show][:theatre_id]).all.paginate(page: params[:page], per_page: 10)
+        @admin_shows = Show.collection.aggregate([{ '$lookup' => { 'from' => 'theatres', 'localField' => 'theatre_id', 'foreignField' => '_id', 'as' => 'movie_show' } }, { '$unwind' => '$movie_show' }, { '$lookup' => { 'from' => 'movies', 'localField' => 'movie_id', 'foreignField' => '_id', 'as' => 'theatre_show' } }, { '$unwind' => '$theatre_show' }, { '$match' => { '$and' => [{ 'movie_id' => { '$in' => ids } }, { 'theatre_id' => { '$in' => tids } }] } }, { '$project' => { '_id' => 1, 'total_seats' => 1, 'num_seats_sold' => 1, 'booking_state' => 1, 'cost_per_seat' => 1, 'start_time' => 1, 'end_time' => 1, 'movie_id' => 1, 'theatre_id' => 1, 'theatre_name' => '$movie_show.name', 'movie_name' => '$theatre_show.name' } }])
       end
     end
     respond_to do |format|
@@ -90,6 +97,10 @@ class Admin::ShowsController < ApplicationController
   end
 
   private
+
+  def to_bson(str)
+    BSON::ObjectId(str)
+  end
 
   def set_admin_show
     @admin_show = Show.find(params[:id])

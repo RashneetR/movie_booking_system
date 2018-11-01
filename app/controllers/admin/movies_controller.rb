@@ -1,7 +1,5 @@
 class Admin::MoviesController < ApplicationController
   before_action :check_role
-  #before_action :authenticate_user!
-  #load_and_authorize_resource :movie
   before_action :set_admin_movie, only: %i[show edit update destroy change_status]
 
   def index

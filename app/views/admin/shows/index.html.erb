@@ -1,4 +1,3 @@
-<%= will_paginate @admin_shows%>
 <script>
       $(document).ready(function() {
           $('#myselect21').select2();
@@ -34,9 +33,8 @@
   <div class = "table" id = "adminshows" >
     <%= render 'shows' %>
   </div>
-<% else %>
+<% else %> 
   <table>
     <p> No shows exist </p>
   </table>
 <% end %>
-<%= will_paginate @admin_shows%>

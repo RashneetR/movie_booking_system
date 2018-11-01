@@ -188,3 +188,16 @@ aside {
 
 shows_controller_test.rb
 test/system/shows_test.rb
+
+
+<% content_for :top_content do %>
+<% end %>
+
+  <%= yield :top_content %>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <%= will_paginate @admin_shows%>
+  <%= will_paginate @admin_shows%>
+
+  32 <!--<% if @admin_shows.any? %>-->
