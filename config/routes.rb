@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
 
   resources :movies, only: [:index, :show]
-  resources :tickets, :movie_interests, except: [:new, :edit, :update]
+  resources :tickets, :movie_interests, except: [:new, :show, :edit, :update]
   resources :reviews, except: [:edit, :update]
   devise_for :users, controllers: { registrations: 'myregistrations' }
 

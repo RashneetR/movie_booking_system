@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.4.4'
 
 gem 'better_errors'
-gem 'bson_ext'
+
 gem 'cancancan', '~> 1.15'
 gem 'carrierwave'
 gem 'carrierwave-mongoid'
@@ -15,7 +15,6 @@ gem 'jquery-turbolinks', '~> 2.1'
 gem 'jquery-ui-rails', '~> 5.0', '>= 5.0.5'
 gem 'mini_magick', '~> 4.9', '>= 4.9.2'
 gem 'momentjs-rails'
-gem 'mongoid'
 gem 'mongoid-grid_fs'
 gem 'rails', '~> 5.2.1'
 gem 'rspec-rails', '~> 3.4', '>= 3.4.2'
@@ -39,6 +38,8 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 
 group :development, :test do
+  gem 'bson_ext'
+  gem 'mongoid'
   gem 'annotate'
   gem 'factory_bot_rails'
   gem 'faker'

@@ -65,7 +65,7 @@ class Admin::MoviesController < ApplicationController
     respond_to do |format|
       if @admin_movie.save
         flash[:notice] = 'Successfully updated to Now Showing '
-        format.html { redirect_to controller: 'admin/movies', action: 'index' }
+        format.html { redirect_to controller: 'admin/movies', action: 'index' } ####
         delete_movie_interests
       end
     end
@@ -74,7 +74,7 @@ class Admin::MoviesController < ApplicationController
   private
 
   def set_admin_movie
-    @admin_movie = Movie.find(params[:id])
+    @admin_movie = Movie.find(params[:id]) ######instead of find_by before update just id ####
   end
 
   def admin_movie_params
@@ -85,7 +85,7 @@ class Admin::MoviesController < ApplicationController
     @subscriptions = MovieInterest.where(movie_id: @admin_movie.id)
     @users = @subscriptions.pluck(:user_id)
     @users.each do |user|
-      UserMailer.movie_update(user.to_s, @admin_movie.name.to_s).deliver_later
+      UserMailer.movie_update(user.to_s, @admin_movie.name.to_s).deliver_later ####
       @subscriptions.each(&:destroy)
     end
   end

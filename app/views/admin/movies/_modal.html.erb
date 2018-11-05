@@ -5,7 +5,6 @@
       <h4 class="modal-title">Show Details</h4>
     </div>
     <div class="modal-body">
-      <p id="notice"><%= notice %></p>
       <%= image_tag(@admin_movie.image_url(:thumb).to_s) %>
       <p>
         <strong>Movie Name:</strong>
@@ -24,12 +23,6 @@
       <%= link_to 'Edit', edit_admin_movie_path(@admin_movie) %> |
       <%= link_to 'Back', admin_movies_path %>
     </div>
-    <div class="modal-footer">
-      <script>
-        $('#reveal').on('click', function(){
-          $("#modal-window").modal("hide");
-        });
-      </script>
     </div>
   </div>
 </div>

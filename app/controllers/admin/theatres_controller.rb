@@ -42,7 +42,7 @@ class Admin::TheatresController < ApplicationController
     end
   end
 
-  def destroy
+  def destroy  ####put one format line##
     if @admin_theatre.shows.blank?
       @admin_theatre.destroy
       respond_to do |format|

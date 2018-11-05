@@ -201,3 +201,13 @@ test/system/shows_test.rb
   <%= will_paginate @admin_shows%>
 
   32 <!--<% if @admin_shows.any? %>-->
+
+  <script>
+        $('#reveal').on('click', function(){
+          $("#modal-window").modal("hide");
+        });
+      </script>
+
+
+
+       *= require rails_bootstrap_forms

@@ -28,7 +28,7 @@ class ReviewsController < ApplicationController
           format.html { redirect_to @review, notice: 'Review was successfully created.' }
           format.json { render :show, status: :created, location: @review }
         else
-          flash[:error] = @review.errors.full_messages.to_sentence
+          #flash[:error] = @review.errors.full_messages.to_sentence
           format.html { redirect_back(fallback_location: new_review_path) }
         end
       end

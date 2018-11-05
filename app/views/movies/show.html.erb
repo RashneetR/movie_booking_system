@@ -1,8 +1,8 @@
 <%= will_paginate @shows %>
 <script>
-  function function1(ele) {
-  var x = $(ele).closest('#rash').find('input.ticket_temp').val();
-  $(ele).closest('#rash').find('input.total_cost').val($(ele).val()*x);
+  function calc_total_cost(ele) {
+  var x = $(ele).closest('#movie_show_row').find('input.ticket_temp').val();
+  $(ele).closest('#movie_show_row').find('input.total_cost').val($(ele).val()*x);
 }
 </script>
 <h1>Movies</h1>
@@ -33,18 +33,16 @@
         </thead>
         <tbody>
           <% @shows.each do |show| %>
-            <tr id="rash">
-              <% @num = show.total_seats - show.num_seats_sold %>
-              <% if @num>0 %>
+            <tr id="movie_show_row">
+              <% if show.booking_state == "vacant" %>
                 <%= form_for(:ticket, :url => url_for(action: 'create', controller:'tickets')) do |f| %>
                   <%= f.hidden_field :show_id, value: show.id %>
                   <%= f.hidden_field :user_id, value: current_user.id %>
                   <td><%= show.theatre.name %></td>
                   <td><%= show.start_time %></td>
                   <td><%= show.end_time %></td>
-                  <%= f.hidden_field :temp, class: "ticket_temp", value:show.cost_per_seat %>
-                  <td><%= show.cost_per_seat %></td>
-                  <td><%= f.number_field(:num_seats_bought, min: 1 , max: @num, step: 1, onchange: "function1(this)") %>
+                  <td><%= f.number_field :temp, class: "ticket_temp", value:show.cost_per_seat, readonly: true %></td>
+                  <td><%= f.number_field(:num_seats_bought, min: 1 , max: (show.total_seats - show.num_seats_sold), step: 1, onchange: "calc_total_cost(this)") %>
                   <td><%= f.text_field :total_cost, class: "total_cost", readonly: true %></td>
                   <td>
                     <div class="actions">
