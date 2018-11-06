@@ -211,3 +211,32 @@ test/system/shows_test.rb
 
 
        *= require rails_bootstrap_forms
+       mongoid.yml
+
+       development:
+  clients:
+    default:
+      database: movie_booking_system_development
+      hosts:
+        - localhost:27017
+      options:
+  options:
+test:
+  clients:
+    default:
+      database: movie_booking_system_test
+      hosts:
+        - localhost:27017
+      options:
+        read:
+          mode: :primary
+        max_pool_size: 1
+production:
+    clients:
+        default:
+          database: movie_booking_system_production
+          hosts:
+        - localhost:27017
+        options:
+            skip_version_check: true
+        safe: true
