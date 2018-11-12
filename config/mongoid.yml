@@ -18,11 +18,11 @@ test:
         max_pool_size: 1
 production:
     clients:
-        default:
-          uri: &lt;%= ENV['mongodb://heroku_6fp6r2kt:g436auh6pqgtc7hirq3o707h14@ds153593.mlab.com:53593/heroku_6fp6r2kt'] %&gt;
-          database: movie_booking_system_production
-          hosts:
-        - localhost:27017
+      default:
+        uri: 'mongodb://heroku_6fp6r2kt:g436auh6pqgtc7hirq3o707h14@ds153593.mlab.com:53593/heroku_6fp6r2kt'
+        database: movie_booking_system_production
+        hosts:
+          - localhost:27017
         options:
-            skip_version_check: true
+          skip_version_check: true
         safe: true
