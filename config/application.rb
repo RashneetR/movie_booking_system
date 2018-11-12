@@ -1,4 +1,5 @@
 require 'carrierwave'
+require 'carrierwave/orm/mongoid'
 # require 'carrierwave/orm/activerecord'
 
 require_relative 'boot'
