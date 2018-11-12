@@ -1,7 +1,7 @@
 development:
   clients:
     default:
-      database: movie_booking_system_development
+      database: heroku_ghl68wnz
       hosts:
         - localhost:27017
       options:
@@ -9,7 +9,7 @@ development:
 test:
   clients:
     default:
-      database: movie_booking_system_test
+      database: heroku_ghl68wnz
       hosts:
         - localhost:27017
       options:
@@ -19,10 +19,4 @@ test:
 production:
     clients:
       default:
-        uri: 'mongodb://heroku_6fp6r2kt:g436auh6pqgtc7hirq3o707h14@ds153593.mlab.com:53593/heroku_6fp6r2kt'
-        database: movie_booking_system_production
-        hosts:
-          - localhost:27017
-        options:
-          skip_version_check: true
-        safe: true
+          uri: <%= ENV['MONGODB_URI'] %>

@@ -4,6 +4,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.4.4'
 
 gem 'better_errors'
+gem 'bson_ext'
+gem 'mongoid'
 
 gem 'cancancan', '~> 1.15'
 gem 'carrierwave'
@@ -38,8 +40,6 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 
 group :development, :test do
-  gem 'bson_ext'
-  gem 'mongoid'
   gem 'annotate'
   gem 'factory_bot_rails'
   gem 'faker'
@@ -49,14 +49,13 @@ end
 
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 group :production do
   gem 'rails_12factor', '~> 0.0.3'
-  gem 'pg'
+  #gem 'pg'
 end
 
 group :test do
