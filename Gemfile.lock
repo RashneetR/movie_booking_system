@@ -302,7 +302,6 @@ DEPENDENCIES
   bson_ext
   byebug
   cancancan (~> 1.15)
-  carrierwave
   carrierwave-mongoid
   coffee-rails (~> 4.2)
   devise (~> 4.2)

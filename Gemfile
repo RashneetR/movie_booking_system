@@ -8,7 +8,6 @@ gem 'bson_ext'
 gem 'mongoid'
 
 gem 'cancancan', '~> 1.15'
-gem 'carrierwave'
 gem 'carrierwave-mongoid'
 gem 'devise', '~> 4.2'
 gem 'erb_lint', '~> 0.0.26'
@@ -55,7 +54,6 @@ end
 
 group :production do
   gem 'rails_12factor', '~> 0.0.3'
-  #gem 'pg'
 end
 
 group :test do
