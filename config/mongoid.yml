@@ -1,7 +1,7 @@
 development:
   clients:
     default:
-      database: heroku_ghl68wnz
+      database: movie_booking_system_development
       hosts:
         - localhost:27017
       options:
@@ -9,7 +9,7 @@ development:
 test:
   clients:
     default:
-      database: heroku_ghl68wnz
+      database: movie_booking_system_test
       hosts:
         - localhost:27017
       options:
