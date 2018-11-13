@@ -6,7 +6,6 @@ ruby '2.4.4'
 gem 'better_errors'
 gem 'bson_ext'
 gem 'mongoid'
-
 gem 'cancancan', '~> 1.15'
 gem 'carrierwave-mongoid'
 gem 'devise', '~> 4.2'
