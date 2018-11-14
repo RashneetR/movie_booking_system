@@ -3,13 +3,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.4.4'
 
-gem 'better_errors'
-gem 'bson_ext'
+gem 'better_errors'  #for formatiing errors
+gem 'bson_ext'  
 gem 'mongoid'
-gem 'cancancan', '~> 1.15'
-gem 'carrierwave-mongoid'
-gem 'devise', '~> 4.2'
-gem 'erb_lint', '~> 0.0.26'
+gem 'cancancan', '~> 1.15'  #for permissions
+gem 'carrierwave-mongoid'  #for images
+gem 'devise', '~> 4.2'  #for authentication 
+gem 'erb_lint', '~> 0.0.26'  #for linting
 gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'jquery-turbolinks', '~> 2.1'
 gem 'jquery-ui-rails', '~> 5.0', '>= 5.0.5'
@@ -53,9 +53,6 @@ end
 
 group :production do
   gem 'rails_12factor', '~> 0.0.3'
-end
-
-group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
