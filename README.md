@@ -47,4 +47,4 @@ NOTE : You will have to change the smtp mail settings to send mails from your em
  $ rails test
 
 Link of the problem statement and other application details : https://docs.google.com/document/d/128V1hgTvIjct2Faiu2sYTlqGClFOwBF-2uo2B1bhlgs/edit?userstoinvite=rashneetforsampleapp@gmail.com&ts=5bb4aed3#heading=h.z4gi10g1oohf
-Feel free to contact rashneet@amuratech for any doubts related to the project and deployment.
+Feel free to contact rashneet@amuratech.com for any doubts related to the project and deployment.

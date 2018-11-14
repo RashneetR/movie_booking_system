@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: 'static_pages#home' 
-  get 'static_pages/help' 
-  
+  get 'static_pages/help'
+
   namespace :admin do
     resources :movies do
       post 'change_status', on: :member

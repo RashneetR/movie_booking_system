@@ -1,15 +1,5 @@
 require 'carrierwave'
-# require 'carrierwave/orm/activerecord'
-
 require_relative 'boot'
-
-# require "rails"
-# require "active_storage/engine"
-# require "action_controller/railtie"
-# require "action_mailer/railtie"
-# require "sprockets/railtie"
-# require "rails/test_unit/railtie"
-
 require 'rails'
 
 %w[
@@ -42,10 +32,5 @@ module MovieBookingSystem
       g.orm             :mongoid
       g.template_engine :haml
     end
-
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-    # the framework and any gems in your application.
   end
 end
