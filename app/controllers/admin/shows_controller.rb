@@ -23,10 +23,8 @@ class Admin::ShowsController < ApplicationController
         @admin_shows = Show.collection.aggregate([{ '$lookup' => { 'from' => 'theatres', 'localField' => 'theatre_id', 'foreignField' => '_id', 'as' => 'movie_show' } }, { '$unwind' => '$movie_show' }, { '$lookup' => { 'from' => 'movies', 'localField' => 'movie_id', 'foreignField' => '_id', 'as' => 'theatre_show' } }, { '$unwind' => '$theatre_show' }, { '$project' => { '_id' => 1, 'total_seats' => 1, 'num_seats_sold' => 1, 'booking_state' => 1, 'cost_per_seat' => 1, 'start_time' => 1, 'end_time' => 1, 'movie_id' => 1, 'theatre_id' => 1, 'theatre_name' => '$movie_show.name', 'movie_name' => '$theatre_show.name' } }])
       elsif ids.empty?
         @admin_shows = Show.collection.aggregate([{ '$lookup' => { 'from' => 'theatres', 'localField' => 'theatre_id', 'foreignField' => '_id', 'as' => 'movie_show' } }, { '$unwind' => '$movie_show' }, { '$lookup' => { 'from' => 'movies', 'localField' => 'movie_id', 'foreignField' => '_id', 'as' => 'theatre_show' } }, { '$unwind' => '$theatre_show' }, { '$match' => { 'theatre_id' => { '$in' => tids } } }, { '$project' => { '_id' => 1, 'total_seats' => 1, 'num_seats_sold' => 1, 'booking_state' => 1, 'cost_per_seat' => 1, 'start_time' => 1, 'end_time' => 1, 'movie_id' => 1, 'theatre_id' => 1, 'theatre_name' => '$movie_show.name', 'movie_name' => '$theatre_show.name' } }])
-
       elsif tids.empty?
         @admin_shows = Show.collection.aggregate([{ '$lookup' => { 'from' => 'theatres', 'localField' => 'theatre_id', 'foreignField' => '_id', 'as' => 'movie_show' } }, { '$unwind' => '$movie_show' }, { '$lookup' => { 'from' => 'movies', 'localField' => 'movie_id', 'foreignField' => '_id', 'as' => 'theatre_show' } }, { '$unwind' => '$theatre_show' }, { '$match' => { 'movie_id' => { '$in' => ids } } }, { '$project' => { '_id' => 1, 'total_seats' => 1, 'num_seats_sold' => 1, 'booking_state' => 1, 'cost_per_seat' => 1, 'start_time' => 1, 'end_time' => 1, 'movie_id' => 1, 'theatre_id' => 1, 'theatre_name' => '$movie_show.name', 'movie_name' => '$theatre_show.name' } }])
-
       else
         @admin_shows = Show.collection.aggregate([{ '$lookup' => { 'from' => 'theatres', 'localField' => 'theatre_id', 'foreignField' => '_id', 'as' => 'movie_show' } }, { '$unwind' => '$movie_show' }, { '$lookup' => { 'from' => 'movies', 'localField' => 'movie_id', 'foreignField' => '_id', 'as' => 'theatre_show' } }, { '$unwind' => '$theatre_show' }, { '$match' => { '$and' => [{ 'movie_id' => { '$in' => ids } }, { 'theatre_id' => { '$in' => tids } }] } }, { '$project' => { '_id' => 1, 'total_seats' => 1, 'num_seats_sold' => 1, 'booking_state' => 1, 'cost_per_seat' => 1, 'start_time' => 1, 'end_time' => 1, 'movie_id' => 1, 'theatre_id' => 1, 'theatre_name' => '$movie_show.name', 'movie_name' => '$theatre_show.name' } }])
       end
@@ -82,14 +80,12 @@ class Admin::ShowsController < ApplicationController
   end
 
   def destroy
-    if @admin_show.tickets.blank?
-      @admin_show.destroy
-      respond_to do |format|
+    respond_to do |format|
+      if @admin_show.tickets.blank?
+        @admin_show.destroy
         format.html { redirect_to admin_shows_url, notice: 'Show was successfully destroyed.' }
         format.json { head :no_content }
-      end
-    else
-      respond_to do |format|
+      else
         format.html { redirect_to admin_shows_url, notice: 'Show cannot be destroyed because tickets exist.' }
         format.json { head :no_content }
       end

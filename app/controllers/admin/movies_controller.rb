@@ -46,14 +46,12 @@ class Admin::MoviesController < ApplicationController
   end
 
   def destroy
-    if @admin_movie.shows.blank? && @admin_movie.reviews.blank?
-      @admin_movie.destroy
-      respond_to do |format|
+    respond_to do |format|
+      if @admin_movie.shows.blank? && @admin_movie.reviews.blank?
+        @admin_movie.destroy
         format.html { redirect_to admin_movies_url, notice: 'Movie was successfully destroyed.' }
         format.json { head :no_content }
-      end
-    else
-      respond_to do |format|
+      else
         format.html { redirect_to admin_movies_url, notice: 'Movie cannot be deleted.' }
         format.json { head :no_content }
       end
@@ -74,7 +72,7 @@ class Admin::MoviesController < ApplicationController
   private
 
   def set_admin_movie
-    @admin_movie = Movie.find(params[:id]) ######instead of find_by before update just id ####
+    @admin_movie = Movie.find(params[:id])
   end
 
   def admin_movie_params

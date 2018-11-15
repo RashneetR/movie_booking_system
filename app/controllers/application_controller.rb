@@ -1,15 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  #def authorize_request
-    #valid = true
-    #unless current_user
-     # valid = false
-     # redirect_to root_path, notice: 'denied'
-    #end
-    #valid
-  #end
-
   def check_role
     valid = true
     unless current_user.try(:role) == 'admin'
@@ -46,7 +37,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_up_path_for(_resource)
-    if current_user.role == 'admin' ####
+    if current_user.role == 'admin'
       admin_movies_path
     else
       movies_path
@@ -54,7 +45,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(_resource)
-    if current_user.role != 'admin' ####
+    if current_user.role != 'admin'
       movies_path
     else
       admin_movies_path

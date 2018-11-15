@@ -1,5 +1,4 @@
 class Admin::TheatresController < ApplicationController
-  #before_action :authenticate_user!
   load_and_authorize_resource :theatre
   before_action :set_admin_theatre, only: %i[show edit update destroy]
 
@@ -42,15 +41,13 @@ class Admin::TheatresController < ApplicationController
     end
   end
 
-  def destroy  ####put one format line##
-    if @admin_theatre.shows.blank?
-      @admin_theatre.destroy
-      respond_to do |format|
+  def destroy
+    respond_to do |format|
+      if @admin_theatre.shows.blank?
+        @admin_theatre.destroy
         format.html { redirect_to admin_theatres_url, notice: 'Theatre was successfully destroyed.' }
         format.json { head :no_content }
-      end
-    else
-      respond_to do |format|
+      else
         format.html { redirect_to admin_theatres_url, notice: 'Cannot delete theatre' }
         format.json { head :no_content }
       end
