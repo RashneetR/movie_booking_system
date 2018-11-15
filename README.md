@@ -12,7 +12,7 @@ application up and running.
    $ cd environment
 
 4. Create a new rails application called movie_booking_system 
-  $ rails new movie_booking_system
+  $ rails new movie_booking_system --skip-active-record
 
 5. Run the rails server to check if your server is running properly 
   $ rails server 
