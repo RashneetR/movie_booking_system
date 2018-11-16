@@ -1,7 +1,6 @@
 require 'rake'
 
 task :delete_old_users => :environment do
-  puts 'delete_old_users'
   old_users = User.where(active: "inactive")
 
   old_users.each do |user|

@@ -18,5 +18,4 @@ elsif admin.errors.any?
   end
 else
   puts '******NOT VALID*******'
-
 end
