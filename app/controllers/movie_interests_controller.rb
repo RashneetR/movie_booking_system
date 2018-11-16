@@ -1,8 +1,5 @@
 class MovieInterestsController < ApplicationController
-  #before_action :authenticate_user!
   load_and_authorize_resource :movie_interest
-  #before_action :authorize_request
-  #before_action :load_movie, only: [:create]
   before_action :set_movie_interest, only: [:destroy]
 
   def index
@@ -14,23 +11,18 @@ class MovieInterestsController < ApplicationController
   end
 
   def create
-    #if @movie.status == 'Now Showing'
-      #redirect_to movies_url, notice: 'Already showing'
-    #else
-      respond_to do |format|
-        # if MovieInterest.excludes(movie_id: @movie.id, user_id: current_user.id)
-        if MovieInterest.where(movie_id: params[:movie_id], user_id: current_user.id).empty?
-          @movie_interest.movie_id = params[:movie_id]
-          @movie_interest.user_id = current_user.id
-          @movie_interest.save
-          format.html { redirect_to movies_url, notice: 'Movie was successfully subscribed.' }
-          format.json { head :no_content }
-        else
-          format.html { redirect_back(fallback_location: movies_path) }
-          flash[:notice] = 'Already Subscribed'
-        end
+    respond_to do |format|
+      if MovieInterest.where(movie_id: params[:movie_id], user_id: current_user.id).empty?
+        @movie_interest.movie_id = params[:movie_id]
+        @movie_interest.user_id = current_user.id
+        @movie_interest.save
+        format.html { redirect_to movies_url, notice: 'Movie was successfully subscribed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_back(fallback_location: movies_path) }
+        flash[:notice] = 'Already Subscribed'
       end
-    #end
+    end
   end
 
   def destroy
