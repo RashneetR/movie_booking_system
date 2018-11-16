@@ -1,8 +1,8 @@
 class Show
   include Mongoid::Document
   include Mongoid::Timestamps
-  belongs_to :movie, foreign_key: :movie_id
-  belongs_to :theatre, foreign_key: :theatre_id
+  belongs_to :movie
+  belongs_to :theatre
   has_many :tickets
 
   field :start_time, type: Time
@@ -14,9 +14,9 @@ class Show
 
   validates :start_time, presence: true
   validates :end_time, presence: true
-  validates :total_seats, presence: true, inclusion: { in: 40...9200 }
+  validates :total_seats, presence: true, inclusion: { in: 40..9200 }
   validates :num_seats_sold, presence: true
-  validates :cost_per_seat, presence: true, inclusion: { in: 80...1500 }
+  validates :cost_per_seat, presence: true, inclusion: { in: 80..1500 }
   validates :movie_id, presence: true
   validates :theatre_id, presence: true
   validates :booking_state, presence: true

@@ -1,8 +1,8 @@
 class Ticket
   include Mongoid::Document
   include Mongoid::Timestamps
-  belongs_to :user, foreign_key: :user_id
-  belongs_to :show, foreign_key: :show_id
+  belongs_to :user
+  belongs_to :show
 
   field :total_cost, type: Float
   field :num_seats_bought, type: Integer, default: 1

@@ -1,5 +1,4 @@
 class TicketsController < ApplicationController
-  #before_action :authenticate_user!
   load_and_authorize_resource :ticket
   before_action :set_ticket, only: %i[destroy]
 
@@ -27,7 +26,7 @@ class TicketsController < ApplicationController
     end
   end
 
-  def destroy
+  def destroy #required because when we delete an inactive user account after 6 months the task call tickets.destroy to delete the tickets booked by that user
     @ticket.destroy
     respond_to do |format|
       format.html { redirect_to tickets_url, notice: 'Ticket was successfully destroyed.' }
