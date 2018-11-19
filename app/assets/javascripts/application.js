@@ -20,7 +20,6 @@
 //= require bootstrap.min
 //= require bootstrap/dropdown
 //= require moment
-//= require turbolinks
 //= require_tree .
 
 $(document).ready(function() {
