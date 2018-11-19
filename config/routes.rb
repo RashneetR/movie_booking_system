@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'static_pages#home' 
+  root to: 'static_pages#home'
   get 'static_pages/help'
 
   namespace :admin do
@@ -10,9 +10,9 @@ Rails.application.routes.draw do
     resources :dashboards, only: [:index]
   end
 
-  resources :movies, only: [:index, :show]
-  resources :tickets, :movie_interests, except: [:new, :edit, :update]
-  resources :reviews, except: [:edit, :update]
+  resources :movies, only: %i[index show]
+  resources :tickets, :movie_interests, except: %i[new edit update]
+  resources :reviews, except: %i[edit update]
   devise_for :users, controllers: { registrations: 'myregistrations' }
 
   resources :users do

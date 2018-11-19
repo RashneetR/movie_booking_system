@@ -18,7 +18,7 @@
           <div id="modal-window" class="modal fade" role="dialog"></div>
           <td><%= link_to 'Edit Details', edit_admin_movie_path(admin_movie) %></td>
           <td><%= link_to 'Delete',admin_movie_path(admin_movie), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          <% if admin_movie.status == "Now Showing" %> <!--###try# -->
+          <% if admin_movie.status == "Now Showing" %>
             <td><%= link_to 'Add Show', new_admin_show_path(movie: admin_movie.id) %></td>
             <td><%= link_to 'Reviews', reviews_path(:movie => admin_movie.id) %></td>
           <% else %>

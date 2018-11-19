@@ -4,7 +4,7 @@ class CreateTickets < ActiveRecord::Migration[5.2]
       t.references :show
       t.float :total_cost
       t.references :user
-      t.integer :num_seats_bought, :null=> false
+      t.integer :num_seats_bought, null: false
 
       t.timestamps
     end

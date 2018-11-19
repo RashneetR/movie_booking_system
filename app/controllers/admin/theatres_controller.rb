@@ -1,5 +1,5 @@
 class Admin::TheatresController < ApplicationController
-  load_and_authorize_resource :theatre
+  authorize_resource :theatre
   before_action :set_admin_theatre, only: %i[show edit update destroy]
 
   def index
@@ -61,6 +61,6 @@ class Admin::TheatresController < ApplicationController
   end
 
   def admin_theatre_params
-    params.require(:admin_theatre).permit(:name, address_attributes: [:address, :id])
+    params.require(:admin_theatre).permit(:name, address_attributes: %i[address id])
   end
 end

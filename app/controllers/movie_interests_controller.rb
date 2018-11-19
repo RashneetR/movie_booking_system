@@ -1,5 +1,5 @@
 class MovieInterestsController < ApplicationController
-  load_and_authorize_resource :movie_interest
+  authorize_resource :movie_interest
   before_action :set_movie_interest, only: [:destroy]
 
   def index

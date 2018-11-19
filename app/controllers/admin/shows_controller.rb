@@ -1,5 +1,5 @@
 class Admin::ShowsController < ApplicationController
-  load_and_authorize_resource :show
+  authorize_resource :show
   before_action :set_admin_show, only: %i[show edit update destroy]
 
   def index

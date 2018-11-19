@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  load_and_authorize_resource :review
+  authorize_resource :review
   before_action :set_review, only: %i[show destroy]
 
   def index

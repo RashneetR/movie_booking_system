@@ -5,40 +5,40 @@ class Admin::ShowsControllerTest < ActionDispatch::IntegrationTest
     @admin_show = admin_shows(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get admin_shows_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_admin_show_url
     assert_response :success
   end
 
-  test "should create admin_show" do
+  test 'should create admin_show' do
     assert_difference('Admin::Show.count') do
-      post admin_shows_url, params: { admin_show: {  } }
+      post admin_shows_url, params: { admin_show: {} }
     end
 
     assert_redirected_to admin_show_url(Admin::Show.last)
   end
 
-  test "should show admin_show" do
+  test 'should show admin_show' do
     get admin_show_url(@admin_show)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_admin_show_url(@admin_show)
     assert_response :success
   end
 
-  test "should update admin_show" do
-    patch admin_show_url(@admin_show), params: { admin_show: {  } }
+  test 'should update admin_show' do
+    patch admin_show_url(@admin_show), params: { admin_show: {} }
     assert_redirected_to admin_show_url(@admin_show)
   end
 
-  test "should destroy admin_show" do
+  test 'should destroy admin_show' do
     assert_difference('Admin::Show.count', -1) do
       delete admin_show_url(@admin_show)
     end

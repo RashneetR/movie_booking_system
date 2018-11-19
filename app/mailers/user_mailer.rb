@@ -6,7 +6,7 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Welcome to BookMyShow')
   end
 
-  def movie_update(user_id,movie)
+  def movie_update(user_id, movie)
     @movie_name = movie
     @user = User.find(user_id)
     mail(to: @user.email, subject: 'Movie release!')
