@@ -35,6 +35,7 @@ class TicketsController < ApplicationController
   end
 
   private
+  
 
   def update_count
     @show = Show.find_by(id: @ticket.show_id)

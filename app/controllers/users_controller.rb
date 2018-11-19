@@ -78,6 +78,7 @@ class UsersController < ApplicationController
   end
 
   private
+  
 
   def set_user
     @user = if params[:id] == 'sign_out'

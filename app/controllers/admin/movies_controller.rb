@@ -70,6 +70,7 @@ class Admin::MoviesController < ApplicationController
   end
 
   private
+  
 
   def set_admin_movie
     @admin_movie = Movie.find(params[:id])

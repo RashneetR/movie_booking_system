@@ -51,6 +51,7 @@ class ReviewsController < ApplicationController
   end
 
   private
+  
 
   def set_review
     @review = Review.find(params[:id])

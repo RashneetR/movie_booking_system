@@ -34,6 +34,7 @@ class MovieInterestsController < ApplicationController
   end
 
   private
+  
 
   def set_movie_interest
     @movie_interest = MovieInterest.find(params[:id])

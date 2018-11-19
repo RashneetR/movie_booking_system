@@ -55,6 +55,7 @@ class Admin::TheatresController < ApplicationController
   end
 
   private
+  
 
   def set_admin_theatre
     @admin_theatre = Theatre.find(params[:id])

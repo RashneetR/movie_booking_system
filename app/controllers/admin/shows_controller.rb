@@ -93,6 +93,7 @@ class Admin::ShowsController < ApplicationController
   end
 
   private
+  
 
   def to_bson(str)
     BSON::ObjectId(str)

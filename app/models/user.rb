@@ -3,10 +3,8 @@ class User
   include Mongoid::Timestamps
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable, :lockable
-  has_many :tickets
-  has_many :reviews
-  has_many :movie_interests
 
+  #Fields
   ## Database authenticatable
   field :email,              type: String, default: ''
   field :encrypted_password, type: String, default: ''
@@ -34,18 +32,28 @@ class User
   field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   field :locked_at,       type: Time
 
+  #Indexes
   index({ email: 1 }, unique: true)
   index({ reset_password_token: 1 }, unique: true)
   index({ confirmation_token: 1 }, unique: true)
   index({ unlock_token: 1 }, unique: true)
 
+  #Database associations
+  has_many :tickets
+  has_many :reviews
+  has_many :movie_interests
+
+  #Validations
   validates :name, presence: true, length: { minimum: 3, maximum: 40 }
   validates :encrypted_password, presence: true, confirmation: true
   validates :role, presence: true
   validates :active, presence: true
   validates :email, presence: true, length: { maximum: 255 }
+  
+  #Callbacks
   after_create :user_registration_email
 
+  #Methods
   def user_registration_email
     UserMailer.welcome_email(id.to_s).deliver_later
   end
@@ -63,6 +71,7 @@ class User
   end
 
   protected
+
 
   def will_save_change_to_email?
     false
