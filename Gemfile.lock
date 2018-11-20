@@ -114,6 +114,9 @@ GEM
     faker (1.9.1)
       i18n (>= 0.7)
     ffi (1.9.25)
+    file_validators (2.3.0)
+      activemodel (>= 3.2)
+      mime-types (>= 1.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     html_tokenizer (0.0.7)
@@ -308,6 +311,7 @@ DEPENDENCIES
   erb_lint (~> 0.0.26)
   factory_bot_rails
   faker
+  file_validators (~> 2.0, >= 2.0.2)
   jquery-rails (~> 4.3, >= 4.3.1)
   jquery-turbolinks (~> 2.1)
   jquery-ui-rails (~> 5.0, >= 5.0.5)

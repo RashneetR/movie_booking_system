@@ -16,13 +16,10 @@ class Show
   has_many :tickets
 
   #Validations
-  validates :start_time, presence: true
-  validates :end_time, presence: true
+  validates :start_time, :end_time, presence: true
   validates :total_seats, presence: true, inclusion: { in: 40..9200 }
   validates :num_seats_sold, presence: true
   validates :cost_per_seat, presence: true, inclusion: { in: 80..1500 }
-  validates :movie_id, presence: true
-  validates :theatre_id, presence: true
   validates :booking_state, presence: true
   validate :current_time, on: :create
   validate :check_num_seats_sold
@@ -30,14 +27,10 @@ class Show
   #Methods
   def current_time
     return unless start_time.present?
-    if Time.now > start_time
-      errors.add(:start_time, 'should be greater than current time')
-    end
+      errors.add(:start_time, 'should be greater than current time') if start_time < Time.now
   end
 
   def check_num_seats_sold
-    if total_seats < num_seats_sold
-      errors.add(:num_seats_sold, 'Cannot be greater than total seats')
-    end
+      errors.add(:num_seats_sold, 'Cannot be greater than total seats') if num_seats_sold > total_seats
   end
 end

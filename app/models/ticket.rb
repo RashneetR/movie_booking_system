@@ -11,9 +11,7 @@ class Ticket
   belongs_to :show
 
   #Validations
-  validates :show_id, presence: true
   validates :total_cost, presence: true
-  validates :user_id, presence: true
   validates :num_seats_bought, presence: true, numericality: { greater_than: 0 }
 
   #Callbacks

@@ -46,8 +46,7 @@ class User
   #Validations
   validates :name, presence: true, length: { minimum: 3, maximum: 40 }
   validates :encrypted_password, presence: true, confirmation: true
-  validates :role, presence: true
-  validates :active, presence: true
+  validates :role, :active, presence: true
   validates :email, presence: true, length: { maximum: 255 }
   
   #Callbacks
@@ -63,11 +62,8 @@ class User
   end
 
   def inactive_message
-    if active == 'inactive'
-      'Sorry, this account has been deactivated. Sign up and activate account'
-    else
-      'Confirmation mail sent'
-    end
+    return 'Sorry, this account has been deactivated. Sign up and activate account' if active == 'inactive'
+    'Confirmation mail sent'
   end
 
   protected

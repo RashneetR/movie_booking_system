@@ -9,6 +9,7 @@ gem 'bson_ext'
 gem 'cancancan', '~> 1.15' # for permissions
 gem 'carrierwave-mongoid' # for images
 gem 'devise', '~> 4.2' # for authentication
+gem 'file_validators', '~> 2.0', '>= 2.0.2'  #for validating image size
 gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'jquery-turbolinks', '~> 2.1'
 gem 'jquery-ui-rails', '~> 5.0', '>= 5.0.5'

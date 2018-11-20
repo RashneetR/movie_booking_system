@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
   authorize_resource :ticket
-  before_action :set_ticket, only: %i[destroy]
+  before_action :set_ticket, only: %i[show destroy]
 
   def index
     if current_user.role != 'admin'

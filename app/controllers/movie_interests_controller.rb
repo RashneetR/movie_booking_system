@@ -13,6 +13,7 @@ class MovieInterestsController < ApplicationController
   def create
     respond_to do |format|
       if MovieInterest.where(movie_id: params[:movie_id], user_id: current_user.id).empty?
+        @movie_interest = MovieInterest.new
         @movie_interest.movie_id = params[:movie_id]
         @movie_interest.user_id = current_user.id
         @movie_interest.save
