@@ -68,7 +68,7 @@ class User
 
   protected
 
-
+  #Explicit definition of devise method required since it is used in the callbacks and defined for ActiveRecord but not for Mongoid otherwise it throws an undefined method error
   def will_save_change_to_email?
     false
   end

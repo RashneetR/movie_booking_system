@@ -1,4 +1,4 @@
-set :environment, 'development'
+set :environment, 'production'
 set :output, 'log/whenever.log'
 
 every 1.month do
