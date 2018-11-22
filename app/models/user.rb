@@ -65,7 +65,7 @@ class User
   end
 
   def inactive_message
-    return 'Sorry, this account has been deactivated. Sign up and activate account' if active == 'inactive'
+    'Sorry, this account has been deactivated. Sign up and activate account' if active == 'inactive'
     'Confirmation mail sent'
   end
 

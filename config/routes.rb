@@ -16,9 +16,9 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'myregistrations' }
 
   resources :users do
-    get 'activate_user_account', on: :collection
     member do
       get 'activate_account'
+      get 'activate_user_account'
       post 'activate_account_mail'
     end
   end

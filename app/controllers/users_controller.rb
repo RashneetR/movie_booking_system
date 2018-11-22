@@ -61,20 +61,25 @@ class UsersController < ApplicationController
   end
 
   def activate_account
+    @user = User.find(id: params[:id])
     render 'activate_account'
   end
 
   def activate_account_mail
-    UserMailer.activate_user_account(params[:user][:email]).deliver_now
+    UserMailer.activate_user_account(params[:id],params[:user][:email]).deliver_now
     flash[:notice] = 'Email sent. Please check your mail'
     redirect_to root_url
   end
 
   def activate_user_account
-    @user = User.where(email: params[:email]).first
-    @user.active = 'active'
-    flash[:notice] = 'Account activated. You  can now login.' if @user.save
-    redirect_to new_user_session_url
+    @user = User.where(id: params[:id]).first
+    if @user
+      @user.active = 'active'
+      flash[:notice] = 'Account activated. You  can now login.' if @user.save
+      redirect_to new_user_session_url
+    else
+      redirect_to root_url
+    end
   end
 
   private

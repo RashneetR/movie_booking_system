@@ -1,5 +1,5 @@
 class Admin::DashboardsController < ApplicationController
-  before_action :check_role
+  before_action :requires_admin
 
   def index
     @admin_movies = Show.collection.aggregate([{ '$group' => { '_id' => '$movie_id', 'total_revenue' => { '$sum' => { '$multiply' => ['$cost_per_seat', '$num_seats_sold'] } } } }])

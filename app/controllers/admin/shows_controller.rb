@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::ShowsController < ApplicationController
   authorize_resource :show
   before_action :set_admin_show, only: %i[show edit update destroy]
@@ -6,8 +8,13 @@ class Admin::ShowsController < ApplicationController
     @m = Movie.where(status: 'Now Showing')
     @t = Theatre.all
     @admin_show = Show.new
+    lookup_show_theatres = { '$lookup' => { 'from' => 'theatres', 'localField' => 'theatre_id', 'foreignField' => '_id', 'as' => 'show_theatre' } }
+    unwind_show_theatres = { '$unwind' => '$show_theatre' }
+    lookup_show_movies = { '$lookup' => { 'from' => 'movies', 'localField' => 'movie_id', 'foreignField' => '_id', 'as' => 'show_movie' } }
+    unwind_show_movies = { '$unwind' => '$show_movie' }
+    projection_fields = { '$project' => { '_id' => 1, 'total_seats' => 1, 'num_seats_sold' => 1, 'booking_state' => 1, 'cost_per_seat' => 1, 'start_time' => 1, 'end_time' => 1, 'movie_id' => 1, 'theatre_id' => 1, 'movie_name' => '$show_movie.name', 'theatre_name' => '$show_theatre.name' } }
     if params[:show].nil?
-      @admin_shows = Show.collection.aggregate([{ '$lookup' => { 'from' => 'theatres', 'localField' => 'theatre_id', 'foreignField' => '_id', 'as' => 'movie_show' } }, { '$unwind' => '$movie_show' }, { '$lookup' => { 'from' => 'movies', 'localField' => 'movie_id', 'foreignField' => '_id', 'as' => 'theatre_show' } }, { '$unwind' => '$theatre_show' }, { '$project' => { '_id' => 1, 'total_seats' => 1, 'num_seats_sold' => 1, 'booking_state' => 1, 'cost_per_seat' => 1, 'start_time' => 1, 'end_time' => 1, 'movie_id' => 1, 'theatre_id' => 1, 'theatre_name' => '$movie_show.name', 'movie_name' => '$theatre_show.name' } }])
+      @admin_shows = Show.collection.aggregate([lookup_show_theatres, unwind_show_theatres, lookup_show_movies, unwind_show_movies, projection_fields])
     else
       ids = []
       tids = []
@@ -19,14 +26,16 @@ class Admin::ShowsController < ApplicationController
           tids << to_bson(t)
         end
       end
+      match_theatre_ids = { 'theatre_id' => { '$in' => tids } }
+      match_movie_ids = { 'movie_id' => { '$in' => ids } }
       if ids.empty? && tids.empty?
-        @admin_shows = Show.collection.aggregate([{ '$lookup' => { 'from' => 'theatres', 'localField' => 'theatre_id', 'foreignField' => '_id', 'as' => 'movie_show' } }, { '$unwind' => '$movie_show' }, { '$lookup' => { 'from' => 'movies', 'localField' => 'movie_id', 'foreignField' => '_id', 'as' => 'theatre_show' } }, { '$unwind' => '$theatre_show' }, { '$project' => { '_id' => 1, 'total_seats' => 1, 'num_seats_sold' => 1, 'booking_state' => 1, 'cost_per_seat' => 1, 'start_time' => 1, 'end_time' => 1, 'movie_id' => 1, 'theatre_id' => 1, 'theatre_name' => '$movie_show.name', 'movie_name' => '$theatre_show.name' } }])
+        @admin_shows = Show.collection.aggregate([lookup_show_theatres, unwind_show_theatres, lookup_show_movies, unwind_show_movies, projection_fields])
       elsif ids.empty?
-        @admin_shows = Show.collection.aggregate([{ '$lookup' => { 'from' => 'theatres', 'localField' => 'theatre_id', 'foreignField' => '_id', 'as' => 'movie_show' } }, { '$unwind' => '$movie_show' }, { '$lookup' => { 'from' => 'movies', 'localField' => 'movie_id', 'foreignField' => '_id', 'as' => 'theatre_show' } }, { '$unwind' => '$theatre_show' }, { '$match' => { 'theatre_id' => { '$in' => tids } } }, { '$project' => { '_id' => 1, 'total_seats' => 1, 'num_seats_sold' => 1, 'booking_state' => 1, 'cost_per_seat' => 1, 'start_time' => 1, 'end_time' => 1, 'movie_id' => 1, 'theatre_id' => 1, 'theatre_name' => '$movie_show.name', 'movie_name' => '$theatre_show.name' } }])
+        @admin_shows = Show.collection.aggregate([lookup_show_theatres, unwind_show_theatres,  lookup_show_movies, unwind_show_movies, { '$match' => match_theatre_ids }, projection_fields])
       elsif tids.empty?
-        @admin_shows = Show.collection.aggregate([{ '$lookup' => { 'from' => 'theatres', 'localField' => 'theatre_id', 'foreignField' => '_id', 'as' => 'movie_show' } }, { '$unwind' => '$movie_show' }, { '$lookup' => { 'from' => 'movies', 'localField' => 'movie_id', 'foreignField' => '_id', 'as' => 'theatre_show' } }, { '$unwind' => '$theatre_show' }, { '$match' => { 'movie_id' => { '$in' => ids } } }, { '$project' => { '_id' => 1, 'total_seats' => 1, 'num_seats_sold' => 1, 'booking_state' => 1, 'cost_per_seat' => 1, 'start_time' => 1, 'end_time' => 1, 'movie_id' => 1, 'theatre_id' => 1, 'theatre_name' => '$movie_show.name', 'movie_name' => '$theatre_show.name' } }])
+        @admin_shows = Show.collection.aggregate([lookup_show_theatres, unwind_show_theatres,  lookup_show_movies, unwind_show_movies, { '$match' => match_movie_ids }, projection_fields])
       else
-        @admin_shows = Show.collection.aggregate([{ '$lookup' => { 'from' => 'theatres', 'localField' => 'theatre_id', 'foreignField' => '_id', 'as' => 'movie_show' } }, { '$unwind' => '$movie_show' }, { '$lookup' => { 'from' => 'movies', 'localField' => 'movie_id', 'foreignField' => '_id', 'as' => 'theatre_show' } }, { '$unwind' => '$theatre_show' }, { '$match' => { '$and' => [{ 'movie_id' => { '$in' => ids } }, { 'theatre_id' => { '$in' => tids } }] } }, { '$project' => { '_id' => 1, 'total_seats' => 1, 'num_seats_sold' => 1, 'booking_state' => 1, 'cost_per_seat' => 1, 'start_time' => 1, 'end_time' => 1, 'movie_id' => 1, 'theatre_id' => 1, 'theatre_name' => '$movie_show.name', 'movie_name' => '$theatre_show.name' } }])
+        @admin_shows = Show.collection.aggregate([lookup_show_theatres, unwind_show_theatres,  lookup_show_movies, unwind_show_movies, { '$match' => { '$and' => [match_movie_ids, match_theatre_ids] } }, projection_fields])
       end
     end
     respond_to do |format|
@@ -93,7 +102,6 @@ class Admin::ShowsController < ApplicationController
   end
 
   private
-  
 
   def to_bson(str)
     BSON::ObjectId(str)

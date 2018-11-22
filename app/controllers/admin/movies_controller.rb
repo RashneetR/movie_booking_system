@@ -1,9 +1,10 @@
 class Admin::MoviesController < ApplicationController
-  before_action :check_role
+  before_action :requires_admin
   before_action :set_admin_movie, only: %i[show edit update destroy change_status]
+  after_action :send_users_notif, only: %i[change_status]
 
   def index
-    @admin_movies = Movie.all.paginate(page: params[:page], per_page: 10)
+    @admin_movies = Movie.all.order(created_at: :desc).paginate(page: params[:page], per_page: 10)
   end
 
   def show
@@ -63,8 +64,7 @@ class Admin::MoviesController < ApplicationController
     respond_to do |format|
       if @admin_movie.save
         flash[:notice] = 'Successfully updated to Now Showing '
-        format.html { redirect_to controller: 'admin/movies', action: 'index' } ####
-        delete_movie_interests
+        format.html { redirect_to admin_movies_url }
       end
     end
   end
@@ -80,12 +80,7 @@ class Admin::MoviesController < ApplicationController
     params.require(:admin_movie).permit(:name, :summary, :status, :image)
   end
 
-  def delete_movie_interests
-    @subscriptions = MovieInterest.where(movie_id: @admin_movie.id)
-    @users = @subscriptions.pluck(:user_id)
-    @users.each do |user|
-      UserMailer.movie_update(user.to_s, @admin_movie.name.to_s).deliver_later ####
-      @subscriptions.each(&:destroy)
-    end
+  def send_users_notif
+    UserMailer.movie_update(@admin_movie.id.to_s).deliver_later
   end
 end
