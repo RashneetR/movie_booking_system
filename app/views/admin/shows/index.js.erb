@@ -1,0 +1,5 @@
+<% if @admin_shows.any? %>
+  $("#adminshows").html('<%= escape_javascript(render partial:("shows")) %>').addClass("table");
+<% else %>
+  $("#adminshows").html('<%= escape_javascript(render partial: "no_result" ) %>').removeClass("table");
+<% end %>

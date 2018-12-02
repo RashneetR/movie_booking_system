@@ -1,24 +1,35 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This README file documents the steps that are necessary to get this application up and running.
 
-Things you may want to cover:
+PREREQUISITES :
+- Ruby 2.4.4
+- MongoDB v4.0.3 
+- Redis server
 
-* Ruby version
+GETTING STARTED :
+1. Run the following command to clone the project repository
+   $ git clone
 
-* System dependencies
+2. Navigate to your project folder and run bundle  
+   $ cd project_name && bundle
 
-* Configuration
+3. Run the following to create an admin account in your mongo database
+    $ rake db:seed
 
-* Database creation
+3. Run the rails server to check if your server is running properly 
+  $ rails server 
 
-* Database initialization
+4. Run the following command  in a new tab to start the redis and sidekiq
+  $ redis-server 
+  $ bundle exec sidekiq -q default -q mailers
 
-* How to run the test suite
+NOTE : You will have to change the smtp mail settings to send mails from your email id. Follow rails guide for doing so.
 
-* Services (job queues, cache servers, search engines, etc.)
+Now your application is up and running
 
-* Deployment instructions
+Link of the problem statement and other application details : https://docs.google.com/document/d/128V1hgTvIjct2Faiu2sYTlqGClFOwBF-2uo2B1bhlgs/edit?userstoinvite=rashneetforsampleapp@gmail.com&ts=5bb4aed3#heading=h.z4gi10g1oohf
 
-* ...
+Feel free to contact rashneet@amuratech.com for any doubts related to the project and deployment.
+
+Last Updated: 20th Nov 2018

@@ -1,0 +1,70 @@
+<script src="moment.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+$("#admin_show_start_time").change(function()
+{
+  m = new moment($("#admin_show_start_time").val(), 'HH:mm:ss');
+  n = new moment($("#admin_show_start_time").val(), 'HH:mm:ss');
+  m._d;
+  n._d;
+  m.add(3,'hours');
+  m._d;
+  $("#admin_show_end_time").val(m);
+  $("#admin_show_start_time").val(n);
+});
+</script>
+
+<h1>New Show</h1>
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <div class="form-horizontal">
+      <%= error_messages_for(@admin_show) %>
+      <%= form_for(:admin_show, :url => {:action => 'create'}) do |f| %>
+      
+        <div class="field">
+          <%= f.label :movie_id %>
+          <% if @m.count == 1 %>
+            <%= f.select("movie_id", @m.collect { |m| [m.name, m.id]} ) %>
+          <% else %>
+            <%= f.select("movie_id", @m.all.collect { |m| [m.name, m.id]}, {prompt: 'Select Movie'}) %>
+          <% end %>
+        </div>
+
+        <div class="field">
+          <%= f.label :theatre_id %>
+          <%= f.select("theatre_id", @theatre.all.collect { |t| [t.name, t.id]}, {prompt: 'Select Theatre'}) %>
+        </div>
+
+        <div class="field">
+          <%= f.label :start_time %>
+          <%= f.text_field :start_time , class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= f.label :end_time , readonly: true %>
+          <%= f.text_field :end_time , class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= f.label :total_seats %>
+          <%= f.text_field :total_seats , class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= f.label :num_seats_sold %>
+          <%= f.text_field :num_seats_sold , class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= f.label :cost_per_seat %>
+          <%= f.text_field :cost_per_seat , class: 'form-control' %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Create Show", class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+      <%= link_to 'Back', admin_shows_path %>
+    </div>
+  </div>
+</div>

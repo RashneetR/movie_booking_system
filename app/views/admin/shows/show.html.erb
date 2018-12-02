@@ -1,0 +1,43 @@
+<h1>Movie Show</h1>
+<p>
+  <strong>Movie Name:</strong>
+  <%= @admin_show.movie.name %>
+</p>
+
+<p>
+  <strong>Theatre Name:</strong>
+  <%= @admin_show.theatre.name %>
+</p>
+
+<p>
+  <strong>Start Time</strong>
+  <%= @admin_show.start_time %>
+</p>
+
+<p>
+  <strong>End Time</strong>
+  <%= @admin_show.end_time %>
+</p>
+
+<p>
+  <strong>Total Seats</strong>
+  <%= @admin_show.total_seats %>
+</p>
+
+<p>
+  <strong>Number of Seats Sold</strong>
+  <%= @admin_show.num_seats_sold %>
+</p>
+
+<p>
+  <strong>Cost per Seat</strong>
+  <%= @admin_show.cost_per_seat %>
+</p>
+
+<p>
+  <strong>Booking Status</strong>
+  <%= @admin_show.booking_state %>
+</p>
+
+<%= link_to 'Edit', edit_admin_show_path(@admin_show) %> |
+<%= link_to 'Back', admin_shows_path %>
