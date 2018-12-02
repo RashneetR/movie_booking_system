@@ -45,7 +45,7 @@ class UsersController < ApplicationController
         end
       end
     else
-      @user.active = 'inactive'
+      @user.active = false
       respond_to do |format|
         if @user.update
           sign_out @user
@@ -74,7 +74,7 @@ class UsersController < ApplicationController
   def activate_user_account
     @user = User.where(id: params[:id]).first
     if @user
-      @user.active = 'active'
+      @user.active = true
       flash[:notice] = 'Account activated. You  can now login.' if @user.save
       redirect_to new_user_session_url
     else

@@ -4,7 +4,7 @@ class User
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable, :lockable
   #Scopes       
-  scope :inactive, -> { where(active: "inactive") }
+  scope :inactive, -> { where(active: false) }
 
   #Fields
   ## Database authenticatable
@@ -21,7 +21,7 @@ class User
   ## Customized
   field :name, type: String
   field :role, type: String, default: 'customer'
-  field :active, type: String, default: 'active'
+  field :active, type: Boolean, default: true
 
   ## Confirmable
   field :confirmation_token,   type: String
@@ -61,11 +61,11 @@ class User
   end
 
   def active_for_authentication?
-    super && active == 'active'
+    super && self.active?
   end
 
   def inactive_message
-    'Sorry, this account has been deactivated. Sign up and activate account' if active == 'inactive'
+    'Sorry, this account has been deactivated. Sign up and activate account' if !self.active?
     'Confirmation mail sent'
   end
 
