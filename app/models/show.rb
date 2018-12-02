@@ -31,6 +31,6 @@ class Show
   end
 
   def check_num_seats_sold
-      errors.add(:num_seats_sold, 'Cannot be greater than total seats') if num_seats_sold > total_seats
+    errors.add(:num_seats_sold, 'Cannot be greater than total seats') if num_seats_sold > total_seats
   end
 end
